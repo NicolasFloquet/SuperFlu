@@ -1,5 +1,14 @@
 package entities;
 
-public class Carte {
+import java.util.ArrayList;
+
+public class Carte implements graphics.Drawable {
+
+	private ArrayList<Zone> zones = new ArrayList<Zone>();
+	
+	@Override
+	public void draw(int x, int y, int height, int width) {
+				
+	}
 
 }
