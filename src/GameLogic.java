@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import entities.*;
+
 
 
 public class GameLogic {
