@@ -1,5 +1,6 @@
+package entities;
 
-public class Ville {
+public class Ville implements graphics.Drawable {
 
 	private int x;
 	private int y;
@@ -11,6 +12,12 @@ public class Ville {
 	
 	public static int distance(Ville depart, Ville arrivee) {
 		return (int) Math.sqrt((arrivee.x - depart.x) * (arrivee.x - depart.x) + (arrivee.y - depart.y) * (arrivee.y - depart.y));
+	}
+
+	@Override
+	public void draw(int x, int y, int height, int width) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

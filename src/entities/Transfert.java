@@ -1,5 +1,6 @@
+package entities;
 
-public class Transfert {
+public class Transfert implements graphics.Drawable {
 	
 	private final static float VITESSE = 0.1f;
 	
@@ -29,5 +30,11 @@ public class Transfert {
 	
 	public long getTemps_depart() {
 		return temps_depart;
+	}
+
+	@Override
+	public void draw(int x, int y, int height, int width) {
+		// TODO Auto-generated method stub
+		
 	}
 }

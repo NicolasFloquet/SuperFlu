@@ -1,3 +1,4 @@
+package entities;
 
 public class Joueur {
 	private Zone zone;

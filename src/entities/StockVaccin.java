@@ -1,3 +1,4 @@
+package entities;
 
 public class StockVaccin extends Stock {
 

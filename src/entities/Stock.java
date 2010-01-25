@@ -1,3 +1,4 @@
+package entities;
 
 public abstract class Stock {
 	protected int capacite_max = 5000;
