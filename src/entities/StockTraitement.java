@@ -8,4 +8,8 @@ public class StockTraitement extends Stock {
 		this.stock = stock;
 		this.traitement = traitement;
 	}
+	
+	public Traitement getTraitement() {
+		return traitement;
+	}
 }

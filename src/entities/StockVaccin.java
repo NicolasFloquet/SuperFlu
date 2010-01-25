@@ -9,4 +9,7 @@ public class StockVaccin extends Stock {
 		this.vaccin = vaccin;
 	}
 
+	public Vaccin getVaccin() {
+		return vaccin;
+	}
 }
