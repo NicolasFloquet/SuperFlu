@@ -1,6 +1,7 @@
 package graphics;
 
-import java.util.ArrayList;
+import entities.*;
+import java.util.ArrayList; 
 
 public class ScreenManager {
 	static ScreenManager instance = new ScreenManager();
@@ -8,9 +9,10 @@ public class ScreenManager {
 	private int screen_height;
 	private int screen_width;
 	
-	private Drawable carte;
-	private ArrayList<Drawable> joueurs;
-	private ArrayList<Drawable> villes;
+	private Carte carte;
+	private ArrayList<Joueur> joueurs;
+	private ArrayList<Ville> villes;
+	private ArrayList<Transfert> transferts;
 	
 	private ScreenManager()
 	{
@@ -26,10 +28,13 @@ public class ScreenManager {
 	{
 		carte.draw(0, 0, screen_height, screen_width);
 		
-		for(Drawable ville : villes)
+		for(Ville ville : villes)
 			ville.draw(0,0,1,1);
 		
-		for(Drawable joueur : joueurs)
+		for(Joueur joueur : joueurs)
 			joueur.draw(0,0,1,1);
+		
+		for(Transfert transfert : transferts)
+			transfert.draw(0, 0, 1, 1);
 	}
 }
