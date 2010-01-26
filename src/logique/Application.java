@@ -17,8 +17,8 @@ public class Application
 	private class UpdateTask extends TimerTask {
 		
 		public void run() {
-			// TODO Auto-generated method stub
-			
+			game.updateServeur(100);
+			// TODO : réseau
 		}
 	}
 	
@@ -77,7 +77,6 @@ public class Application
 
 	public void setGame(GameLogic game) {
 		this.game = game;
-		this.timer.scheduleAtFixedRate(this.game, 0, TIMER_PERIOD);
 	}
 	
 }

@@ -25,8 +25,8 @@ public class Carte implements graphics.Drawable {
 	@Override
 	public void draw()
 	{		
-		Sprite map = ScreenManager.getSprite("carte.png");
-		map.draw(ScreenManager.getInstance().getOrigineCarteX() + 1024/2, ScreenManager.getInstance().getOrigineCarteY() + 544/2);
+		Sprite map = ScreenManager.getInstance().getMap();
+		map.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2);
 		
 		for(Zone zone : zones)
 		{

@@ -40,7 +40,7 @@ public class PlayerManager {
 		for(Zone  z : Application.getInstance().getGame().getCarte().getZones()) {
 			for(Ville v : z.getVilles()) {
 				if(v.isOnCity(Mouse.getX()-ScreenManager.getInstance().getOrigineCarteX(),
-								Mouse.getY()-ScreenManager.getInstance().getOrigineCarteY())) {
+								ScreenManager.getInstance().getMap().getHeight() - (Mouse.getY()-ScreenManager.getInstance().getOrigineCarteY()))) {
 					return v;
 				}
 			}

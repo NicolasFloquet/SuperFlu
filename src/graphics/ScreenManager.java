@@ -30,9 +30,10 @@ public class ScreenManager {
 	private String WINDOW_TITLE = "4GI_flu";
 	
 	private GameLogic gameLogic = null;
+	private Sprite map = null;
 	
 	private ScreenManager()
-	{		
+	{
 		screen_width = 800;
 		screen_height = 600;
 		fullscreen = false;
@@ -73,6 +74,13 @@ public class ScreenManager {
 	public static ScreenManager getInstance()
 	{
 		return instance;
+	}
+	
+	public Sprite getMap() {
+		if (map == null) {
+			map = getSprite("carte.png");
+		}
+		return map;
 	}
 	
 	public static long getTime() 
@@ -161,11 +169,11 @@ public class ScreenManager {
 	}
 	
 	public int getOrigineCarteX() {
-		return screen_width/2 - 1024/2; // XXX: en dur :/
+		return screen_width/2 - map.getWidth()/2;
 	}
 	
 	public int getOrigineCarteY() {
-		return screen_height/2 - 544/2; // XXX: en dur :/
+		return screen_height/2 - map.getHeight()/2;
 	}
 	
 	/**
@@ -197,6 +205,10 @@ public class ScreenManager {
 	  
 	public void setGameLogic(GameLogic gameLogic) {
 		this.gameLogic = gameLogic; 
+	}
+
+	public int getScreenHeight() {
+		return screen_height;
 	}
 	
 }

@@ -11,8 +11,8 @@ import java.util.ArrayList;
  */
 public class Usine extends Ville {
 
-	private ArrayList<Traitement> traitements;
-	private ArrayList<Vaccin> vaccins;
+	private ArrayList<Traitement> traitements = new ArrayList<Traitement>();
+	private ArrayList<Vaccin> vaccins = new ArrayList<Vaccin>();
 	private int productionRateVaccins = 100;
 	private int productionRateTraitements = 1000;
 	

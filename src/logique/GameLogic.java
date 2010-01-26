@@ -2,11 +2,10 @@ package logique;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.TimerTask;
 
 import entities.*;
 
-public class GameLogic extends TimerTask implements Cloneable{
+public class GameLogic implements Cloneable{
 	/*TODO: Calibrer TAUX_MIGRATION*/
 	private final static float TAUX_MIGRATION = 0.01f;
 
@@ -20,7 +19,6 @@ public class GameLogic extends TimerTask implements Cloneable{
 
 	/* Variables liées au timer */
 	private long time;
-	private int time_unit;
 
 	public GameLogic() {
 		joueurs = new ArrayList<Joueur>();
@@ -28,16 +26,6 @@ public class GameLogic extends TimerTask implements Cloneable{
 		carte = new Carte();
 
 		time = 0;
-		time_unit = 100;
-	}	
-
-	public void run() {
-
-		if (mode_serveur)
-			updateServeur(time_unit);
-		else
-			updateClient(time_unit);
-
 	}
 
 	public void creerEpidemie()
@@ -100,9 +88,15 @@ public class GameLogic extends TimerTask implements Cloneable{
 		for(Zone zone_origine : carte.getZones()){
 
 			/* Mise à jour de la production de l'usine */
-			zone_origine.getUsine().produit();
+			if (zone_origine.getUsine() != null) {
+				zone_origine.getUsine().produit();
+			}
 
 			for(Ville ville_origine: zone_origine.getVilles()){
+
+				if (ville_origine.getHabitants() == 0) {
+					continue;
+				}
 
 				/* Pour chaque ville, on calcul le nombre d'habitants qui partent vers chaque ville */
 				float distance = 0.0f;
@@ -119,13 +113,22 @@ public class GameLogic extends TimerTask implements Cloneable{
 					for(Ville ville_dest : zone_dest.getVilles()){ /* Woot 4 boucles imbriquées */
 						distance = Ville.distance(ville_origine, ville_dest);
 
+						distance = 1;
+						
 						/*Inserer ici une formule magique */
-						flux = (int) ((rand.nextGaussian()*TAUX_MIGRATION*ville_origine.getHabitants())/distance); 
-
+						flux = (int) ((rand.nextFloat()*TAUX_MIGRATION*ville_origine.getHabitants())/distance); 
+						
+						System.out.println("population " + ville_origine.getHabitants() + " flux " + flux);
+						
+						
 						/*TODO: Trouver une meilleur formule pour le nombre de migrants infectés*/
 						flux_sain = (int)(taux_sain*flux);
 						flux_infecte = (int)(taux_infection*flux);
 						flux_immunise = (int)(taux_immunisation*flux);
+						
+						System.out.println("flux sain " + flux_sain);
+						System.out.println("flux infecte " + flux_infecte);
+						System.out.println("flux immunise " + flux_immunise);
 
 						/* Mise à jour de la population saine*/
 						if(ville_origine.getHabitantsSains()>=flux_sain){
@@ -191,7 +194,7 @@ public class GameLogic extends TimerTask implements Cloneable{
 	{
 		mode_serveur = true;
 	}
-	
+
 	public void setServeur(boolean b)
 	{
 		mode_serveur = b;
@@ -209,13 +212,13 @@ public class GameLogic extends TimerTask implements Cloneable{
 	public long getTime(){
 		return time;
 	}
-	
+
 	public GameLogic clone(){
 		try {
 			return (GameLogic)super.clone();
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
-		 return null;
+		return null;
 	}
 }
