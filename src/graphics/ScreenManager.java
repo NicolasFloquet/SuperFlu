@@ -88,6 +88,8 @@ public class ScreenManager {
 	public void draw()
 	{
 		Display.sync(60);
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		
 		long delta = getTime() - lastLoopTime;
 		lastLoopTime = getTime();
 		lastFpsTime += delta;

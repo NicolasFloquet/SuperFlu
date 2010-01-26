@@ -66,7 +66,7 @@ public class Sprite{
 	 * @param x The x location at which to draw this sprite
 	 * @param y The y location at which to draw this sprite
 	 */
-	public void draw(int x, int y) {
+	public void draw(int x, int y, float angle) {
 		// store the current model matrix
 		GL11.glPushMatrix();
 		
@@ -74,7 +74,9 @@ public class Sprite{
 		texture.bind();
     
 		// translate to the right location and prepare to draw
-		GL11.glTranslatef(x, y, 0);		
+		GL11.glTranslatef(x, y, 0);
+		GL11.glRotatef(angle, 0, 0, 1);
+		GL11.glTranslatef(-width/2, -height/2, 0);
     	GL11.glColor3f(1,1,1);
 		
 		// draw a quad textured to match the sprite

@@ -27,11 +27,12 @@ public class Carte implements graphics.Drawable {
 	@Override
 	public void draw(int x, int y, int height, int width)
 	{
-		int dx = (int)(60.0*Math.cos(Sys.getTime()/60));
-		int dy = (int)(40.0*Math.sin(Sys.getTime()/60));
+		//int dx = (int)(60.0*Math.cos(Sys.getTime()/60));
+		//int dy = (int)(40.0*Math.sin(Sys.getTime()/60));
+		float phi = 0.0f; //0.6f*Sys.getTime();
 		
 		Sprite test = ScreenManager.getSprite("test.png");
-		test.draw(150+dx, 400+dy);
+		test.draw(250, 500, phi);
 	}
 
 	public ArrayList<Zone> getZones() {
