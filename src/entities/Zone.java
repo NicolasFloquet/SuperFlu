@@ -35,7 +35,13 @@ public class Zone {
 				String tab[] = line.split(" ");
 				
 				if (tab.length == 3) {
-					villes.add(new Ville(tab[0], Integer.valueOf(tab[1]), Integer.valueOf(tab[2])));
+					if (usine == null) {
+						usine = new Usine(tab[0], Integer.valueOf(tab[1]), Integer.valueOf(tab[2]));
+						villes.add(usine);
+					} else {
+						Ville ville = new Ville(tab[0], Integer.valueOf(tab[1]), Integer.valueOf(tab[2]));
+						villes.add(ville);
+					}
 				} else {
 					System.err.println("Erreur lecture " + filepath + "continue quand même...");
 				}
