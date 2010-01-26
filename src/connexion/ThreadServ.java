@@ -26,15 +26,11 @@ public class ThreadServ extends Thread {
 		Receive rec = new Receive(s);
 		Object o;
 		while (true) {
-			rec.run();
-			o = rec.getData();
+			o = rec.getDataBlock();//reception des donnees blocante
 			if(o instanceof Transfert ){
-				//acualiser le transfer???
+				//acualiser le transfer
+				a.getGame().getTransferts().add((Transfert)o);
 			}
-			else if(o instanceof Application){
-				//actualiser l'application
-			}
-			//envoyer l'application a tous???
 		}
 
 		/*

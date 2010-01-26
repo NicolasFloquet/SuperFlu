@@ -53,4 +53,21 @@ public class Receive extends Thread {
 		}
 		return o;
 	}
+
+	public Object getDataBlock() {
+		InputStream iStream = null;
+		ObjectInputStream oiStream;
+		try {
+			iStream = socket.getInputStream();
+			oiStream = new ObjectInputStream(iStream);
+			o = oiStream.readObject();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(1);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+		return o;
+	}
 }
