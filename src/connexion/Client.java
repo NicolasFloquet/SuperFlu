@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 
 public class Client {
 	public final static String SERVER_HOSTNAME = "localhost";
