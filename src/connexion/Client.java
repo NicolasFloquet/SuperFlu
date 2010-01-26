@@ -32,7 +32,7 @@ public class Client {
 	/**
 	 * Main test
 	 */
-	
+	/*
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		
@@ -66,5 +66,5 @@ public class Client {
 			e.printStackTrace();
 			System.exit(1);
 		}
-	}
+	}*/
 }

@@ -20,6 +20,8 @@ public class ThreadServ extends Thread{
 	public void run(){
 		
 		//faire les fonctions de serveur
+		
+		/*
 		Personne personne = new Personne("Benito", "Camelas", 180);
 		
 		Send send = new Send(s);
@@ -50,5 +52,5 @@ public class ThreadServ extends Thread{
 			e.printStackTrace();
 			System.exit(1);
 		}
-	}
+	}*/
 }
