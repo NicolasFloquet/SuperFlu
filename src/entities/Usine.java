@@ -48,7 +48,6 @@ public class Usine extends Ville {
 	@Override
 	public void draw(int x, int y, int height, int width) {
 		Sprite usine = ScreenManager.getSprite("usine.png");
-		//TODO relatif à la carte
-		usine.draw(this.getX(), this.getY());
+		usine.draw(x, y);
 	}
 }

@@ -34,7 +34,7 @@ public class Carte implements graphics.Drawable {
 		{
 			for(Ville ville : zone.getVilles())
 			{
-				ville.draw(x, y, height, width);
+				ville.draw(x+ville.getX(), y+ville.getY(), height, width);
 			}
 		}
 	}

@@ -165,7 +165,7 @@ public class Ville implements graphics.Drawable {
 	@Override
 	public void draw(int x, int y, int height, int width) {
 		Sprite ville = ScreenManager.getSprite("ville.png");
-		ville.draw(this.getX(),this.getY(),0);
+		ville.draw(x,y);
 	}
 	
 }
