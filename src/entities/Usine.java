@@ -48,6 +48,6 @@ public class Usine extends Ville {
 	@Override
 	public void draw() {
 		Sprite usine = ScreenManager.getSprite("usine.png");
-		usine.draw(x, y);
+		usine.draw(x + ScreenManager.getInstance().getOrigineCarteX(), y + ScreenManager.getInstance().getOrigineCarteY());
 	}
 }
