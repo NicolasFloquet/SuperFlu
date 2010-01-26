@@ -17,7 +17,7 @@ public class Application
 	private GameLogic game;
 	
 	private boolean running;
-	
+
 	private Application()
 	{
 		screen = ScreenManager.getInstance();
@@ -46,5 +46,9 @@ public class Application
 			
 			System.out.println("paf");
 		}
+	}
+	
+	public GameLogic getGame() {
+		return game;
 	}
 }
