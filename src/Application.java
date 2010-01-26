@@ -30,7 +30,9 @@ public class Application
 		screen.setJoueurs(joueurs);
 		screen.setTransferts(transferts);
 		
-		while(1)
+		while(true)
+		{
 			screen.draw();
+		}
 	}
 }

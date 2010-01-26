@@ -1,6 +1,9 @@
 package entities;
 
+import graphics.*;
+
 import java.util.ArrayList;
+
 
 /**
  * Classe qui représente la carte et qui est composée de Zones.
@@ -20,8 +23,10 @@ public class Carte implements graphics.Drawable {
 	}
 	
 	@Override
-	public void draw(int x, int y, int height, int width) {
-				
+	public void draw(int x, int y, int height, int width)
+	{
+		Sprite test = ScreenManager.getSprite("test.png");
+		test.draw(100, 100);
 	}
 
 	public ArrayList<Zone> getZones() {

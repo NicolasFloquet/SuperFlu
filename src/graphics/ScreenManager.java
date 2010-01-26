@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
-import org.lwjgl.examples.spaceinvaders.TextureLoader;
 //import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -157,9 +156,9 @@ public class ScreenManager {
 		}
 	}
 	
-	public TextureLoader getTextureLoader()
+	public static Sprite getSprite(String ref)
 	{
-		return textureLoader;
+		return new Sprite(getInstance().textureLoader,"ressources/"+ref);
 	}
 	
 	/**
