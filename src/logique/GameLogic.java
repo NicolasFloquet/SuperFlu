@@ -190,9 +190,9 @@ public class GameLogic extends TimerTask {
 		return transferts;
 	}
 	
-	public void ajouterJoueur()
+	public void ajouterJoueur(Joueur nouveau_joueur)
 	{
-		joueurs.add(new Joueur());
+		joueurs.add(nouveau_joueur);
 	}
 	
 	public ArrayList<Joueur> getJoueurs()
