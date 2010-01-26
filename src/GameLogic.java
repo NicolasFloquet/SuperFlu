@@ -7,7 +7,7 @@ import entities.*;
 
 public class GameLogic {
 	/*TODO: Calibrer TAUX_MIGRATION*/
-	private final static float TAUX_MIGRATION = 1000.0f; 
+	private final static float TAUX_MIGRATION = 0.01f; 
 	private static Random rand = new Random(); 
 	
 	private static GameLogic instance = null;
@@ -79,7 +79,7 @@ public class GameLogic {
 						distance = Ville.distance(ville_origine, ville_dest);
 						
 						/*Inserer ici une formule magique */
-						flux = (int) ((rand.nextGaussian()*TAUX_MIGRATION)/distance); 
+						flux = (int) ((rand.nextGaussian()*TAUX_MIGRATION*ville_origine.getHabitants())/distance); 
 						
 						/*TODO: Trouver une meilleur formule pour le nombre de migrants infectés*/
 						flux_sain = (int)(taux_sain*flux);
