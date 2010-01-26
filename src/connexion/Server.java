@@ -6,17 +6,18 @@ import java.net.Socket;
 import java.net.SocketException;
 
 public class Server{
-	public final static int COMM_PORT = 5050; // socket port for client comms
+	private final int COMM_PORT = 5050; // socket port for client comms
 
 	private ServerSocket serverSocket;
 	private Socket socket;
+	private final int MAX_PLAYER = 6; 
 
 	/** Default constructor. */
 	public Server() {
 
 		initServerSocket();
 		try {
-			while (true) {
+			for(int i = 0;i<MAX_PLAYER;i++){
 				// listen for and accept a client connection to serverSocket
 				//pour chaque socket accepte cree un nouveau thread
 				socket = serverSocket.accept();
