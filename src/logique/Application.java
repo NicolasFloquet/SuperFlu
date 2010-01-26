@@ -1,6 +1,7 @@
 package logique;
 import java.awt.im.InputContext;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import java.util.ArrayList;
 
@@ -16,14 +17,23 @@ public class Application
 	/* Periode du timer */
 	private final static int TIMER_PERIOD = 200;
 	
+	private class UpdateTask extends TimerTask {
+		
+		public void run() {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
 	private static Application instance = new Application(); 
 	private ScreenManager screen;
 	private GameLogic game;
 	
 	private boolean running;
 	private Timer timer;
+	private UpdateTask update_task;
 	
-	
+
 	
 	private Application()
 	{
@@ -31,7 +41,7 @@ public class Application
 		game = new GameLogic();
 		running = false;
 		timer = new Timer();
-		timer.scheduleAtFixedRate(game, 0, TIMER_PERIOD);
+		timer.scheduleAtFixedRate(update_task, 0, TIMER_PERIOD);
 	}
 	
 	public static Application getInstance()
