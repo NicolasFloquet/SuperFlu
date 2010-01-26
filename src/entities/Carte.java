@@ -11,4 +11,8 @@ public class Carte implements graphics.Drawable {
 				
 	}
 
+	public ArrayList<Zone> getZones() {
+		return zones;
+	}
+
 }

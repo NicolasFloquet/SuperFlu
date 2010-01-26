@@ -6,6 +6,9 @@ public class Ville implements graphics.Drawable {
 
 	private int x;
 	private int y;
+	private int habitants;
+	private int habitants_infectes;
+
 	private ArrayList<StockVaccin> stocksVaccins;
 	private ArrayList<StockTraitement> stocksTraitements;
 	
@@ -53,5 +56,22 @@ public class Ville implements graphics.Drawable {
 			stocksTraitements.add(new StockTraitement(quantite, traitement));
 		}
 	}
+	
+	public int getHabitants() {
+		return habitants;
+	}
+
+	public void setHabitants(int habitants) {
+		this.habitants = habitants;
+	}
+
+	public int getHabitants_infectes() {
+		return habitants_infectes;
+	}
+
+	public void setHabitants_infectes(int habitantsInfectes) {
+		habitants_infectes = habitantsInfectes;
+	}
+
 	
 }
