@@ -2,18 +2,17 @@ package connexion;
 
 import java.net.Socket;
 
-import logique.*;
-import entities.Joueur;
-import entities.Transfert;
+import logique.Application;
+import logique.GameLogic;
 
-public class ThreadClient extends Thread{
+public class ThreadClient extends Thread {
 
 	private Socket s;
 
 	public ThreadClient(Socket s) {
 		this.s = s;
 	}
-	
+
 	public void run() {
 
 		// reception de client
@@ -21,10 +20,10 @@ public class ThreadClient extends Thread{
 		Receive rec = new Receive(s);
 		Object o;
 		while (true) {
-			o = rec.getDataBlock();//reception des donnees blocante
-			if(o instanceof GameLogic ){
-				//acualiser le game
-				a.setGame((GameLogic)o);
+			o = rec.getDataBlock();// reception des donnees blocante
+			if (o instanceof GameLogic) {
+				// acualiser le game
+				a.setGame((GameLogic) o);
 			}
 		}
 	}

@@ -6,21 +6,21 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
-public class Server{
+public class Server {
 	private final int COMM_PORT = 5050; // socket port for client comms
 
 	private ServerSocket serverSocket;
 	private ArrayList<Socket> socketList = new ArrayList<Socket>();
-	private final int MAX_PLAYER = 6; 
+	private final int MAX_PLAYER = 6;
 
 	/** Default constructor. */
 	public Server() {
 
 		initServerSocket();
 		try {
-			for(int i = 0;i<MAX_PLAYER;i++){
+			for (int i = 0; i < MAX_PLAYER; i++) {
 				// listen for and accept a client connection to serverSocket
-				//pour chaque socket accepte cree un nouveau thread
+				// pour chaque socket accepte cree un nouveau thread
 				socketList.add(serverSocket.accept());
 				new ThreadServ(socketList.get(i)).start();
 			}
@@ -51,8 +51,8 @@ public class Server{
 			System.exit(1);
 		}
 	}
-	
-	public ArrayList<Socket> getSocketList(){
+
+	public ArrayList<Socket> getSocketList() {
 		return this.socketList;
 	}
 

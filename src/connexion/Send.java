@@ -10,7 +10,7 @@ import entities.Joueur;
 
 public class Send {
 
-	public void sendData(Object o,ArrayList<Joueur> jList) {
+	public void sendData(Object o, ArrayList<Joueur> jList) {
 		ObjectOutputStream ooStream;
 		OutputStream oStream;
 		try {

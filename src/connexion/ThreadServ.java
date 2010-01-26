@@ -1,11 +1,10 @@
 package connexion;
 
 import java.net.Socket;
-import java.util.ArrayList;
 
 import logique.Application;
-import entities.*;
-
+import entities.Joueur;
+import entities.Transfert;
 
 public class ThreadServ extends Thread {
 
@@ -26,10 +25,10 @@ public class ThreadServ extends Thread {
 		Receive rec = new Receive(s);
 		Object o;
 		while (true) {
-			o = rec.getDataBlock();//reception des donnees blocante
-			if(o instanceof Transfert ){
-				//ajouter le transfer
-				a.getGame().getTransferts().add((Transfert)o);
+			o = rec.getDataBlock();// reception des donnees blocante
+			if (o instanceof Transfert) {
+				// ajouter le transfer
+				a.getGame().getTransferts().add((Transfert) o);
 			}
 		}
 
