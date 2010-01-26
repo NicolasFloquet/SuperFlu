@@ -9,7 +9,6 @@ public class Client {
 	public final static int COMM_PORT = 5050; // socket port for client comms
 
 	private Socket socket;
-	private int iterator = 0;
 
 	/** Default constructor. */
 	public Client() {
