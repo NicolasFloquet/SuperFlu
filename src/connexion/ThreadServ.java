@@ -1,8 +1,6 @@
 package connexion;
 
-import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
 
 
 public class ThreadServ extends Thread{
@@ -16,7 +14,7 @@ public class ThreadServ extends Thread{
 	}
 
 
-	@SuppressWarnings("deprecation")
+	//@SuppressWarnings("deprecation")
 	public void run(){
 		
 		//faire les fonctions de serveur
@@ -51,6 +49,6 @@ public class ThreadServ extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(1);
-		}
-	}*/
+		}*/
+	}
 }
