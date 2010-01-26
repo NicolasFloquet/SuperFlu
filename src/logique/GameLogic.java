@@ -28,8 +28,6 @@ public class GameLogic extends TimerTask {
 	private int time_unit;
 	private Timer timer;
 	
-	
-	
 	private GameLogic() {
 		joueurs = new ArrayList<Joueur>();
 		transferts = new ArrayList<Transfert>();
