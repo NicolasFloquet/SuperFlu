@@ -8,7 +8,7 @@ import entities.*;
 public class GameLogic {
 	/*TODO: Calibrer TAUX_MIGRATION*/
 	private final static float TAUX_MIGRATION = 1000.0f; 
-	private static Random rand; 
+	private static Random rand = new Random(); 
 	
 	private static GameLogic instance = null;
 	
@@ -19,10 +19,10 @@ public class GameLogic {
 	
 	
 	private GameLogic(){
-		rand = new Random();
-		joueurs = new ArrayList<Joueur>();
-		transferts = new ArrayList<Transfert>();
-		time = 0;
+		this.joueurs = new ArrayList<Joueur>();
+		this.transferts = new ArrayList<Transfert>();
+		this.carte = new Carte();
+		this.time = 0;
 	}	
 	
 	public static GameLogic getInstance(){
@@ -121,7 +121,19 @@ public class GameLogic {
 				
 			}
 		}
-		
 	}
-
+	
+	public void CreerTransfert(Ville depart, Ville arrivee, Stock stock){
+		transferts.add(new Transfert(depart, arrivee, stock, time));
+	}
+	
+	public void AjouterJoueur()
+	{
+		joueurs.add(new Joueur());
+	}
+	
+	public ArrayList<Joueur> getJoueurs()
+	{
+		return joueurs;
+	}
 }
