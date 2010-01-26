@@ -26,12 +26,6 @@ public class Ville implements graphics.Drawable {
 		return (int) Math.sqrt((arrivee.x - depart.x) * (arrivee.x - depart.x) + (arrivee.y - depart.y) * (arrivee.y - depart.y));
 	}
 
-	@Override
-	public void draw(int x, int y, int height, int width) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void ajouteStockVaccin(Vaccin vaccin, int quantite) {
 		boolean ajoute = false;
 		
@@ -80,6 +74,28 @@ public class Ville implements graphics.Drawable {
 
 	public int getPourcentageInfectes() {
 		return (int)(100 * ((float)habitants_infectes / habitants));
+	}
+	
+	/**
+	 * Mise à jour des données de la ville.
+	 */
+	public void update() {
+		// Infection :
+		
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	@Override
+	public void draw(int x, int y, int height, int width) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
