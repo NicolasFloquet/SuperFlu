@@ -6,6 +6,8 @@ import graphics.Sprite;
 import java.util.ArrayList;
 import java.util.Random;
 
+import logique.PlayerManager;
+
 /**
  * Cette classe représente une ville.
  * @author max
@@ -162,10 +164,19 @@ public class Ville implements graphics.Drawable {
 		return y;
 	}
 	
+	public boolean isOnCity(int x, int y) {
+		return (x-this.x)*(x-this.x)+(y-this.y)*(y-this.y) < 500;
+	}
+	
 	@Override
 	public void draw() {
 		Sprite ville = ScreenManager.getSprite("ville.png");
-		ville.draw(x + ScreenManager.getInstance().getOrigineCarteX(), y + ScreenManager.getInstance().getOrigineCarteY());
+		Sprite hl_ville = ScreenManager.getSprite("HL_ville.png");
+		
+		if(PlayerManager.getInstance().getTargetedVille() == this)
+			hl_ville.draw(x + ScreenManager.getInstance().getOrigineCarteX(), y + ScreenManager.getInstance().getOrigineCarteY());
+		else
+			ville.draw(x + ScreenManager.getInstance().getOrigineCarteX(), y + ScreenManager.getInstance().getOrigineCarteY());
 	}
 	
 }
