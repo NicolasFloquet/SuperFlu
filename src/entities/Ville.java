@@ -123,6 +123,14 @@ public class Ville implements graphics.Drawable {
 		habitantsSains -= nouveauxHabitantsInfectes;
 		habitantsInfectes += nouveauxHabitantsInfectes;
 		
+		// Utilisation des traitements
+		if (habitantsInfectes >= stocksTraitements.get(0).getStock()) {
+			habitantsInfectes -= stocksTraitements.get(0).getStock();
+			stocksTraitements.get(0).utiliseTraitement(stocksTraitements.get(0).getStock());
+		} else {
+			stocksTraitements.get(0).utiliseTraitement(habitantsInfectes);
+		}
+		
 		// Perte immunité :
 		habitantsImmunises -= (int) (habitantsImmunises * perteImmunite);
 		

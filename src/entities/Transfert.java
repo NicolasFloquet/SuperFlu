@@ -13,11 +13,14 @@ public class Transfert implements graphics.Drawable {
 	private final long temps_depart; // ms
 	private final long temps_arrivee; // ms
 	
-	public Transfert(Ville depart, Ville arrivee, long temps_depart) {
+	private final Stock stock;
+	
+	public Transfert(Ville depart, Ville arrivee, Stock stock, long temps_depart) {
 		this.depart = depart;
 		this.arrivee = arrivee;
 		this.temps_depart = temps_depart;
 		this.temps_arrivee = temps_depart + (long)(VITESSE * Ville.distance(depart, arrivee));
+		this.stock = stock;
 	}
 	
 	public Ville getArrivee() {
@@ -36,6 +39,10 @@ public class Transfert implements graphics.Drawable {
 		return temps_depart;
 	}
 
+	public Stock getStock() {
+		return stock;
+	}
+	
 	@Override
 	public void draw(int x, int y, int height, int width) {
 		// TODO Auto-generated method stub
