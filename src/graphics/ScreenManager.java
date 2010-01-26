@@ -15,8 +15,8 @@ public class ScreenManager {
 	
 	TextureLoader textureLoader;
 	
-	private int screen_height = 800;
-	private int screen_width = 600;
+	private int screen_height;
+	private int screen_width;
 	private boolean fullscreen = false;
 	
 	private static long timerTicksPerSecond;
@@ -35,8 +35,8 @@ public class ScreenManager {
 	
 	private ScreenManager()
 	{
-		screen_height = 800;
-		screen_width = 600;
+		screen_height = 600;
+		screen_width = 800;
 		fullscreen = false;
 		
 		timerTicksPerSecond = Sys.getTimerResolution();
