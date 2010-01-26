@@ -1,5 +1,9 @@
 package entities;
 
+import logique.GameLogic;
+import graphics.ScreenManager;
+import graphics.Sprite;
+
 /**
  * Cette classe représente un transfert de traitements ou vaccins.
  *
@@ -45,7 +49,9 @@ public class Transfert implements graphics.Drawable {
 	
 	@Override
 	public void draw(int x, int y, int height, int width) {
-		// TODO Auto-generated method stub
-		
+		Sprite sprite = ScreenManager.getSprite("avion.png");
+		double angle = Math.atan2(arrivee.getY() - depart.getY(), arrivee.getX() - depart.getY());
+		double avancement = (GameLogic.getInstance().getTime() - temps_depart) / (temps_arrivee - temps_depart);
+		sprite.draw((int)(depart.getX()*(1 - avancement) + arrivee.getX()*avancement), (int)(depart.getY()*(1 - avancement) + arrivee.getY()*avancement), (float)angle);
 	}
 }
