@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import org.lwjgl.opengl.Display;
+
 import graphics.ScreenManager;
 import entities.*;
 
@@ -30,7 +32,7 @@ public class Application
 		screen.setJoueurs(joueurs);
 		screen.setTransferts(transferts);
 		
-		while(true)
+		while(!Display.isCloseRequested())
 		{
 			screen.draw();
 		}

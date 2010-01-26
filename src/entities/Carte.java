@@ -4,6 +4,8 @@ import graphics.*;
 
 import java.util.ArrayList;
 
+import org.lwjgl.Sys;
+
 
 /**
  * Classe qui représente la carte et qui est composée de Zones.
@@ -25,8 +27,11 @@ public class Carte implements graphics.Drawable {
 	@Override
 	public void draw(int x, int y, int height, int width)
 	{
+		int dx = (int)(60.0*Math.cos(Sys.getTime()/60));
+		int dy = (int)(40.0*Math.sin(Sys.getTime()/60));
+		
 		Sprite test = ScreenManager.getSprite("test.png");
-		test.draw(100, 100);
+		test.draw(150+dx, 400+dy);
 	}
 
 	public ArrayList<Zone> getZones() {

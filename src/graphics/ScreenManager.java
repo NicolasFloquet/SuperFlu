@@ -113,6 +113,7 @@ public class ScreenManager {
 			transfert.draw(0, 0, screen_height, screen_width);
 		}
 		
+		Display.update();
 	}
 	
 	/**
