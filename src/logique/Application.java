@@ -7,10 +7,6 @@ import java.util.TimerTask;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
-import entities.Stock;
-import entities.StockTraitement;
-import entities.Ville;
-
 import graphics.ScreenManager;
 
 public class Application
@@ -58,14 +54,18 @@ public class Application
 	{
 		screen.setGameLogic(game);
 		
+		if (args.length == 3) {
+			screen.setProperties(Integer.valueOf(args[0]), Integer.valueOf(args[1]), Boolean.valueOf(args[2]));
+		}
+		
 		/** TEST **/
 		game.creerTransfert(game.getCarte().getZones().get(0).getVilles().get(0),
 							game.getCarte().getZones().get(0).getVilles().get(1), 
 							null);
 		
-		if (args.length == 3) {
-			screen.setProperties(Integer.valueOf(args[0]), Integer.valueOf(args[1]), Boolean.valueOf(args[2]));
-		}
+		game.creerTransfert(game.getCarte().getZones().get(0).getVilles().get(1),
+				game.getCarte().getZones().get(0).getVilles().get(2), 
+				null);
 		
 		running = true;
 		while(running)
