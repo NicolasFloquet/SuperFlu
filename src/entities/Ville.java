@@ -15,6 +15,7 @@ public class Ville implements graphics.Drawable {
 	private int habitantsSains;
 	private int habitantsInfectes;
 	private int habitantsImmunises;
+	private int habitantsMorts;
 
 	private ArrayList<StockVaccin> stocksVaccins;
 	private ArrayList<StockTraitement> stocksTraitements;
@@ -27,6 +28,7 @@ public class Ville implements graphics.Drawable {
 		this.habitantsSains = 1000000 + r.nextInt(500000) - 250000;
 		this.habitantsInfectes = habitants_infectes;
 		this.habitantsImmunises = habitants_immunises;
+		this.habitantsMorts = 0;
 	}
 	
 	public static int distance(Ville depart, Ville arrivee) {
@@ -112,8 +114,22 @@ public class Ville implements graphics.Drawable {
 	 * Mise à jour des données de la ville.
 	 */
 	public void update() {
-		// Infection :
+		float transmission = 1.2f;
+		float perteImmunite = 0.1f;
+		float mortalite = 0.01f;
 		
+		// Infection :
+		int nouveauxHabitantsInfectes = (int) (habitantsInfectes * transmission * (habitantsSains / getHabitants()));
+		habitantsSains -= nouveauxHabitantsInfectes;
+		habitantsInfectes += nouveauxHabitantsInfectes;
+		
+		// Perte immunité :
+		habitantsImmunises -= (int) (habitantsImmunises * perteImmunite);
+		
+		// Mortalité :
+		int nouveauxHabitantsMorts = (int) (habitantsInfectes * mortalite);
+		habitantsInfectes -= nouveauxHabitantsMorts;
+		habitantsMorts += nouveauxHabitantsMorts;
 	}
 	
 	public int getX() {
