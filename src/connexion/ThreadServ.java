@@ -18,7 +18,7 @@ public class ThreadServ extends Thread {
 	// @SuppressWarnings("deprecation")
 	public void run() {
 
-		// faire les fonctions de serveur
+		// Reception du serveur
 		Application a = Application.getInstance();
 		Joueur j = new Joueur();
 		j.setSocket(s);
@@ -28,7 +28,7 @@ public class ThreadServ extends Thread {
 		while (true) {
 			o = rec.getDataBlock();//reception des donnees blocante
 			if(o instanceof Transfert ){
-				//acualiser le transfer
+				//ajouter le transfer
 				a.getGame().getTransferts().add((Transfert)o);
 			}
 		}
