@@ -171,6 +171,11 @@ public class GameLogic extends TimerTask {
 		transferts.add(new Transfert(depart, arrivee, stock, time));
 	}
 	
+	public ArrayList<Transfert> getTransferts()
+	{
+		return transferts;
+	}
+	
 	public void ajouterJoueur()
 	{
 		joueurs.add(new Joueur());
@@ -191,10 +196,16 @@ public class GameLogic extends TimerTask {
 		return mode_serveur;
 	}
 	
+	public Carte getCarte(){
+		return carte;
+	}
+	
+	pu
+	
 	
 
 	@Override
 	public void run() {
-		updateServeur(10);
+		updateServeur(time_unit);
 	}
 }
