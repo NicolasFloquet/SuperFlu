@@ -27,14 +27,17 @@ public class Carte implements graphics.Drawable {
 	@Override
 	public void draw(int x, int y, int height, int width)
 	{
+		int disp_x = x+width/2;
+		int disp_y = y+height/2;
+		
 		Sprite map = ScreenManager.getSprite("carte.png");
-		map.draw(x+(width/2), y+(height/2));
+		map.draw(disp_x, disp_y);
 		
 		for(Zone zone : zones)
 		{
 			for(Ville ville : zone.getVilles())
 			{
-				ville.draw(x+ville.getX(), y+ville.getY(), height, width);
+				ville.draw(disp_x+ville.getX(), disp_y+ville.getY(), height, width);
 			}
 		}
 	}
