@@ -13,8 +13,8 @@ public class Usine extends Ville {
 	private int productionRateVaccins = 100;
 	private int productionRateTraitements = 1000;
 	
-	public Usine(int x, int y) {
-		super(x, y);
+	public Usine(int x, int y, int habitants_infectes, int habitants_immunisés) {
+		super(x, y, habitants_infectes, habitants_immunisés);
 	}
 
 	public void produit() {

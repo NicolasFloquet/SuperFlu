@@ -6,7 +6,7 @@ package entities;
  */
 public class Traitement {
 	private Virus virus;
-	private float efficacité; // TODO
+	private float efficacite; // TODO
 
 	public Traitement(Virus virus) {
 		this.virus = virus;

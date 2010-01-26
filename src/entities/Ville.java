@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Cette classe représente une ville.
@@ -11,15 +12,21 @@ public class Ville implements graphics.Drawable {
 
 	private int x;
 	private int y;
-	private int habitants;
-	private int habitants_infectes;
+	private int habitantsSains;
+	private int habitantsInfectes;
+	private int habitantsImmunises;
 
 	private ArrayList<StockVaccin> stocksVaccins;
 	private ArrayList<StockTraitement> stocksTraitements;
 	
-	public Ville(int x, int y) {
+	public Ville(int x, int y, int habitants_infectes, int habitants_immunises) {
+		Random r = new Random();
+		
 		this.x = x;
 		this.y = y;
+		this.habitantsSains = 1000000 + r.nextInt(500000) - 250000;
+		this.habitantsInfectes = habitants_infectes;
+		this.habitantsImmunises = habitants_immunises;
 	}
 	
 	public static int distance(Ville depart, Ville arrivee) {
@@ -57,23 +64,39 @@ public class Ville implements graphics.Drawable {
 	}
 	
 	public int getHabitants() {
-		return habitants;
+		return habitantsSains + habitantsImmunises + habitantsInfectes;
 	}
 
-	public void setHabitants(int habitants) {
-		this.habitants = habitants;
+	public int getHabitantsInfectes() {
+		return habitantsInfectes;
 	}
 
-	public int getHabitants_infectes() {
-		return habitants_infectes;
+	public void ajouteHabitantsInfectes(int habitantsInfectes) {
+		this.habitantsInfectes += habitantsInfectes;
 	}
 
-	public void setHabitants_infectes(int habitantsInfectes) {
-		habitants_infectes = habitantsInfectes;
+	public void ajouteHabitantsImmunises(int habitantsImmunises) {
+		this.habitantsImmunises += habitantsImmunises;
 	}
 
+	public void ajouteHabitantsSains(int habitantsSains) {
+		this.habitantsSains += habitantsSains;
+	}
+	
+	public void retireHabitantsInfectes(int habitantsInfectes) {
+		this.habitantsInfectes -= habitantsInfectes;
+	}
+
+	public void retireHabitantsImmunises(int habitantsImmunises) {
+		this.habitantsImmunises -= habitantsImmunises;
+	}
+
+	public void retireHabitantsSains(int habitantsSains) {
+		this.habitantsSains -= habitantsSains;
+	}
+	
 	public int getPourcentageInfectes() {
-		return (int)(100 * ((float)habitants_infectes / habitants));
+		return (int)(100 * ((float)habitantsInfectes / getHabitants()));
 	}
 	
 	/**
