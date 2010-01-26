@@ -18,7 +18,7 @@ public class ScreenManager {
 	
 	private int screen_height;
 	private int screen_width;
-	private boolean fullscreen = false;
+	private boolean fullscreen;
 	
 	private static long timerTicksPerSecond;
 	/** The time at which the last rendering looped started from the point of view of the game logic */
@@ -33,9 +33,9 @@ public class ScreenManager {
 	private GameLogic gameLogic = null;
 	
 	private ScreenManager()
-	{
-		screen_height = 600;
+	{		
 		screen_width = 800;
+		screen_height = 600;
 		fullscreen = false;
 		
 		timerTicksPerSecond = Sys.getTimerResolution();
