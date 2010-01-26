@@ -57,4 +57,9 @@ public class Application
 	public GameLogic getGame() {
 		return game;
 	}
+
+	public void setGame(GameLogic game) {
+		this.game = game;
+	}
+	
 }
