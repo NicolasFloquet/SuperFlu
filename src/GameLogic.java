@@ -14,6 +14,7 @@ public class GameLogic {
 	
 	private ArrayList<Joueur> joueurs;			// Liste des joueurs de la partie
 	private ArrayList<Transfert> transferts;	// Liste des transferts en cours
+	private ArrayList<Virus> virus;
 	private Carte carte;
 	private long time;
 	
@@ -32,7 +33,37 @@ public class GameLogic {
 		return instance;
 	}
 	
-	public void Update(long elapsed_time){
+	public void creerEpidemie()
+	{
+		Traitement traitement;
+		Vaccin vaccin;
+		Zone rand_zone;
+		Ville rand_ville;
+		
+		/* Créer un nouveau virus */
+		Virus nouveau_virus = new Virus("Grippe du serpent +3 of the doom");
+		virus.add(nouveau_virus);
+		
+		/* Créer les traitements et vaccins correspondants */
+		vaccin = new Vaccin(nouveau_virus);
+		traitement = new Traitement(nouveau_virus);
+		
+		/* Les ajouter aux usines */
+		for(Zone z : carte.getZones()){
+			z.getUsine().ajouteTraitement(traitement);
+			z.getUsine().ajouteVaccin(vaccin);
+		}
+		
+		/* Choisir le point de départ de l'épidemie aléatoirement */
+		rand_zone = carte.getZones().get(rand.nextInt(carte.getZones().size()));
+		rand_ville = rand_zone.getVilles().get(rand.nextInt(rand_zone.getVilles().size()));
+		rand_ville.ajouteHabitantsInfectes((int)(rand_ville.getHabitants()*0.001));
+		
+		/* MOUHOUHOUHOHOHAHAHAHAHAHAHAHA */
+		
+	}
+	
+	public void update(long elapsed_time){
 		/* Mise à jour du temps */
 		time += elapsed_time;
 		
@@ -58,9 +89,12 @@ public class GameLogic {
 			}
 		}
 		
-		/* Calcul des déplacement de population */
-		
+		/* Calcul des déplacement de population */	
 		for(Zone zone_origine : carte.getZones()){
+			
+			/* Mise à jour de la production de l'usine */
+			zone_origine.getUsine().produit();
+			
 			for(Ville ville_origine: zone_origine.getVilles()){
 				
 				/* Pour chaque ville, on calcul le nombre d'habitants qui partent vers chaque ville */
@@ -123,11 +157,11 @@ public class GameLogic {
 		}
 	}
 	
-	public void CreerTransfert(Ville depart, Ville arrivee, Stock stock){
+	public void creerTransfert(Ville depart, Ville arrivee, Stock stock){
 		transferts.add(new Transfert(depart, arrivee, stock, time));
 	}
 	
-	public void AjouterJoueur()
+	public void ajouterJoueur()
 	{
 		joueurs.add(new Joueur());
 	}
