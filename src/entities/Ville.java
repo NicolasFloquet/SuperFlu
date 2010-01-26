@@ -63,8 +63,17 @@ public class Ville implements graphics.Drawable {
 		}
 	}
 	
+	
 	public int getHabitants() {
 		return habitantsSains + habitantsImmunises + habitantsInfectes;
+	}
+	
+	public int getHabitantsSains() {
+		return habitantsSains;
+	}
+	
+	public int getHabitantsImmunises() {
+		return habitantsImmunises;
 	}
 
 	public int getHabitantsInfectes() {
