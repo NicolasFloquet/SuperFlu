@@ -8,8 +8,8 @@ public class Client {
 	public final static String SERVER_HOSTNAME = "localhost";
 	public final static int COMM_PORT = 5050; // socket port for client comms
 
-	Socket socket;
-	int iterator = 0;
+	private Socket socket;
+	private int iterator = 0;
 
 	/** Default constructor. */
 	public Client() {

@@ -13,7 +13,7 @@ public class Receive extends Thread {
 	private Socket socket;
 	private Object o;
 	private Semaphore sem = new Semaphore(0);
-	boolean aborting = false;
+	private boolean aborting = false;
 
 	public Receive(Socket socket) {
 		this.socket = socket;

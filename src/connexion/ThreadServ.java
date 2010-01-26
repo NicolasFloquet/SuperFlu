@@ -5,7 +5,7 @@ import java.net.Socket;
 
 public class ThreadServ extends Thread{
 
-	Socket s;
+	private Socket s;
 	
 	
 	public ThreadServ(Socket s) {

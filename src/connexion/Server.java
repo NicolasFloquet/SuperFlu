@@ -10,7 +10,6 @@ public class Server{
 
 	private ServerSocket serverSocket;
 	private Socket socket;
-	int iterator = -1;
 
 	/** Default constructor. */
 	public Server() {
