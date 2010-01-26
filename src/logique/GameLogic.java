@@ -214,4 +214,7 @@ public class GameLogic extends TimerTask {
 		return carte;
 	}
 	
+	public long getTime(){
+		return time;
+	}
 }

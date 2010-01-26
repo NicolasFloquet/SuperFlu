@@ -1,5 +1,8 @@
 package entities;
 
+import graphics.ScreenManager;
+import graphics.Sprite;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -161,8 +164,8 @@ public class Ville implements graphics.Drawable {
 	
 	@Override
 	public void draw(int x, int y, int height, int width) {
-		// TODO Auto-generated method stub
-		
+		Sprite ville = ScreenManager.getSprite("ville.png");
+		ville.draw(this.getX(),this.getY(),0);
 	}
 	
 }
