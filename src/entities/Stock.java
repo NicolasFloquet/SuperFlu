@@ -12,7 +12,17 @@ public abstract class Stock {
 		return capacite_max;
 	}
 	
-	public void ajouteStock(int valeur) {
-		stock = Math.min(capacite_max, stock + valeur);
+	public int ajouteStock(int valeur) {
+		int reste = 0;
+		
+		if (valeur + stock > capacite_max) {
+			reste = (valeur + stock) - capacite_max;
+			stock = capacite_max;
+		} else {
+			reste = 0;
+			stock = stock + valeur;
+		}
+		
+		return reste;
 	}
 }

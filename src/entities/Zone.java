@@ -10,4 +10,16 @@ public class Zone {
 	public void setJoueur(Joueur joueur) {
 		this.joueur = joueur;
 	}
+	
+	public Usine getUsine() {
+		return usine;
+	}
+	
+	public Joueur getJoueur() {
+		return joueur;
+	}
+	
+	public ArrayList<Ville> getVilles() {
+		return villes;
+	}
 }
