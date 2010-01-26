@@ -40,6 +40,8 @@ public class Zone {
 					System.err.println("Erreur lecture " + filepath + "continue quand même...");
 				}
 			}
+			
+			buff.close();
 		} catch (FileNotFoundException e) {
 			System.err.println("Fichier " + filepath + " introuvable ! Aucune ville chargée pour cette zone.");
 		} catch (IOException e) {
@@ -49,6 +51,10 @@ public class Zone {
 	
 	public void setJoueur(Joueur joueur) {
 		this.joueur = joueur;
+	}
+	
+	public String getNom() {
+		return nom;
 	}
 	
 	public Usine getUsine() {
