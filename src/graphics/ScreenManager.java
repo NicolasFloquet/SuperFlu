@@ -6,7 +6,6 @@ import logique.GameLogic;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
-//import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
@@ -34,8 +33,8 @@ public class ScreenManager {
 	
 	private ScreenManager()
 	{		
-		screen_width = 1280;
-		screen_height = 800;
+		screen_width = 800;
+		screen_height = 600;
 		fullscreen = false;
 		
 		timerTicksPerSecond = Sys.getTimerResolution();
@@ -51,6 +50,7 @@ public class ScreenManager {
 		
 		try
 		{
+			setDisplayMode();
 			Display.setFullscreen(fullscreen);
 			
 			GL11.glMatrixMode(GL11.GL_PROJECTION);
@@ -129,9 +129,6 @@ public class ScreenManager {
 			Display.setTitle(WINDOW_TITLE);
 			Display.setFullscreen(fullscreen);
 			Display.create();
-			 
-			// grab the mouse, don't want that hideous cursor when we're playing!
-			//Mouse.setGrabbed(true);
 			 
 			// enable textures since we're going to use these for our sprites
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
