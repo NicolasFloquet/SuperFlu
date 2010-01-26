@@ -1,16 +1,13 @@
 package logique;
-import java.awt.im.InputContext;
+
 import java.util.Timer;
 import java.util.TimerTask;
-
-import java.util.ArrayList;
 
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import graphics.ScreenManager;
-import entities.*;
 
 public class Application
 {
@@ -30,9 +27,7 @@ public class Application
 	private GameLogic game;
 	
 	private boolean running;
-	private Timer timer;
-	private UpdateTask update_task;
-	
+	private Timer timer;	
 
 	
 	private Application()
@@ -41,7 +36,7 @@ public class Application
 		game = new GameLogic();
 		running = false;
 		timer = new Timer();
-		timer.scheduleAtFixedRate(update_task, 0, TIMER_PERIOD);
+		timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD);
 	}
 	
 	public static Application getInstance()

@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,6 +25,13 @@ public class Zone {
 	
 	private void chargeVilles() {
 		String filepath = "zone" + id + ".data";
+		
+		try {
+			new File(filepath).createNewFile();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try {
 			BufferedReader buff = new BufferedReader(new FileReader(filepath));
