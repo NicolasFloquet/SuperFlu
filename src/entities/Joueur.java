@@ -24,7 +24,7 @@ public class Joueur implements graphics.Drawable {
 	}
 	
 	@Override
-	public void draw(int x, int y, int height, int width) {
+	public void draw() {
 		// TODO Auto-generated method stub
 		
 	}

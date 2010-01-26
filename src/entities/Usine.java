@@ -46,7 +46,7 @@ public class Usine extends Ville {
 	}
 	
 	@Override
-	public void draw(int x, int y, int height, int width) {
+	public void draw() {
 		Sprite usine = ScreenManager.getSprite("usine.png");
 		usine.draw(x, y);
 	}

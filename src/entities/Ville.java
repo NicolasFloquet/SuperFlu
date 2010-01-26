@@ -14,8 +14,8 @@ import java.util.Random;
 public class Ville implements graphics.Drawable {
 
 	private String nom;
-	private int x;
-	private int y;
+	protected int x;
+	protected int y;
 	private int habitantsSains;
 	private int habitantsInfectes;
 	private int habitantsImmunises;
@@ -163,9 +163,9 @@ public class Ville implements graphics.Drawable {
 	}
 	
 	@Override
-	public void draw(int x, int y, int height, int width) {
+	public void draw() {
 		Sprite ville = ScreenManager.getSprite("ville.png");
-		ville.draw(x,y);
+		ville.draw(x + ScreenManager.getInstance().getOrigineCarteX(), y + ScreenManager.getInstance().getOrigineCarteY());
 	}
 	
 }

@@ -102,16 +102,16 @@ public class ScreenManager {
 			fps = 0;
 		}
 		
-		gameLogic.getCarte().draw(0, 0, screen_height, screen_width);
+		gameLogic.getCarte().draw();
 		
 		for(Joueur joueur : gameLogic.getJoueurs())
 		{
-			joueur.draw(0,0,1,1);
+			joueur.draw();
 		}
 		
 		for(Transfert transfert : gameLogic.getTransferts())
 		{
-			transfert.draw(0, 0, screen_height, screen_width);
+			transfert.draw();
 		}
 		
 		Display.update();
@@ -158,6 +158,14 @@ public class ScreenManager {
 	public static Sprite getSprite(String ref)
 	{
 		return new Sprite(getInstance().textureLoader,"ressources/"+ref);
+	}
+	
+	public int getOrigineCarteX() {
+		return screen_width/2 - 1024/2; // XXX: en dur :/
+	}
+	
+	public int getOrigineCarteY() {
+		return screen_width/2 - 544/2; // XXX: en dur :/
 	}
 	
 	/**
