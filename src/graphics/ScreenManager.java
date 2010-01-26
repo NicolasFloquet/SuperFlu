@@ -137,7 +137,10 @@ public class ScreenManager {
 			Display.setTitle(WINDOW_TITLE);
 			Display.setFullscreen(fullscreen);
 			Display.create();
-			 
+			
+			GL11.glEnable(GL11.GL_BLEND) ;
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA) ;
+			
 			// enable textures since we're going to use these for our sprites
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			 

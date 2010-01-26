@@ -1,6 +1,9 @@
 package logique;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import entities.*;
@@ -12,18 +15,18 @@ public class GameLogic implements Cloneable{
 	private Random rand = new Random(); 
 	private boolean mode_serveur = false;
 
-	private ArrayList<Joueur> joueurs;			// Liste des joueurs de la partie
-	private ArrayList<Transfert> transferts;	// Liste des transferts en cours
-	private ArrayList<Virus> virus;
+	private List<Joueur> joueurs;			// Liste des joueurs de la partie
+	private List<Transfert> transferts;	// Liste des transferts en cours
+	private List<Virus> virus;
 	private Carte carte;
 
 	/* Variables liées au timer */
 	private long time;
 
 	public GameLogic() {
-		joueurs = new ArrayList<Joueur>();
-		transferts = new ArrayList<Transfert>();
-		virus = new ArrayList<Virus>();
+		joueurs =  Collections.synchronizedList(new ArrayList<Joueur>());
+		transferts = Collections.synchronizedList(new ArrayList<Transfert>());
+		virus =  Collections.synchronizedList(new ArrayList<Virus>());
 		carte = new Carte();
 
 		time = 0;
@@ -188,7 +191,7 @@ public class GameLogic implements Cloneable{
 		transferts.add(new Transfert(this, depart, arrivee, stock, time));
 	}
 
-	public ArrayList<Transfert> getTransferts()
+	public List<Transfert> getTransferts()
 	{
 		return transferts;
 	}
@@ -198,7 +201,7 @@ public class GameLogic implements Cloneable{
 		joueurs.add(nouveau_joueur);
 	}
 
-	public ArrayList<Joueur> getJoueurs()
+	public List<Joueur> getJoueurs()
 	{
 		return joueurs;
 	}
