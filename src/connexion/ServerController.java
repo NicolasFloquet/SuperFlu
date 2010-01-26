@@ -11,7 +11,10 @@ public class ServerController implements ConnexionController {
 
 	public void send(Object o) {
 		if (o instanceof GameLogic) {
-			new Send().sendData(o, Application.getInstance().getGame()
+			GameLogic g = ((GameLogic)o).clone();
+			g.setServeur(false);
+			
+			new Send().sendData(g, Application.getInstance().getGame()
 					.getJoueurs());
 		}
 	}
