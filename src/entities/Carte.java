@@ -4,8 +4,6 @@ import graphics.*;
 
 import java.util.ArrayList;
 
-import org.lwjgl.Sys;
-
 
 /**
  * Classe qui représente la carte et qui est composée de Zones.

@@ -169,7 +169,7 @@ public class GameLogic extends TimerTask {
 	}
 
 	public void creerTransfert(Ville depart, Ville arrivee, Stock stock){
-		transferts.add(new Transfert(depart, arrivee, stock, time));
+		transferts.add(new Transfert(this, depart, arrivee, stock, time));
 	}
 
 	public ArrayList<Transfert> getTransferts()
