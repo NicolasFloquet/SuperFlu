@@ -34,6 +34,7 @@ public class Application
 	{
 		screen = ScreenManager.getInstance();
 		game = new GameLogic();
+		game.creerEpidemie();
 		running = false;
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD);

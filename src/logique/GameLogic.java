@@ -23,6 +23,7 @@ public class GameLogic implements Cloneable{
 	public GameLogic() {
 		joueurs = new ArrayList<Joueur>();
 		transferts = new ArrayList<Transfert>();
+		virus = new ArrayList<Virus>();
 		carte = new Carte();
 
 		time = 0;
@@ -45,8 +46,10 @@ public class GameLogic implements Cloneable{
 
 		/* Les ajouter aux usines */
 		for(Zone z : carte.getZones()){
-			z.getUsine().ajouteTraitement(traitement);
-			z.getUsine().ajouteVaccin(vaccin);
+			if(z.getUsine()!=null){
+				z.getUsine().ajouteTraitement(traitement);
+				z.getUsine().ajouteVaccin(vaccin);
+			}
 		}
 
 		/* Choisir le point de départ de l'épidemie aléatoirement */
