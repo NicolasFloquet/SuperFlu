@@ -1,5 +1,9 @@
 package entities;
 
+/**
+ * Cette classe représente un stock de vaccin.
+ *
+ */
 public class StockVaccin extends Stock {
 
 	private Vaccin vaccin;

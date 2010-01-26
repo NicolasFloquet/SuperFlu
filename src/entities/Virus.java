@@ -1,5 +1,10 @@
 package entities;
 
+/**
+ * Cette classe représente un virus et contient ses caractéristiques.
+ * @author max
+ *
+ */
 public class Virus {
 	private String nom;
 	

@@ -2,6 +2,10 @@ package entities;
 
 import java.util.ArrayList;
 
+/**
+ * Classe qui représente la carte et qui est composée de Zones.
+ *
+ */
 public class Carte implements graphics.Drawable {
 
 	private ArrayList<Zone> zones = new ArrayList<Zone>();

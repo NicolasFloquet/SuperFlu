@@ -2,6 +2,10 @@ package entities;
 
 import java.util.ArrayList;
 
+/**
+ * Cette classe répresente une zone. Cette zone contient une liste de villes.
+ *
+ */
 public class Zone {
 	private Joueur joueur;
 	private ArrayList<Ville> villes = new ArrayList<Ville>();

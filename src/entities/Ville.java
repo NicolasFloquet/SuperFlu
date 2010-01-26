@@ -2,6 +2,11 @@ package entities;
 
 import java.util.ArrayList;
 
+/**
+ * Cette classe représente une ville.
+ * @author max
+ *
+ */
 public class Ville implements graphics.Drawable {
 
 	private int x;
@@ -73,5 +78,8 @@ public class Ville implements graphics.Drawable {
 		habitants_infectes = habitantsInfectes;
 	}
 
+	public int getPourcentageInfectes() {
+		return (int)(100 * ((float)habitants_infectes / habitants));
+	}
 	
 }

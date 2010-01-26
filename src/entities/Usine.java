@@ -2,6 +2,10 @@ package entities;
 
 import java.util.ArrayList;
 
+/**
+ * Cette classe représente une usine. C'est une ville qui possède la propriété de pouvoir produire des vaccins et traitements.
+ *
+ */
 public class Usine extends Ville {
 
 	private ArrayList<Traitement> traitements;

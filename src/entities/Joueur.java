@@ -1,5 +1,9 @@
 package entities;
 
+/**
+ * Classe qui contient les informations relatives à un joueur (score, zone)
+ *
+ */
 public class Joueur implements graphics.Drawable {
 	private Zone zone;
 	private int score;

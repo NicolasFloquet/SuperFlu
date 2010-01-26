@@ -1,5 +1,9 @@
 package entities;
 
+/**
+ * Cette classe représente un type de Vaccin.
+ *
+ */
 public class Vaccin {
 	private Virus virus;
 	

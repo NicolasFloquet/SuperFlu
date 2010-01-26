@@ -1,5 +1,9 @@
 package entities;
 
+/**
+ * Cette classe représente un stock de traitements.
+ *
+ */
 public class StockTraitement extends Stock {
 	
 	private final Traitement traitement;

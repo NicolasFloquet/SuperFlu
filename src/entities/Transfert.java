@@ -1,5 +1,9 @@
 package entities;
 
+/**
+ * Cette classe représente un transfert de traitements ou vaccins.
+ *
+ */
 public class Transfert implements graphics.Drawable {
 	
 	private final static float VITESSE = 0.1f;
