@@ -3,6 +3,7 @@ package logique;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -69,14 +70,12 @@ public class GameLogic implements Cloneable{
 
 	public void updateServeur(long elapsed_time){
 		/* Mise à jour du temps */
-		ArrayList<Transfert> nouvelle_liste = new ArrayList<Transfert>();
 		time += elapsed_time;
 
-		for(Transfert t : transferts){
-
-			/* Si le temps est écoulé, le transfert est fini, et on ajoute son contenu à la ville destinataire */
+		Iterator<Transfert> it = transferts.iterator();
+		while (it.hasNext()) {
+			Transfert t = it.next();
 			if(time>t.getTemps_arrivee()){
-
 				Ville arrive = t.getArrivee();
 
 				if(t.getStock() instanceof StockTraitement){
@@ -89,14 +88,9 @@ public class GameLogic implements Cloneable{
 					arrive.ajouteStockVaccin(stock_vaccin.getVaccin(), stock_vaccin.getStock());
 				}
 
+				it.remove();
 			}
-			else{
-				nouvelle_liste.add(t);
-			}
-			
 		}
-		transferts.clear();
-		transferts = nouvelle_liste;
 
 		/* Calcul des déplacement de population */	
 		for(Zone zone_origine : carte.getZones()){
