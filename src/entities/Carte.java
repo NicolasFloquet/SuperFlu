@@ -29,6 +29,14 @@ public class Carte implements graphics.Drawable {
 	{
 		Sprite map = ScreenManager.getSprite("test.png");
 		map.draw(x+(width/2), y+(height/2));
+		
+		for(Zone zone : zones)
+		{
+			for(Ville ville : zone.getVilles())
+			{
+				ville.draw(x, y, height, width);
+			}
+		}
 	}
 
 	public ArrayList<Zone> getZones() {

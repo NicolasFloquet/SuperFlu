@@ -1,7 +1,9 @@
+import java.awt.im.InputContext;
 import java.util.ArrayList;
 
 import logique.GameLogic;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import graphics.ScreenManager;
@@ -13,10 +15,13 @@ public class Application
 	private ScreenManager screen;
 	private GameLogic game;
 	
+	private boolean running;
+	
 	private Application()
 	{
 		screen = ScreenManager.getInstance();
 		game = GameLogic.getInstance();
+		running = false;
 	}
 	
 	public static Application getInstance()
@@ -26,15 +31,19 @@ public class Application
 	
 	public void run(String[] args)
 	{
-		Carte carte = new Carte();
-		ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
-		ArrayList<Transfert> transferts = new ArrayList<Transfert>();
-
 		screen.setGameLogic(GameLogic.getInstance());
 		
-		while(!Display.isCloseRequested())
+		while(running)
 		{
 			screen.draw();
+			
+			if((Display.isCloseRequested()) || (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)))
+			{
+				System.out.println("pif");
+				running = false;
+			}
+			
+			System.out.println("paf");
 		}
 	}
 }
