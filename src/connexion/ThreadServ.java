@@ -1,7 +1,6 @@
-package connexion;
-
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 
 
 public class ThreadServ extends Thread{
@@ -15,15 +14,19 @@ public class ThreadServ extends Thread{
 	}
 
 
+	@SuppressWarnings("deprecation")
 	public void run(){
 		
 		//faire les fonctions de serveur
-		/*
 		Personne personne = new Personne("Benito", "Camelas", 180);
-		new Send(s).sendData(personne);
 		
-		Receive rec = new Receive();
-		personne = (Personne) rec.getData(s);
+		Send send = new Send(s);
+		send.sendData(personne);
+		send.sendData(personne);
+		
+		Receive rec = new Receive(s);
+		rec.start();
+		personne = (Personne) rec.getData();
 		// ///////// //
 		// Affichage //
 		// ///////// //
@@ -35,11 +38,15 @@ public class ThreadServ extends Thread{
 		ArrayList<Hobby> liste = personne.getHobbies();
 		for (int i = 0; i < liste.size(); i++) {
 			System.out.println("  > " + liste.get(i));
-		}*/
+		}
+
+		rec.close();
+		rec.stop();
 		try {
 			s.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 }

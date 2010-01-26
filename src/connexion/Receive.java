@@ -1,30 +1,54 @@
-package connexion;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.concurrent.Semaphore;
 
-public class Receive {
+public class Receive extends Thread {
 	public final static String SERVER_HOSTNAME = "localhost";
 	public final static int COMM_PORT = 5050; // socket port for client comms
 
-	/** Default constructor. */
-	public Receive() {
+	private Socket socket;
+	private Object o;
+	private Semaphore sem = new Semaphore(0);
+	boolean aborting = false;
+
+	public Receive(Socket socket) {
+		this.socket = socket;
 	}
 
-	public Object getData(Socket socket){
-		System.out.println("receive");
-		try {
-			InputStream iStream = socket.getInputStream();
-			ObjectInputStream oiStream = null;
-			oiStream = new ObjectInputStream(iStream);
-			return oiStream.readObject();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}catch (ClassNotFoundException e) {
-			e.printStackTrace();
+	void close() {
+		aborting = true;
+	}
+
+	public void run() {
+		InputStream iStream = null;
+		ObjectInputStream oiStream;
+		while (!aborting) {
+			try {
+				iStream = socket.getInputStream();
+				oiStream = new ObjectInputStream(iStream);
+				o = oiStream.readObject();
+				sem.tryAcquire();
+				sem.release();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(1);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				System.exit(1);
+			}
 		}
-		return null;
+	}
+
+	public Object getData() {
+		try {
+			sem.acquire();
+			sem.release();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+		return o;
 	}
 }

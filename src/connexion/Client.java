@@ -1,8 +1,7 @@
-package connexion;
-
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 public class Client {
 	public final static String SERVER_HOSTNAME = "localhost";
@@ -17,8 +16,10 @@ public class Client {
 			this.socket = new Socket(SERVER_HOSTNAME, COMM_PORT);
 		} catch (UnknownHostException uhe) {
 			uhe.printStackTrace();
+			System.exit(1);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
+			System.exit(1);
 		}
 	}
 	
@@ -29,11 +30,15 @@ public class Client {
 	/**
 	 * Main test
 	 */
-	/*
+	
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
-		Receive rec = new Receive();
+		
 		Socket s = new Client().getSocket();
-		Personne personne = (Personne) rec.getData(s);
+		Receive rec = new Receive(s);
+		rec.start();
+		
+		Personne personne = (Personne) rec.getData();
 		// ///////// //
 		// Affichage //
 		// ///////// //
@@ -46,9 +51,18 @@ public class Client {
 		for (int i = 0; i < liste.size(); i++) {
 			System.out.println("  > " + liste.get(i));
 		}
-		
+
 		personne.setNom("Bien");
 		personne.setPrenom("reçu");
 		new Send(s).sendData(personne);
-	}*/
+		
+		rec.close();
+		rec.stop();
+		try {
+			s.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+	}
 }

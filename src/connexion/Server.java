@@ -1,5 +1,3 @@
-package connexion;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -25,8 +23,10 @@ public class Server{
 			}
 		} catch (SecurityException se) {
 			se.printStackTrace();
+			System.exit(1);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
+			System.exit(1);
 		}
 	}
 
@@ -42,8 +42,10 @@ public class Server{
 			}
 		} catch (SocketException se) {
 			se.printStackTrace();
+			System.exit(1);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
+			System.exit(1);
 		}
 	}
 	
