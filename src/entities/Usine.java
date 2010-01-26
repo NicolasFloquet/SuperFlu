@@ -26,12 +26,19 @@ public class Usine extends Ville {
 		}
 	}
 
-
 	public int getProductionRateVaccins() {
 		return productionRateVaccins;
 	}
 	
 	public void setProductionRate(int productionRateVaccins) {
 		this.productionRateVaccins = productionRateVaccins;
+	}
+	
+	public void ajouteVaccin(Vaccin vaccin) {
+		vaccins.add(vaccin);
+	}
+	
+	public void ajouteTraitement(Traitement traitement) {
+		traitements.add(traitement);
 	}
 }
