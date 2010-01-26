@@ -127,7 +127,7 @@ public class Ville implements graphics.Drawable {
 	 * Mise à jour des données de la ville.
 	 */
 	public void update() {
-		System.out.println("Update !");
+		//System.out.println("Update !");
 		float transmission = 1.2f;
 		float perteImmunite = 0.01f;
 		float mortalite = 0.01f;
@@ -135,46 +135,46 @@ public class Ville implements graphics.Drawable {
 		if (getHabitants() > 0) {
 
 			// Infection :
-			System.out.println("Infection :");
+			/*System.out.println("Infection :");*/
 			int nouveauxHabitantsInfectes = (int) (habitantsInfectes * transmission * (habitantsSains / getHabitants()));
 			habitantsSains -= nouveauxHabitantsInfectes;
 			habitantsInfectes += nouveauxHabitantsInfectes;
-			System.out.println("nouveaux : " + nouveauxHabitantsInfectes + " infectés (total) " + habitantsInfectes);
+			/*System.out.println("nouveaux : " + nouveauxHabitantsInfectes + " infectés (total) " + habitantsInfectes);*/
 
 			// Utilisation des traitements :
-			System.out.println("Traitements :");
+			/*System.out.println("Traitements :");*/
 			if (stocksTraitements.size() > 0) {
 				if (habitantsInfectes > stocksTraitements.get(0).getStock()) {
 					habitantsInfectes -= stocksTraitements.get(0).getStock();
 					stocksTraitements.get(0).utilise(stocksTraitements.get(0).getStock());
-					System.out.println("Utilise : " + stocksTraitements.get(0).getStock());
+					/*System.out.println("Utilise : " + stocksTraitements.get(0).getStock());*/
 				} else {
 					stocksTraitements.get(0).utilise(habitantsInfectes);
-					System.out.println("Utilise : " + habitantsInfectes);
+					/*System.out.println("Utilise : " + habitantsInfectes);*/
 				}
 			}
 
 			// Perte immunité :
-			System.out.println("Perte immunité : ");
+			/*System.out.println("Perte immunité : ");*/
 			habitantsImmunises -= (int) (habitantsImmunises * perteImmunite);
-			System.out.println(habitantsImmunises);
+			/*System.out.println(habitantsImmunises);*/
 
 			// Utilisation des vaccins (sur les personnes saines) :
-			System.out.println("Utilisation vaccins : ");
+			/*System.out.println("Utilisation vaccins : ");*/
 			if (stocksVaccins.size() > 0) {
 				int nouveauxHabitantsImmunises = Math.min(habitantsSains, stocksVaccins.get(0).getStock());
 				stocksVaccins.get(0).utilise(nouveauxHabitantsImmunises);
 				habitantsSains -= nouveauxHabitantsImmunises;
 				habitantsImmunises += nouveauxHabitantsImmunises;
-				System.out.println("immunisés : " + habitantsImmunises);
+				/*System.out.println("immunisés : " + habitantsImmunises);*/
 			}
 
-			System.out.println("Mortalité :");
+			/*System.out.println("Mortalité :");*/
 			// Mortalité :
 			int nouveauxHabitantsMorts = (int) (habitantsInfectes * mortalite);
 			habitantsInfectes -= nouveauxHabitantsMorts;
 			habitantsMorts += nouveauxHabitantsMorts;
-			System.out.println("morts " + habitantsMorts);
+			/*System.out.println("morts " + habitantsMorts);*/
 		}
 	}
 

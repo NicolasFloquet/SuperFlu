@@ -66,6 +66,7 @@ public class GameLogic implements Cloneable{
 
 	public void updateServeur(long elapsed_time){
 		/* Mise à jour du temps */
+		ArrayList<Transfert> nouvelle_liste = new ArrayList<Transfert>();
 		time += elapsed_time;
 
 		for(Transfert t : transferts){
@@ -85,10 +86,14 @@ public class GameLogic implements Cloneable{
 					arrive.ajouteStockVaccin(stock_vaccin.getVaccin(), stock_vaccin.getStock());
 				}
 
-				/* Le transfert est fini, on le supprime de la liste */
-				transferts.remove(t);
 			}
+			else{
+				nouvelle_liste.add(t);
+			}
+			
 		}
+		transferts.clear();
+		transferts = nouvelle_liste;
 
 		/* Calcul des déplacement de population */	
 		for(Zone zone_origine : carte.getZones()){
@@ -123,18 +128,20 @@ public class GameLogic implements Cloneable{
 						
 						/*Inserer ici une formule magique */
 						flux = (int) ((rand.nextFloat()*TAUX_MIGRATION*ville_origine.getHabitants())/distance); 
-						
+						/*
 						System.out.println("population " + ville_origine.getHabitants() + " flux " + flux);
-						
+						*/
 						
 						/*TODO: Trouver une meilleur formule pour le nombre de migrants infectés*/
 						flux_sain = (int)(taux_sain*flux);
 						flux_infecte = (int)(taux_infection*flux);
 						flux_immunise = (int)(taux_immunisation*flux);
 						
+						/*
 						System.out.println("flux sain " + flux_sain);
 						System.out.println("flux infecte " + flux_infecte);
 						System.out.println("flux immunise " + flux_immunise);
+						*/
 
 						/* Mise à jour de la population saine*/
 						if(ville_origine.getHabitantsSains()>=flux_sain){

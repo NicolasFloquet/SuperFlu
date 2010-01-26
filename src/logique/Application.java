@@ -7,17 +7,21 @@ import java.util.TimerTask;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
+import entities.Stock;
+import entities.StockTraitement;
+import entities.Ville;
+
 import graphics.ScreenManager;
 
 public class Application
 {
 	/* Periode du timer */
-	private final static int TIMER_PERIOD = 1000;
+	private final static int TIMER_PERIOD = 100;
 	
 	private class UpdateTask extends TimerTask {
 		
 		public void run() {
-			game.updateServeur(100);
+		game.updateServeur(1);
 			// TODO : réseau
 		}
 	}
@@ -53,6 +57,11 @@ public class Application
 	public void run(String[] args)
 	{
 		screen.setGameLogic(game);
+		
+		/** TEST **/
+		game.creerTransfert(game.getCarte().getZones().get(0).getVilles().get(0),
+							game.getCarte().getZones().get(0).getVilles().get(1), 
+							null);
 		
 		if (args.length == 3) {
 			screen.setProperties(Integer.valueOf(args[0]), Integer.valueOf(args[1]), Boolean.valueOf(args[2]));
