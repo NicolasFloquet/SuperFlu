@@ -34,8 +34,8 @@ public class ScreenManager {
 	
 	private ScreenManager()
 	{		
-		screen_width = 800;
-		screen_height = 600;
+		screen_width = 1280;
+		screen_height = 800;
 		fullscreen = false;
 		
 		timerTicksPerSecond = Sys.getTimerResolution();
@@ -43,7 +43,7 @@ public class ScreenManager {
 		initialize();
 	}
 	
-	public void setProperties(int height, int width, boolean is_fullscreen)
+	public void setProperties(int width, int height, boolean is_fullscreen)
 	{
 		screen_height = height;
 		screen_width = width;

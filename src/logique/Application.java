@@ -38,6 +38,10 @@ public class Application
 	{
 		screen.setGameLogic(GameLogic.getInstance());
 		
+		if (args.length == 3) {
+			screen.setProperties(Integer.valueOf(args[0]), Integer.valueOf(args[1]), Boolean.valueOf(args[2]));
+		}
+		
 		running = true;
 		while(running)
 		{
