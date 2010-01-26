@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 import entities.*;
 
-public class GameLogic extends TimerTask {
+public class GameLogic extends TimerTask implements Cloneable{
 	/*TODO: Calibrer TAUX_MIGRATION*/
 	private final static float TAUX_MIGRATION = 0.01f;
 
@@ -191,6 +191,11 @@ public class GameLogic extends TimerTask {
 	{
 		mode_serveur = true;
 	}
+	
+	public void setServeur(boolean b)
+	{
+		mode_serveur = b;
+	}
 
 	public boolean isServeur()
 	{
@@ -203,5 +208,14 @@ public class GameLogic extends TimerTask {
 
 	public long getTime(){
 		return time;
+	}
+	
+	public GameLogic clone(){
+		try {
+			return (GameLogic)super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		 return null;
 	}
 }

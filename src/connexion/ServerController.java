@@ -14,8 +14,7 @@ public class ServerController implements ConnexionController {
 
 	public void send(Object o) {
 		if (o instanceof GameLogic) {
-			GameLogic g = ((GameLogic)o).clone();
-			g.setServeur(false);
+			GameLogic g = ((GameLogic) o).clone();
 			ArrayList<Joueur> jList = g.getJoueurs();
 			
 			//mettre a null tous les sockets car il ne sont pas serializables, et on n'a pas besoin
