@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import logique.GameLogic;
+
 import org.lwjgl.opengl.Display;
 
 import graphics.ScreenManager;
@@ -28,9 +30,7 @@ public class Application
 		ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
 		ArrayList<Transfert> transferts = new ArrayList<Transfert>();
 
-		screen.setCarte(carte);
-		screen.setJoueurs(joueurs);
-		screen.setTransferts(transferts);
+		screen.setGameLogic(GameLogic.getInstance());
 		
 		while(!Display.isCloseRequested())
 		{

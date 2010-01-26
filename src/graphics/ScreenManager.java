@@ -1,7 +1,8 @@
 package graphics;
 
 import entities.*;
-import java.util.ArrayList; 
+
+import logique.GameLogic;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
@@ -29,9 +30,7 @@ public class ScreenManager {
 	
 	private String WINDOW_TITLE = "4GI_flu";
 	
-	private Carte carte;
-	private ArrayList<Joueur> joueurs;
-	private ArrayList<Transfert> transferts;
+	private GameLogic gameLogic = null;
 	
 	private ScreenManager()
 	{
@@ -103,14 +102,14 @@ public class ScreenManager {
 			fps = 0;
 		}
 		
-		carte.draw(0, 0, screen_height, screen_width);
+		gameLogic.getCarte().draw(0, 0, screen_height, screen_width);
 				
-		for(Joueur joueur : joueurs)
+		for(Joueur joueur : gameLogic.getJoueurs())
 		{
 			joueur.draw(0,0,1,1);
 		}
 		
-		for(Transfert transfert : transferts)
+		for(Transfert transfert : gameLogic.getTransferts())
 		{
 			transfert.draw(0, 0, screen_height, screen_width);
 		}
@@ -191,19 +190,8 @@ public class ScreenManager {
 		return false;
 	}
 	  
-	public void setCarte(Carte carte)
-	{
-		this.carte = carte;
-	}
-	
-	public void setJoueurs(ArrayList<Joueur> joueurs)
-	{
-		this.joueurs = joueurs;
-	}
-	
-	public void setTransferts(ArrayList<Transfert> transferts)
-	{
-		this.transferts = transferts;
+	public void setGameLogic(GameLogic gameLogic) {
+		this.gameLogic = gameLogic; 
 	}
 	
 }
