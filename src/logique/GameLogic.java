@@ -2,7 +2,6 @@ package logique;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
 import java.util.TimerTask;
 
 import entities.*;
@@ -10,7 +9,6 @@ import entities.*;
 public class GameLogic extends TimerTask {
 	/*TODO: Calibrer TAUX_MIGRATION*/
 	private final static float TAUX_MIGRATION = 0.01f;
-	private final static int TIMER_PERIOD = 200;
 	private static GameLogic instance = null;
 
 	private Random rand = new Random(); 
@@ -24,7 +22,6 @@ public class GameLogic extends TimerTask {
 	/* Variables liées au timer */
 	private long time;
 	private int time_unit;
-	private Timer timer;
 
 	private GameLogic() {
 		joueurs = new ArrayList<Joueur>();
@@ -33,8 +30,6 @@ public class GameLogic extends TimerTask {
 
 		time = 0;
 		time_unit = 100;
-		timer = new Timer();
-		timer.scheduleAtFixedRate(this, 0, TIMER_PERIOD);
 	}	
 
 	public static GameLogic getInstance(){
@@ -45,15 +40,12 @@ public class GameLogic extends TimerTask {
 	}
 
 	public void run() {
-		if(!Application.getInstance().isRunning()) {
-			timer.cancel();
-		}
-		else {
-			if (mode_serveur)
-				updateServeur(time_unit);
-			else
-				updateClient(time_unit);
-		}
+
+		if (mode_serveur)
+			updateServeur(time_unit);
+		else
+			updateClient(time_unit);
+
 	}
 
 	public void creerEpidemie()

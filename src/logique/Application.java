@@ -1,5 +1,7 @@
 package logique;
 import java.awt.im.InputContext;
+import java.util.Timer;
+
 import java.util.ArrayList;
 
 
@@ -11,17 +13,23 @@ import entities.*;
 
 public class Application
 {
+	/* Periode du timer */
+	private final static int TIMER_PERIOD = 200;
+	
 	private static Application instance = new Application(); 
 	private ScreenManager screen;
 	private GameLogic game;
 	
 	private boolean running;
+	private Timer timer;
 	
 	private Application()
 	{
 		screen = ScreenManager.getInstance();
 		game = GameLogic.getInstance();
 		running = false;
+		timer = new Timer();
+		timer.scheduleAtFixedRate(game, 0, TIMER_PERIOD);
 	}
 	
 	public static Application getInstance()
@@ -52,6 +60,8 @@ public class Application
 				running = false;
 			}
 		}
+		timer.cancel();
+
 	}
 	
 	public GameLogic getGame() {
@@ -60,6 +70,7 @@ public class Application
 
 	public void setGame(GameLogic game) {
 		this.game = game;
+		this.timer.scheduleAtFixedRate(this.game, 0, TIMER_PERIOD);
 	}
 	
 }
