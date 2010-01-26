@@ -103,7 +103,7 @@ public class ScreenManager {
 		}
 		
 		gameLogic.getCarte().draw(0, 0, screen_height, screen_width);
-				
+		
 		for(Joueur joueur : gameLogic.getJoueurs())
 		{
 			joueur.draw(0,0,1,1);
