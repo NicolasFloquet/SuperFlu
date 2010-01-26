@@ -2,6 +2,7 @@ package logique;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
 import java.util.TimerTask;
 
 import entities.*;
@@ -11,6 +12,7 @@ import entities.*;
 public class GameLogic extends TimerTask {
 	/*TODO: Calibrer TAUX_MIGRATION*/
 	private final static float TAUX_MIGRATION = 0.01f;
+	private final static int TIMER_PERIOD = 200;
 	private static GameLogic instance = null;
 	
 	private Random rand = new Random(); 
@@ -20,23 +22,37 @@ public class GameLogic extends TimerTask {
 	private ArrayList<Transfert> transferts;	// Liste des transferts en cours
 	private ArrayList<Virus> virus;
 	private Carte carte;
+	
+	/* Variables liées au timer */
 	private long time;
 	private int time_unit;
+	private Timer timer;
 	
 	
-	private GameLogic(){
-		this.joueurs = new ArrayList<Joueur>();
-		this.transferts = new ArrayList<Transfert>();
-		this.carte = new Carte();
-		this.time = 0;
-		this.time_unit = 10;
+	
+	private GameLogic() {
+		joueurs = new ArrayList<Joueur>();
+		transferts = new ArrayList<Transfert>();
+		carte = new Carte();
+		
+		time = 0;
+		time_unit = 100;
+		timer = new Timer();
+		timer.scheduleAtFixedRate(this, 0, TIMER_PERIOD);
 	}	
 	
 	public static GameLogic getInstance(){
-		if(instance == null){
+		if (instance == null) {
 			instance = new GameLogic();
 		}
 		return instance;
+	}
+	
+	public void run() {
+		if (mode_serveur)
+			updateServeur(time_unit);
+		else
+			updateClient(time_unit);
 	}
 	
 	public void creerEpidemie()
@@ -163,7 +179,7 @@ public class GameLogic extends TimerTask {
 		}
 	}
 	
-	public void updateClient(long elapsed_time){
+	public void updateClient(long elapsed_time) {
 		
 	}
 	
@@ -200,8 +216,4 @@ public class GameLogic extends TimerTask {
 		return carte;
 	}
 	
-	@Override
-	public void run() {
-		updateServeur(time_unit);
-	}
 }
