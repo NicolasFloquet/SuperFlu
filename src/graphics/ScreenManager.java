@@ -165,7 +165,7 @@ public class ScreenManager {
 	}
 	
 	public int getOrigineCarteY() {
-		return screen_width/2 - 544/2; // XXX: en dur :/
+		return screen_height/2 - 544/2; // XXX: en dur :/
 	}
 	
 	/**
