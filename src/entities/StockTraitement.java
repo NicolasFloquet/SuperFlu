@@ -16,8 +16,4 @@ public class StockTraitement extends Stock {
 	public Traitement getTraitement() {
 		return traitement;
 	}
-	
-	public void utiliseTraitement(int n) {
-		stock -= n;
-	}
 }

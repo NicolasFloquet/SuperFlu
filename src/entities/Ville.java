@@ -115,7 +115,7 @@ public class Ville implements graphics.Drawable {
 	 */
 	public void update() {
 		float transmission = 1.2f;
-		float perteImmunite = 0.1f;
+		float perteImmunite = 0.01f;
 		float mortalite = 0.01f;
 		
 		// Infection :
@@ -123,16 +123,22 @@ public class Ville implements graphics.Drawable {
 		habitantsSains -= nouveauxHabitantsInfectes;
 		habitantsInfectes += nouveauxHabitantsInfectes;
 		
-		// Utilisation des traitements
-		if (habitantsInfectes >= stocksTraitements.get(0).getStock()) {
+		// Utilisation des traitements :
+		if (habitantsInfectes > stocksTraitements.get(0).getStock()) {
 			habitantsInfectes -= stocksTraitements.get(0).getStock();
-			stocksTraitements.get(0).utiliseTraitement(stocksTraitements.get(0).getStock());
+			stocksTraitements.get(0).utilise(stocksTraitements.get(0).getStock());
 		} else {
-			stocksTraitements.get(0).utiliseTraitement(habitantsInfectes);
+			stocksTraitements.get(0).utilise(habitantsInfectes);
 		}
 		
 		// Perte immunité :
 		habitantsImmunises -= (int) (habitantsImmunises * perteImmunite);
+		
+		// Utilisation des vaccins (sur les personnes saines) :
+		int nouveauxHabitantsImmunises = Math.min(habitantsSains, stocksVaccins.get(0).getStock());
+		stocksVaccins.get(0).utilise(nouveauxHabitantsImmunises);
+		habitantsSains -= nouveauxHabitantsImmunises;
+		habitantsImmunises += nouveauxHabitantsImmunises;
 		
 		// Mortalité :
 		int nouveauxHabitantsMorts = (int) (habitantsInfectes * mortalite);

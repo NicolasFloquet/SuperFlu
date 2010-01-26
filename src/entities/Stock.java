@@ -29,4 +29,9 @@ public abstract class Stock {
 		
 		return reste;
 	}
+	
+	
+	public void utilise(int n) {
+		stock -= n;
+	}
 }
