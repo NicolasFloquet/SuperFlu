@@ -12,7 +12,7 @@ import graphics.ScreenManager;
 public class Application
 {
 	/* Periode du timer */
-	private final static int TIMER_PERIOD = 200;
+	private final static int TIMER_PERIOD = 1000;
 	
 	private class UpdateTask extends TimerTask {
 		

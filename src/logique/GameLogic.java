@@ -53,7 +53,10 @@ public class GameLogic implements Cloneable{
 		}
 
 		/* Choisir le point de départ de l'épidemie aléatoirement */
+		do{
 		rand_zone = carte.getZones().get(rand.nextInt(carte.getZones().size()));
+		}while(rand_zone.getVilles().size()==0);
+		
 		rand_ville = rand_zone.getVilles().get(rand.nextInt(rand_zone.getVilles().size()));
 		rand_ville.ajouteHabitantsInfectes((int)(rand_ville.getHabitants()*0.001));
 
