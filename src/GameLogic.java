@@ -8,7 +8,6 @@ import entities.*;
 public class GameLogic {
 	/*TODO: Calibrer TAUX_MIGRATION*/
 	private final static float TAUX_MIGRATION = 1000.0f; 
-	
 	private static Random rand; 
 	
 	private static GameLogic instance = null;
@@ -16,12 +15,14 @@ public class GameLogic {
 	private ArrayList<Joueur> joueurs;			// Liste des joueurs de la partie
 	private ArrayList<Transfert> transferts;	// Liste des transferts en cours
 	private Carte carte;
+	private long time;
 	
 	
 	private GameLogic(){
 		rand = new Random();
 		joueurs = new ArrayList<Joueur>();
-		transferts = new ArrayList<Transfert>();	
+		transferts = new ArrayList<Transfert>();
+		time = 0;
 	}	
 	
 	public static GameLogic getInstance(){
@@ -31,9 +32,31 @@ public class GameLogic {
 		return instance;
 	}
 	
-	public void Update(){
+	public void Update(long elapsed_time){
 		/* Mise à jour du temps */
+		time += elapsed_time;
 		
+		for(Transfert t : transferts){
+
+			/* Si le temps est écoulé, le transfert est fini, et on ajoute son contenu à la ville destinataire */
+			if(time>t.getTemps_arrivee()){
+				
+				Ville arrive = t.getArrivee();
+				
+				if(t.getStock() instanceof StockTraitement){
+					StockTraitement stock_traitement = (StockTraitement) t.getStock();
+					arrive.ajouteStockTraitement(stock_traitement.getTraitement(), stock_traitement.getStock());
+				}
+				
+				else if(t.getStock() instanceof StockVaccin){
+					StockVaccin stock_vaccin = (StockVaccin) t.getStock();
+					arrive.ajouteStockVaccin(stock_vaccin.getVaccin(), stock_vaccin.getStock());
+				}
+				
+				/* Le transfert est fini, on le supprime de la liste */
+				transferts.remove(t);
+			}
+		}
 		
 		/* Calcul des déplacement de population */
 		
@@ -98,9 +121,6 @@ public class GameLogic {
 				
 			}
 		}
-		
-		// Mise à jour des stocks
-		
 		
 	}
 
