@@ -10,6 +10,7 @@ import java.util.Random;
  */
 public class Ville implements graphics.Drawable {
 
+	private String nom;
 	private int x;
 	private int y;
 	private int habitantsSains;
@@ -20,14 +21,15 @@ public class Ville implements graphics.Drawable {
 	private ArrayList<StockVaccin> stocksVaccins;
 	private ArrayList<StockTraitement> stocksTraitements;
 	
-	public Ville(int x, int y, int habitants_infectes, int habitants_immunises) {
+	public Ville(String nom, int x, int y) {
 		Random r = new Random();
 		
+		this.nom = nom;
 		this.x = x;
 		this.y = y;
 		this.habitantsSains = 1000000 + r.nextInt(500000) - 250000;
-		this.habitantsInfectes = habitants_infectes;
-		this.habitantsImmunises = habitants_immunises;
+		this.habitantsInfectes = 0;
+		this.habitantsImmunises = 0;
 		this.habitantsMorts = 0;
 	}
 	
@@ -65,6 +67,9 @@ public class Ville implements graphics.Drawable {
 		}
 	}
 	
+	public String getNom() {
+		return nom;
+	}
 	
 	public int getHabitants() {
 		return habitantsSains + habitantsImmunises + habitantsInfectes;

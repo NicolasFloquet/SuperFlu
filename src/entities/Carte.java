@@ -10,6 +10,15 @@ public class Carte implements graphics.Drawable {
 
 	private ArrayList<Zone> zones = new ArrayList<Zone>();
 	
+	public Carte() {
+		zones.add(new Zone(1));
+		zones.add(new Zone(2));
+		zones.add(new Zone(3));
+		zones.add(new Zone(4));
+		zones.add(new Zone(5));
+		zones.add(new Zone(6));
+	}
+	
 	@Override
 	public void draw(int x, int y, int height, int width) {
 				
