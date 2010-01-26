@@ -200,10 +200,6 @@ public class GameLogic extends TimerTask {
 		return carte;
 	}
 	
-	pu
-	
-	
-
 	@Override
 	public void run() {
 		updateServeur(time_unit);
