@@ -49,4 +49,8 @@ public class Application
 			}
 		}
 	}
+	
+	public GameLogic getGame() {
+		return game;
+	}
 }
