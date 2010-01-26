@@ -1,5 +1,8 @@
 package entities;
 
+import graphics.ScreenManager;
+import graphics.Sprite;
+
 import java.util.ArrayList;
 
 /**
@@ -40,5 +43,12 @@ public class Usine extends Ville {
 	
 	public void ajouteTraitement(Traitement traitement) {
 		traitements.add(traitement);
+	}
+	
+	@Override
+	public void draw(int x, int y, int height, int width) {
+		Sprite usine = ScreenManager.getSprite("usine.png");
+		//TODO relatif à la carte
+		usine.draw(this.getX(), this.getY());
 	}
 }

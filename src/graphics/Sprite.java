@@ -65,7 +65,12 @@ public class Sprite{
 	 * 
 	 * @param x The x location at which to draw this sprite
 	 * @param y The y location at which to draw this sprite
+	 * @param angle l'angle
 	 */
+	public void draw(int x, int y) {
+		draw(x,y,0);
+	}
+	
 	public void draw(int x, int y, float angle) {
 		// store the current model matrix
 		GL11.glPushMatrix();

@@ -28,7 +28,7 @@ public class Carte implements graphics.Drawable {
 	public void draw(int x, int y, int height, int width)
 	{
 		Sprite map = ScreenManager.getSprite("test.png");
-		map.draw(x+(width/2), y+(height/2), 0);
+		map.draw(x+(width/2), y+(height/2));
 	}
 
 	public ArrayList<Zone> getZones() {
