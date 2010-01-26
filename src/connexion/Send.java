@@ -5,12 +5,13 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 import entities.Joueur;
 
 public class Send {
 
-	public void sendData(Object o, ArrayList<Joueur> jList) {
+	public void sendData(Object o, List<Joueur> jList) {
 		ObjectOutputStream ooStream;
 		OutputStream oStream;
 		try {
