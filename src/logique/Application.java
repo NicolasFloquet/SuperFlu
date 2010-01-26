@@ -23,10 +23,12 @@ public class Application
 	private boolean running;
 	private Timer timer;
 	
+	
+	
 	private Application()
 	{
 		screen = ScreenManager.getInstance();
-		game = GameLogic.getInstance();
+		game = new GameLogic();
 		running = false;
 		timer = new Timer();
 		timer.scheduleAtFixedRate(game, 0, TIMER_PERIOD);
@@ -44,7 +46,7 @@ public class Application
 	
 	public void run(String[] args)
 	{
-		screen.setGameLogic(GameLogic.getInstance());
+		screen.setGameLogic(game);
 		
 		if (args.length == 3) {
 			screen.setProperties(Integer.valueOf(args[0]), Integer.valueOf(args[1]), Boolean.valueOf(args[2]));

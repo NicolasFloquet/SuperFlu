@@ -9,7 +9,6 @@ import entities.*;
 public class GameLogic extends TimerTask {
 	/*TODO: Calibrer TAUX_MIGRATION*/
 	private final static float TAUX_MIGRATION = 0.01f;
-	private static GameLogic instance = null;
 
 	private Random rand = new Random(); 
 	private boolean mode_serveur = false;
@@ -23,7 +22,7 @@ public class GameLogic extends TimerTask {
 	private long time;
 	private int time_unit;
 
-	private GameLogic() {
+	public GameLogic() {
 		joueurs = new ArrayList<Joueur>();
 		transferts = new ArrayList<Transfert>();
 		carte = new Carte();
@@ -31,13 +30,6 @@ public class GameLogic extends TimerTask {
 		time = 0;
 		time_unit = 100;
 	}	
-
-	public static GameLogic getInstance(){
-		if (instance == null) {
-			instance = new GameLogic();
-		}
-		return instance;
-	}
 
 	public void run() {
 
