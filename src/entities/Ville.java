@@ -121,6 +121,10 @@ public class Ville implements graphics.Drawable, Serializable {
 	public int getHabitantsInfectes() {
 		return habitantsInfectes;
 	}
+	
+	public int getHabitantsMorts() {
+		return habitantsMorts;
+	}
 
 	public void ajouteHabitantsInfectes(int habitantsInfectes) {
 		this.habitantsInfectes += habitantsInfectes;
@@ -235,11 +239,12 @@ public class Ville implements graphics.Drawable, Serializable {
 		if (PlayerManager.getInstance().getTargetedVille() == this) {
 			// Affichage info
 			int encart_pos_y = ScreenManager.getInstance().getOrigineEncartY() + 15;
-			new Texte(nom).draw(10, encart_pos_y + 10);
-			new Texte("Population Totale " + getHabitants()).draw(10, encart_pos_y + 20);
-			new Texte("Population Saine " + getHabitantsSains()).draw(10, encart_pos_y + 40);
-			new Texte("Population Malade " + getHabitantsInfectes()).draw(10, encart_pos_y + 40);
-			new Texte("Population Immunisée " + getHabitantsImmunises()).draw(10, encart_pos_y + 60);
+			new Texte(nom).draw(10, encart_pos_y + 20);
+			new Texte("Population Totale " + getHabitants()).draw(10, encart_pos_y + 40);
+			new Texte("Population Saine " + getHabitantsSains()).draw(10, encart_pos_y + 60);
+			new Texte("Population Malade " + getHabitantsInfectes()).draw(10, encart_pos_y + 80);
+			new Texte("Population Immunisée " + getHabitantsImmunises()).draw(10, encart_pos_y + 100);
+			new Texte("Mort " + getHabitantsMorts()).draw(10, encart_pos_y + 120);
 		}
 		
 		
