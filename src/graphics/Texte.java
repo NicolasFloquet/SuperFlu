@@ -7,6 +7,10 @@ public class Texte {
 	private List<Sprite> sprites;
 
 	public Texte(String chaine) {
+		this(chaine, 0, 0, 0);
+	}
+	
+	public Texte(String chaine, float red, float green, float blue) {
 		sprites = new ArrayList<Sprite>();
 
 		for (int i = 0; i < chaine.length(); i++) {
