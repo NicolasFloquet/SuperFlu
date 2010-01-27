@@ -91,6 +91,7 @@ public class GameLogic implements Cloneable, Serializable{
 				}
 
 				it.remove();
+				System.out.println("Transfert fini.");
 			}
 		}
 

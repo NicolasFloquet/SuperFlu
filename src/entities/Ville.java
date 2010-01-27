@@ -202,4 +202,12 @@ public class Ville implements graphics.Drawable, Serializable {
 			ville.draw(x + ScreenManager.getInstance().getOrigineCarteX(), y + ScreenManager.getInstance().getOrigineCarteY());
 	}
 
+	public ArrayList<StockVaccin> getStocksVaccins() {
+		return stocksVaccins;
+	}
+
+	public ArrayList<StockTraitement> getStocksTraitements() {
+		return stocksTraitements;
+	}
+
 }
