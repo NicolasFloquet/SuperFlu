@@ -181,11 +181,11 @@ public class GameLogic implements Cloneable, Serializable{
 	}
 
 	public synchronized void creerTransfert(Ville depart, Ville arrivee, Stock stock){
-		if (!isServeur()) {
+		//if (!isServeur()) {
 			transferts.add(new Transfert(this, depart, arrivee, stock, time));
-		} else {
-			System.out.println("T'es serveur, tu peux pas test.");
-		}
+		//} else {
+		//	System.out.println("T'es serveur, tu peux pas test.");
+		//}
 	}
 
 	public synchronized List<Transfert> getTransferts()
