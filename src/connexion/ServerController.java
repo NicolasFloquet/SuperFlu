@@ -21,7 +21,7 @@ public class ServerController implements ConnexionController {
 				jList.get(i).setSocket(null);
 			}
 			
-			new Send().sendData(g, jList);
+			Send.sendData(g, jList);
 		}
 	}
 

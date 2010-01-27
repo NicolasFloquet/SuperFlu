@@ -4,19 +4,19 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 
 import entities.Joueur;
 
-public class Send {
+public abstract class Send {
 
-	public void sendData(Object o, List<Joueur> jList) {
+	public static void sendData(Object o, List<Joueur> jList) {
 		ObjectOutputStream ooStream;
 		OutputStream oStream;
 		try {
-			for (int i = 0; i < jList.size(); i++) {
-				oStream = jList.get(i).getSocket().getOutputStream();
+			for (Joueur joueur : jList) {
+				System.out.println(joueur);
+				oStream = joueur.getSocket().getOutputStream();
 				ooStream = new ObjectOutputStream(oStream);
 				ooStream.writeObject(o);
 			}
@@ -26,7 +26,7 @@ public class Send {
 		}
 	}
 
-	public void sendData(Object o, Socket s) {
+	public static void sendData(Object o, Socket s) {
 		ObjectOutputStream ooStream;
 		OutputStream oStream;
 		try {

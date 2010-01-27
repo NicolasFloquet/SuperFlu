@@ -14,7 +14,6 @@ public class ThreadClient extends Thread {
 	}
 
 	public void run() {
-
 		// reception de client
 		Application a = Application.getInstance();
 		Receive rec = new Receive(s);

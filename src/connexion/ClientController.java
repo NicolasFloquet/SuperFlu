@@ -15,7 +15,7 @@ public class ClientController implements ConnexionController {
 
 	public void send(Object o) {
 		if (o instanceof Transfert) {
-			new Send().sendData(o, s);
+			Send.sendData(o, s);
 		}
 	}
 }

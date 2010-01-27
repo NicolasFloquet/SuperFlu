@@ -2,13 +2,13 @@ package graphics;
 
 import entities.*;
 
-import logique.GameLogic;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+
+import logique.Application;
 
 public class ScreenManager {
 	static ScreenManager instance = new ScreenManager();
@@ -29,7 +29,6 @@ public class ScreenManager {
 	
 	private String WINDOW_TITLE = "4GI_flu";
 	
-	private GameLogic gameLogic = null;
 	private Sprite map = null;
 	
 	private ScreenManager()
@@ -110,14 +109,14 @@ public class ScreenManager {
 			fps = 0;
 		}
 		
-		gameLogic.getCarte().draw();
+		Application.getInstance().getGame().getCarte().draw();
 		
-		for(Joueur joueur : gameLogic.getJoueurs())
+		for(Joueur joueur : Application.getInstance().getGame().getJoueurs())
 		{
 			joueur.draw();
 		}
 		
-		for(Transfert transfert : gameLogic.getTransferts())
+		for(Transfert transfert : Application.getInstance().getGame().getTransferts())
 		{
 			transfert.draw();
 		}
@@ -204,10 +203,6 @@ public class ScreenManager {
 		}
 		
 		return false;
-	}
-	  
-	public void setGameLogic(GameLogic gameLogic) {
-		this.gameLogic = gameLogic; 
 	}
 
 	public int getScreenHeight() {
