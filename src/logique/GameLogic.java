@@ -11,7 +11,7 @@ import entities.*;
 
 public class GameLogic implements Cloneable, Serializable{
 	/*TODO: Calibrer TAUX_MIGRATION*/
-	private final static float TAUX_MIGRATION = 0.02f;
+	private final static float TAUX_MIGRATION = 0.1f;
 
 	private Random rand = new Random(); 
 
@@ -154,7 +154,7 @@ public class GameLogic implements Cloneable, Serializable{
 						 */
 
 						/*Inserer ici une formule magique */
-						flux = (int) ((rand.nextFloat()*TAUX_MIGRATION*ville_origine.getHabitants())/(distance)); 
+						flux = (int) ((rand.nextFloat()*TAUX_MIGRATION*ville_origine.getHabitants())/(distance + getMortsTotal())); 
 
 						/*TODO: Trouver une meilleur formule pour le nombre de migrants infectés*/
 						flux_sain = (int)(taux_sain*flux);
