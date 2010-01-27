@@ -11,7 +11,7 @@ import entities.*;
 
 public class GameLogic implements Cloneable, Serializable{
 	/*TODO: Calibrer TAUX_MIGRATION*/
-	private final static float TAUX_MIGRATION = 0.01f;
+	private final static float TAUX_MIGRATION = 0.0001f;
 
 	private Random rand = new Random(); 
 
@@ -70,9 +70,6 @@ public class GameLogic implements Cloneable, Serializable{
 	public synchronized void updateServeur(long elapsed_time){
 		/* Mise à jour du temps */
 		time += elapsed_time;
-
-		// Gestion des inputs
-		PlayerManager.getInstance().update();
 		
 		Iterator<Transfert> it = transferts.iterator();
 		while (it.hasNext()) {

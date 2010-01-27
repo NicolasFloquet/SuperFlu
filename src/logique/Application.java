@@ -81,6 +81,9 @@ public class Application
 		while(running)
 		{
 			screen.draw();
+			
+			// Gestion des inputs
+			PlayerManager.getInstance().update();
 
 			if((Display.isCloseRequested()) || (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)))
 			{
