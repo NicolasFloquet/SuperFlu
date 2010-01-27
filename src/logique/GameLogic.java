@@ -1,5 +1,6 @@
 package logique;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -9,7 +10,7 @@ import java.util.Random;
 
 import entities.*;
 
-public class GameLogic implements Cloneable{
+public class GameLogic implements Cloneable, Serializable{
 	/*TODO: Calibrer TAUX_MIGRATION*/
 	private final static float TAUX_MIGRATION = 0.01f;
 
