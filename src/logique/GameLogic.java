@@ -213,8 +213,9 @@ public class GameLogic implements Cloneable, Serializable{
 			else if (stock instanceof StockTraitement) {
 				depart.retireStockTraitement(((StockTraitement) stock).getTraitement(), stock.getStock());
 			}
-			transferts.add(new Transfert(depart, arrivee, stock, time));
-			Application.getInstance().sendTransfert(transferts.get(transferts.size()-1));
+			Transfert transport = new Transfert(depart, arrivee, stock, time);
+			transferts.add(transport);
+			Application.getInstance().sendTransfert(transport);
 		} else {
 			
 			if(stock instanceof StockVaccin) {
