@@ -62,6 +62,7 @@ public class Receive extends Thread {
 			oiStream = new ObjectInputStream(iStream);
 			o = oiStream.readObject();
 		} catch (IOException e) {
+			System.err.println("error:");
 			e.printStackTrace();
 			System.exit(1);
 		} catch (ClassNotFoundException e) {

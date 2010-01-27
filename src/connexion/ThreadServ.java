@@ -31,6 +31,8 @@ public class ThreadServ extends Thread {
 			o = rec.getDataBlock();// reception des donnees blocante
 			if (o instanceof Transfert) {
 				// ajouter le transfert
+				System.out.println("ajouter transfert");
+				a.getGame().creerTransfert(((Transfert) o).getDepart(), ((Transfert) o).getArrivee(), ((Transfert) o).getStock());
 				a.getGame().getTransferts().add((Transfert) o);
 			}
 		}
