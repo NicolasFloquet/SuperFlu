@@ -208,9 +208,18 @@ public class GameLogic implements Cloneable, Serializable{
 			}
 			transferts.add(new Transfert(this, depart, arrivee, stock, time));
 			Application.getInstance().sendTransfert(transferts.get(transferts.size()-1));
-		} //else {
-		//	System.out.println("T'es serveur, tu peux pas test.");
-		//}
+		} else {
+			
+			if(stock instanceof StockVaccin) {
+				depart.retireStockVaccin(((StockVaccin) stock).getVaccin(), stock.getStock());
+			}
+			else if (stock instanceof StockTraitement) {
+				depart.retireStockTraitement(((StockTraitement) stock).getTraitement(), stock.getStock());
+			}
+			transferts.add(new Transfert(this, depart, arrivee, stock, time));
+			Application.getInstance().sendTransfert(transferts.get(transferts.size()-1));
+			
+		}
 	}
 
 	public synchronized List<Transfert> getTransferts()
