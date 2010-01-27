@@ -20,7 +20,8 @@ public class PlayerManager {
 	public void update() {
 		if(Mouse.isButtonDown(0)) {
 			if(selected == null) {
-				selected = getTargetedVille(); 
+				selected = getTargetedVille();
+				System.out.println(selected);
 			}
 			
 			pourcentage += Mouse.getDWheel()/15;
