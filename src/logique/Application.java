@@ -8,8 +8,11 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import connexion.ClientController;
+import connexion.ConnexionController;
 import connexion.ServerController;
 import entities.Joueur;
+import entities.Transfert;
+import entities.Zone;
 
 import graphics.ScreenManager;
 
@@ -23,7 +26,7 @@ public class Application
 		public void run() {
 			if (isServer) {
 				game.updateServeur(1);
-				//serverController.send(game);
+				c.send(game);
 			}
 		}
 	}
@@ -36,8 +39,8 @@ public class Application
 	private boolean isServer = true;
 	private boolean running;
 	private Timer timer;
-	private ServerController serverController;	
-	private ClientController clientController;
+	private ConnexionController c;
+
 
 	private Application()
 	{
@@ -68,13 +71,13 @@ public class Application
 		}
 		
 		if (isServer) {
-			serverController = new ServerController();
-			//serverController.connect();
+			c = new ServerController();
+			c.connect();
 			timer = new Timer();
 			timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD);
 		} else {
-			clientController = new ClientController();
-			clientController.connect();
+			c = new ClientController();
+			c.connect();
 		}
 
 		running = true;
@@ -116,4 +119,11 @@ public class Application
 		return joueur;
 	}
 
+	public void sendTransfert(Transfert t){
+		c.send(t);
+	}
+	
+	public Zone getNextZone(){
+		return game.getCarte().getZones().get(game.getJoueurs().size());
+	}
 }
