@@ -58,11 +58,12 @@ public class GameLogic implements Cloneable, Serializable{
 		}
 
 		/* Choisir le point de départ de l'épidemie aléatoirement */
-		do{
 		rand_zone = carte.getZones().get(rand.nextInt(carte.getZones().size()));
-		}while(rand_zone.getVilles().size()==0);
 		
-		rand_ville = rand_zone.getVilles().get(rand.nextInt(rand_zone.getVilles().size()));
+		do {
+			rand_ville = rand_zone.getVilles().get(rand.nextInt(rand_zone.getVilles().size()));
+		} while (rand_ville == rand_zone.getUsine());
+		
 		//rand_ville.ajouteHabitantsInfectes((int)(rand_ville.getHabitants()*0.01));
 		rand_ville.ajouteHabitantsInfectes(1000);
 
@@ -72,7 +73,7 @@ public class GameLogic implements Cloneable, Serializable{
 
 	public synchronized void updateServeur(long elapsed_time){
 		/* Mise à jour du temps */
-		time += elapsed_time;
+		time += elapsed_time * 10;
 		
 		Iterator<Transfert> it = transferts.iterator();
 		while (it.hasNext()) {
@@ -137,7 +138,7 @@ public class GameLogic implements Cloneable, Serializable{
 						/*Inserer ici une formule magique */
 						flux = (int) ((rand.nextFloat()*TAUX_MIGRATION*ville_origine.getHabitants())/(distance)); 
 						
-						System.out.println(ville_origine.getNom()+" => " + flux + ":" + distance);
+						//System.out.println(ville_origine.getNom()+" => " + flux + ":" + distance);
 						
 						
 						
