@@ -27,6 +27,9 @@ public class Carte implements graphics.Drawable, Serializable {
 	public void draw()
 	{		
 		Sprite map = ScreenManager.getInstance().getMap();
+		Sprite fond_map = ScreenManager.getSprite("fond_carte.png");
+		
+		fond_map.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2);
 		map.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2);
 		
 		for(Zone zone : zones)

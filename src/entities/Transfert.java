@@ -56,6 +56,7 @@ public class Transfert implements graphics.Drawable,Serializable {
 		Sprite sprite = ScreenManager.getSprite("avion.png");
 		double angle = (180/Math.PI) * Math.atan2(arrivee.getY() - depart.getY(), arrivee.getX() - depart.getX());
 		double avancement = ((double)(gameLogic.getTime() - temps_depart)) / ((double)(temps_arrivee - temps_depart));
-		sprite.draw((int)(depart.getX()*(1 - avancement) + arrivee.getX()*avancement) + ScreenManager.getInstance().getOrigineCarteX(), (int)(depart.getY()*(1 - avancement) + arrivee.getY()*avancement)  + ScreenManager.getInstance().getOrigineCarteY(), (float)angle);
+		float zoom = 0.25f + 0.75f*(float)Math.sin(avancement*Math.PI);
+		sprite.draw((int)(depart.getX()*(1 - avancement) + arrivee.getX()*avancement) + ScreenManager.getInstance().getOrigineCarteX(), (int)(depart.getY()*(1 - avancement) + arrivee.getY()*avancement)  + ScreenManager.getInstance().getOrigineCarteY(), (float)angle, zoom);
 	}
 }
