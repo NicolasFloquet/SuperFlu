@@ -115,6 +115,18 @@ public class ScreenManager {
 			fps = 0;
 		}
 		
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+    	GL11.glColor3f(1,1,1);
+    	GL11.glBegin(GL11.GL_QUADS);
+		{
+	      GL11.glVertex2f(0,0);
+	      GL11.glVertex2f(screen_width,0);
+	      GL11.glVertex2f(screen_width,screen_height);
+	      GL11.glVertex2f(0,screen_height);
+		}
+		GL11.glEnd();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		
 		Application.getInstance().getGame().getCarte().draw();
 		
 		for(Joueur joueur : Application.getInstance().getGame().getJoueurs())
@@ -250,6 +262,10 @@ public class ScreenManager {
 	
 	public int getOrigineCarteY() {
 		return 0;
+	}
+	
+	public int getEncartHeight() {
+		return screen_height-map.getHeight();
 	}
 	
 	/**
