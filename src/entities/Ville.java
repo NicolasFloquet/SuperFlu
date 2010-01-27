@@ -267,4 +267,12 @@ public class Ville implements graphics.Drawable, Serializable {
 	public Zone getZone() {
 		return zone;
 	}
+
+	@Override
+	public String toString() {
+		return nom+":\n"
+		           +"-Sains = "+this.habitantsSains+"\n"
+		           +"-Malades ="+this.habitantsInfectes+"\n"
+		           +"-Morts = "+this.habitantsMorts+"\n";
+	}
 }
