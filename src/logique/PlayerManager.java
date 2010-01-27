@@ -65,6 +65,10 @@ public class PlayerManager {
 	public Ville getTargetedVille()
 	{
 		for(Zone  z : Application.getInstance().getGame().getCarte().getZones()) {
+			if(z.getUsine().isOnCity(Mouse.getX()-ScreenManager.getInstance().getOrigineCarteX(),
+					ScreenManager.getInstance().getScreenHeight() - Mouse.getY())) {
+				return z.getUsine();
+			}
 			for(Ville v : z.getVilles()) {
 				if(v.isOnCity(Mouse.getX()-ScreenManager.getInstance().getOrigineCarteX(),
 						ScreenManager.getInstance().getScreenHeight() - Mouse.getY())) {
