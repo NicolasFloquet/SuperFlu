@@ -6,11 +6,16 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.List;
 
+import logique.GameLogic;
+
 import entities.Joueur;
 
 public abstract class Send {
 
 	public static void sendData(Object o, List<Joueur> jList) {
+		
+		TestConnexion.ecrire((GameLogic)o);
+		
 		ObjectOutputStream ooStream;
 		OutputStream oStream;
 		try {

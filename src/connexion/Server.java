@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
-public class Server {
+public class Server extends Thread{
 	private final int COMM_PORT = 5050; // socket port for client comms
 
 	private ServerSocket serverSocket;
@@ -14,7 +14,7 @@ public class Server {
 	private final int MAX_PLAYER = 6;
 
 	/** Default constructor. */
-	public Server() {
+	public void run() {
 
 		initServerSocket();
 		try {
