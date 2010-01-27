@@ -11,7 +11,7 @@ import entities.*;
 
 public class GameLogic implements Cloneable, Serializable{
 	/*TODO: Calibrer TAUX_MIGRATION*/
-	private final static float TAUX_MIGRATION = 0.01f;
+	private final static float TAUX_MIGRATION = 0.02f;
 
 	private Random rand = new Random(); 
 

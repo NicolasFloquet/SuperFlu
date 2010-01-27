@@ -136,7 +136,9 @@ public class ScreenManager {
 		
 		for(Transfert transfert : Application.getInstance().getGame().getTransferts())
 		{
-			transfert.draw();
+			synchronized (Application.getInstance().getGame()) {
+				transfert.draw();
+			}
 		}
 		
 		if(selected_ville != null) {

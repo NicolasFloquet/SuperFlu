@@ -296,7 +296,7 @@ public class Ville implements graphics.Drawable, Serializable {
 		
 		// On dessine la barre de stock
 		for(StockTraitement stock : stocksTraitements) {
-			p = 0.5f*stock.stock/stock.capacite_max;
+			p = 0.5f*stock.getStock()/stock.getCapacite_max();
 			GL11.glColor3f(0,0,0);
 			GL11.glLineWidth(6);
 	    	GL11.glBegin(GL11.GL_LINES);

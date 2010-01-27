@@ -12,7 +12,7 @@ import graphics.Sprite;
  */
 public class Transfert implements graphics.Drawable,Serializable {
 	
-	private final static float VITESSE = 1f;
+	private final static float VITESSE = 0.8f;
 
 	private final Ville depart;
 	private final Ville arrivee;
