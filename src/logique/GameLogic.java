@@ -227,7 +227,13 @@ public class GameLogic implements Cloneable, Serializable{
 
 	public GameLogic clone(){
 		try {
-			return (GameLogic)super.clone();
+			GameLogic g = (GameLogic)super.clone();
+			ArrayList<Joueur> j = new ArrayList<Joueur>();
+			for(int i = 0;i<joueurs.size();i++){
+				j.add(this.joueurs.get(i).clone());
+			}
+			g.joueurs = j;
+			return g;
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
