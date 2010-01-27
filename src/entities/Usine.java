@@ -19,8 +19,8 @@ public class Usine extends Ville implements Serializable{
 	private int productionRateVaccins = 100;
 	private int productionRateTraitements = 1000;
 	
-	public Usine(String nom, int x, int y) {
-		super(nom, x, y);
+	public Usine(Zone zone, String nom, int x, int y) {
+		super(zone, nom, x, y);
 	}
 
 	public void produit() {

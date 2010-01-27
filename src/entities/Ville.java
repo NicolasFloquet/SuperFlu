@@ -16,6 +16,7 @@ import logique.PlayerManager;
  */
 public class Ville implements graphics.Drawable, Serializable {
 
+	private Zone zone;
 	private String nom;
 	protected int x;
 	protected int y;
@@ -27,9 +28,10 @@ public class Ville implements graphics.Drawable, Serializable {
 	private ArrayList<StockVaccin> stocksVaccins = new ArrayList<StockVaccin>();
 	private ArrayList<StockTraitement> stocksTraitements = new ArrayList<StockTraitement>();
 
-	public Ville(String nom, int x, int y) {
+	public Ville(Zone zone, String nom, int x, int y) {
 		Random r = new Random();
 
+		this.zone = zone;
 		this.nom = nom;
 		this.x = x;
 		this.y = y;
@@ -210,4 +212,7 @@ public class Ville implements graphics.Drawable, Serializable {
 		return stocksTraitements;
 	}
 
+	public Zone getZone() {
+		return zone;
+	}
 }
