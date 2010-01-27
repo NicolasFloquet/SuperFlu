@@ -1,6 +1,7 @@
 package connexion;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -14,6 +15,9 @@ public class Client {
 	public Client() {
 		try {
 			this.socket = new Socket(SERVER_HOSTNAME, COMM_PORT);
+		} catch (ConnectException ce){
+			System.err.println("Le serveur est deconnecte ou il y a deja 6 joueurs");
+			System.exit(1);
 		} catch (UnknownHostException uhe) {
 			uhe.printStackTrace();
 			System.exit(1);
