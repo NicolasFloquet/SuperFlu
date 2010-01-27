@@ -10,7 +10,7 @@
 	<classpathentry exported="true" kind="lib" path="lwjgl-2.2.1/jar/lwjgl-debug.jar"/>
 	<classpathentry exported="true" kind="lib" path="lwjgl-2.2.1/jar/lwjgl.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="trunk/lwjgl-2.2.1/native/linux"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/Benjamin/Svn/4I_modouv_flu/trunk/lwjgl-2.2.1/native/windows"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="lwjgl-2.2.1/jar/lzma.jar"/>

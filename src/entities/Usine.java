@@ -80,7 +80,7 @@ public class Usine extends Ville implements Serializable{
 		GL11.glEnd();
 		float p = (float)getPourcentageInfectes()/100.0f;
 		GL11.glColor3f(p,1-p,0);
-		GL11.glLineWidth(2);
+		GL11.glLineWidth(4);
     	GL11.glBegin(GL11.GL_LINES);
 		{
 	      GL11.glVertex2f( -width*p/2 + 1, 3 + height/2);
@@ -101,7 +101,7 @@ public class Usine extends Ville implements Serializable{
 		      GL11.glVertex2f( dx + 3 + width/2, 1 - height/2);
 			}
 			GL11.glEnd();
-			GL11.glLineWidth(2);
+			GL11.glLineWidth(4);
 	    	GL11.glBegin(GL11.GL_LINES);
 			{
 				if(stock.stock>0) {

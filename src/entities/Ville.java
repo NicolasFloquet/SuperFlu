@@ -263,7 +263,7 @@ public class Ville implements graphics.Drawable, Serializable {
 		GL11.glEnd();
 		float p = (float)getPourcentageInfectes()/100.0f;
 		GL11.glColor3f(p,1-p,0);
-		GL11.glLineWidth(2);
+		GL11.glLineWidth(4);
     	GL11.glBegin(GL11.GL_LINES);
 		{
 	      GL11.glVertex2f( -width*p/2 + 1, 3 + height/2);
@@ -284,7 +284,7 @@ public class Ville implements graphics.Drawable, Serializable {
 			}
 			GL11.glEnd();
 			GL11.glColor3f(0.5f+p,0.5f+p,0.5f+p);
-			GL11.glLineWidth(2);
+			GL11.glLineWidth(4);
 	    	GL11.glBegin(GL11.GL_LINES);
 			{
 			      GL11.glVertex2f( 3 + width/2, -1 + height*p );
