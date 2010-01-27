@@ -11,7 +11,7 @@ public class Texte {
 
 		for (int i = 0; i < chaine.length(); i++) {
 			String c = chaine.substring(i, i + 1).toUpperCase();
-			c = "É";
+
 			sprites.add(ScreenManager.getSprite("lettres/" + c + ".png"));
 		}
 	}
