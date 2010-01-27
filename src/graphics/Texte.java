@@ -7,10 +7,7 @@ public class Texte {
 	private List<Sprite> sprites;
 
 	public Texte(String chaine) {
-		this(chaine, 0, 0, 0);
-	}
-	
-	public Texte(String chaine, float red, float green, float blue) {
+		
 		sprites = new ArrayList<Sprite>();
 
 		for (int i = 0; i < chaine.length(); i++) {
@@ -25,9 +22,13 @@ public class Texte {
 	}
 
 	public void draw(int x, int y) {
+		draw(x, y, 0, 0, 0);
+	}
+	
+	public void draw(int x, int y, float red, float green, float blue) {
 		int offset = 0;
 		for (Sprite sprite : sprites) {
-			sprite.draw(x + offset, y);
+			sprite.draw(x + offset, y, 0, 1, red, green, blue);
 			offset += sprite.getWidth();
 		}
 	}

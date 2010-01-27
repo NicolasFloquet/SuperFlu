@@ -61,8 +61,8 @@ public class Carte implements graphics.Drawable, Serializable {
 			}
 		}
 		
-		new Texte("Population Mondiale : " + Application.getInstance().getGame().getPopulationMondiale()).draw(10, 10);
-		new Texte("Nombre de morts : " + Application.getInstance().getGame().getMortsTotal()).draw(10, 30);
+		new Texte("Population Mondiale : " + Application.getInstance().getGame().getPopulationMondiale()).draw(10, 10, 255, 255, 255);
+		new Texte("Nombre de morts : " + Application.getInstance().getGame().getMortsTotal()).draw(10, 30, 255, 255, 255);
 	}
 
 	public ArrayList<Zone> getZones() {
