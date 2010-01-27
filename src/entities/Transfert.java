@@ -12,7 +12,7 @@ import graphics.Sprite;
  */
 public class Transfert implements graphics.Drawable,Serializable {
 	
-	private final static float VITESSE = 0.1f;
+	private final static float VITESSE = 1f;
 	
 	private final GameLogic gameLogic;
 	private final Ville depart;
@@ -27,7 +27,7 @@ public class Transfert implements graphics.Drawable,Serializable {
 		this.depart = depart;
 		this.arrivee = arrivee;
 		this.temps_depart = temps_depart;
-		this.temps_arrivee = temps_depart + (long)(VITESSE * Ville.distance(depart, arrivee));
+		this.temps_arrivee = temps_depart + (long)(Ville.distance(depart, arrivee) / VITESSE);
 		this.stock = stock;
 	}
 	

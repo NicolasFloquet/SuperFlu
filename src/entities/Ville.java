@@ -8,11 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import logique.Application;
-import logique.GameLogic;
 import logique.PlayerManager;
 
 /**

@@ -21,6 +21,9 @@ public class GameLogic implements Cloneable, Serializable{
 	private List<Transfert> transferts;	// Liste des transferts en cours
 	private List<Virus> virus;
 	private Carte carte;
+	
+	private int mortsTotal = 0;
+	private int populationMondiale = 0;
 
 	/* Variables liées au timer */
 	private long time;
@@ -60,6 +63,8 @@ public class GameLogic implements Cloneable, Serializable{
 		/* Choisir le point de départ de l'épidemie aléatoirement */
 		rand_zone = carte.getZones().get(rand.nextInt(carte.getZones().size()));
 		
+		System.out.println(rand_zone.getVilles().size());
+		
 		do {
 			rand_ville = rand_zone.getVilles().get(rand.nextInt(rand_zone.getVilles().size()));
 		} while (rand_ville == rand_zone.getUsine());
@@ -68,12 +73,23 @@ public class GameLogic implements Cloneable, Serializable{
 		rand_ville.ajouteHabitantsInfectes(1000);
 
 		/* MOUHOUHOUHOHOHAHAHAHAHAHAHAHA */
-
 	}
 
 	public synchronized void updateServeur(long elapsed_time){
 		/* Mise à jour du temps */
 		time += elapsed_time * 10;
+		
+		
+		// Mise à jour population mondiale
+		mortsTotal = 0;
+		populationMondiale = 0;
+		for(Zone zone_origine : carte.getZones()){
+			for(Ville ville : zone_origine.getVilles()){
+				mortsTotal += ville.getHabitantsMorts();
+				populationMondiale += ville.getHabitants();
+			}
+		}
+		
 		
 		Iterator<Transfert> it = transferts.iterator();
 		while (it.hasNext()) {
@@ -221,6 +237,10 @@ public class GameLogic implements Cloneable, Serializable{
 	{
 		return joueurs;
 	}
+	
+	public int getMortsTotal() {
+		return mortsTotal;
+	}
 
 	public boolean isServeur()
 	{
@@ -233,6 +253,10 @@ public class GameLogic implements Cloneable, Serializable{
 
 	public long getTime(){
 		return time;
+	}
+	
+	public int getPopulationMondiale() {
+		return populationMondiale;
 	}
 
 	public GameLogic clone(){
