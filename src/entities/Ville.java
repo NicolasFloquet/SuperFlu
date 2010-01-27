@@ -180,6 +180,7 @@ public class Ville implements graphics.Drawable, Serializable {
 					stocksTraitements.get(0).utilise(stocksTraitements.get(0).getStock());
 					/*System.out.println("Utilise : " + stocksTraitements.get(0).getStock());*/
 				} else {
+					habitantsInfectes = 0;
 					stocksTraitements.get(0).utilise(habitantsInfectes);
 					/*System.out.println("Utilise : " + habitantsInfectes);*/
 				}
@@ -202,9 +203,17 @@ public class Ville implements graphics.Drawable, Serializable {
 
 			/*System.out.println("Mortalité :");*/
 			// Mortalité :
-			int nouveauxHabitantsMorts = (int) (habitantsInfectes * mortalite);
-			habitantsInfectes -= nouveauxHabitantsMorts;
-			habitantsMorts += nouveauxHabitantsMorts;
+			float nouveauxHabitantsMorts = habitantsInfectes * mortalite;
+			if (nouveauxHabitantsMorts > 1) {
+				habitantsInfectes -= nouveauxHabitantsMorts;
+				habitantsMorts += nouveauxHabitantsMorts;
+			} else {
+				Random rand = new Random();
+				if (rand.nextFloat() < nouveauxHabitantsMorts) {
+					habitantsInfectes -= 1;
+					habitantsMorts += 1;
+				}
+			}
 			/*System.out.println("morts " + habitantsMorts);*/
 		}
 	}
