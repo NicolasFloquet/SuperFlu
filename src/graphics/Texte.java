@@ -15,7 +15,6 @@ public class Texte {
 				c="É";
 			}
 			if(!c.equals("©")){
-				System.out.print(c);
 				sprites.add(ScreenManager.getSprite("lettres/" + c + ".png"));
 			}
 		}
