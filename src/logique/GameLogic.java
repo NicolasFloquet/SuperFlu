@@ -249,12 +249,27 @@ public class GameLogic implements Cloneable, Serializable {
 		return jeuFini();
 	}
 
+	private boolean inMyZone(Ville v) {
+		boolean bool = false;
+		Zone z = Application.getInstance().getJoueur().getZone();
+		ArrayList<Ville> vList = z.getVilles();
+		for (Ville i : vList) {
+			if (i.getNom().equals(v.getNom()))
+				bool = true;
+		}
+		if (z.getUsine().getNom().equals(v.getNom()))
+			bool = true;
+		return bool;
+	}
+
 	public synchronized void creerTransfert(Ville depart, Ville arrivee,
 			Stock stock) {
-		if (!isServeur()) {
+		
+		//TODO  definir quand on peut jouer, maintenan on peut jouer en notre zone
+		if ((!isServeur()) && (inMyZone(depart)) && (inMyZone(arrivee))) {
 			if (stock instanceof StockVaccin) {
-				depart.retireStockVaccin(((StockVaccin) stock).getVaccin(), stock
-						.getStock());
+				depart.retireStockVaccin(((StockVaccin) stock).getVaccin(),
+						stock.getStock());
 			} else if (stock instanceof StockTraitement) {
 				depart.retireStockTraitement(((StockTraitement) stock)
 						.getTraitement(), stock.getStock());
