@@ -2,6 +2,8 @@ package connexion;
 
 import java.net.Socket;
 
+import entities.Joueur;
+
 import logique.Application;
 import logique.GameLogic;
 
@@ -23,6 +25,8 @@ public class ThreadClient extends Thread {
 			if (o instanceof GameLogic) {
 				// acualiser le game
 				a.setGame((GameLogic) o);
+			} else if (o instanceof Joueur) {
+				a.setJoueur((Joueur) o);
 			}
 		}
 	}

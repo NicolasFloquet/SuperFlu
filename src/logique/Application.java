@@ -9,6 +9,7 @@ import org.lwjgl.opengl.Display;
 
 import connexion.ClientController;
 import connexion.ServerController;
+import entities.Joueur;
 
 import graphics.ScreenManager;
 
@@ -30,6 +31,7 @@ public class Application
 	private static Application instance = new Application(); 
 	private ScreenManager screen;
 	private GameLogic game;
+	private Joueur joueur;
 
 	private boolean isServer = true;
 	private boolean running;
@@ -110,6 +112,10 @@ public class Application
 
 	public boolean isServeur() {
 		return isServer;
+	}
+
+	public void setJoueur(Joueur joueur) {
+		this.joueur = joueur;
 	}
 
 }
