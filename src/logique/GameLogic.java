@@ -7,9 +7,24 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import entities.*;
+import entities.Carte;
+import entities.Joueur;
+import entities.Stock;
+import entities.StockTraitement;
+import entities.StockVaccin;
+import entities.Traitement;
+import entities.Transfert;
+import entities.Vaccin;
+import entities.Ville;
+import entities.Virus;
+import entities.Zone;
 
 public class GameLogic implements Cloneable, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/* TODO: Calibrer TAUX_MIGRATION */
 	private final static float TAUX_MIGRATION = 0.1f;
 
