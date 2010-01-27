@@ -108,4 +108,8 @@ public class Application
 		this.game = game;
 	}
 
+	public boolean isServeur() {
+		return isServer;
+	}
+
 }

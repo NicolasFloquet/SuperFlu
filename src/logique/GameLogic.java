@@ -2,7 +2,6 @@ package logique;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -15,7 +14,6 @@ public class GameLogic implements Cloneable, Serializable{
 	private final static float TAUX_MIGRATION = 0.01f;
 
 	private Random rand = new Random(); 
-	private boolean mode_serveur = false;
 
 	private List<Joueur> joueurs;			// Liste des joueurs de la partie
 	private List<Transfert> transferts;	// Liste des transferts en cours
@@ -69,7 +67,7 @@ public class GameLogic implements Cloneable, Serializable{
 
 	}
 
-	public void updateServeur(long elapsed_time){
+	public synchronized void updateServeur(long elapsed_time){
 		/* Mise à jour du temps */
 		time += elapsed_time;
 
@@ -185,11 +183,11 @@ public class GameLogic implements Cloneable, Serializable{
 
 	}
 
-	public void creerTransfert(Ville depart, Ville arrivee, Stock stock){
+	public synchronized void creerTransfert(Ville depart, Ville arrivee, Stock stock){
 		transferts.add(new Transfert(this, depart, arrivee, stock, time));
 	}
 
-	public List<Transfert> getTransferts()
+	public synchronized List<Transfert> getTransferts()
 	{
 		return transferts;
 	}
@@ -204,19 +202,9 @@ public class GameLogic implements Cloneable, Serializable{
 		return joueurs;
 	}
 
-	public void setServeur()
-	{
-		mode_serveur = true;
-	}
-
-	public void setServeur(boolean b)
-	{
-		mode_serveur = b;
-	}
-
 	public boolean isServeur()
 	{
-		return mode_serveur;
+		return Application.getInstance().isServeur();
 	}
 
 	public Carte getCarte(){
