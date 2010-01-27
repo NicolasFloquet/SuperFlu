@@ -24,6 +24,7 @@ public class Server extends Thread{
 				socketList.add(serverSocket.accept());
 				new ThreadServ(socketList.get(i)).start();
 			}
+			serverSocket.close();
 		} catch (SecurityException se) {
 			se.printStackTrace();
 			System.exit(1);
