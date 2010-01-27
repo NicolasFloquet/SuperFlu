@@ -8,6 +8,10 @@ import java.io.Serializable;
  */
 public class StockVaccin extends Stock implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Vaccin vaccin;
 	
 	public StockVaccin(int stock, Vaccin vaccin) {

@@ -18,6 +18,10 @@ import logique.PlayerManager;
  */
 public class Usine extends Ville implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Traitement> traitements = new ArrayList<Traitement>();
 	private ArrayList<Vaccin> vaccins = new ArrayList<Vaccin>();
 	private int productionRateVaccins = 2;

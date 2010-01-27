@@ -8,6 +8,10 @@ import java.net.Socket;
  *
  */
 public class Joueur implements graphics.Drawable, Serializable,Cloneable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Zone zone;
 	private int score;
 	private Socket socket;

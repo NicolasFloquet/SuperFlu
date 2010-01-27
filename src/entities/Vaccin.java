@@ -7,6 +7,10 @@ import java.io.Serializable;
  *
  */
 public class Vaccin implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Virus virus;
 	
 	public Vaccin(Virus virus) {

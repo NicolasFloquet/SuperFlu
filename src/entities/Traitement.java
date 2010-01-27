@@ -7,6 +7,10 @@ import java.io.Serializable;
  *
  */
 public class Traitement implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Virus virus;
 	//private float efficacite; // TODO
 

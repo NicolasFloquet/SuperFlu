@@ -8,6 +8,10 @@ import java.io.Serializable;
  */
 public class StockTraitement extends Stock implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final Traitement traitement;
 	
 	public StockTraitement(int stock, Traitement traitement) {

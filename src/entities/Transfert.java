@@ -1,8 +1,8 @@
 package entities;
 
 import java.io.Serializable;
+
 import logique.Application;
-import logique.GameLogic;
 import graphics.ScreenManager;
 import graphics.Sprite;
 
@@ -12,6 +12,11 @@ import graphics.Sprite;
  */
 public class Transfert implements graphics.Drawable,Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private final static float VITESSE = 0.8f;
 
 	private final Ville depart;

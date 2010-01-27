@@ -7,6 +7,10 @@ import java.io.Serializable;
  * 
  */
 public abstract class Stock implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected int capacite_max = 10000;
 	protected int stock = 0;
 

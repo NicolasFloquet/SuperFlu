@@ -1,16 +1,16 @@
 package entities;
 
-import graphics.*;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-
 import logique.Application;
 import logique.GameLogic;
-import logique.PlayerManager;
+
+import org.lwjgl.opengl.GL11;
+
+import graphics.ScreenManager;
+import graphics.Sprite;
+import graphics.Texte;
 
 
 /**
@@ -19,6 +19,10 @@ import logique.PlayerManager;
  */
 public class Carte implements graphics.Drawable, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int courbe_pop[];
 	private int courbe_morts[];
 	private int courbe_infectes[];
