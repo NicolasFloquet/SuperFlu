@@ -4,6 +4,8 @@ import java.net.Socket;
 
 import logique.Application;
 import entities.Joueur;
+import entities.StockTraitement;
+import entities.StockVaccin;
 import entities.Transfert;
 
 public class ThreadServ extends Thread {
@@ -37,7 +39,12 @@ public class ThreadServ extends Thread {
 			o = rec.getDataBlock();// reception des donnees blocante
 			if (o instanceof Transfert) {
 				// ajouter le transfert
-				a.getGame().creerTransfert(((Transfert) o).getDepart(), ((Transfert) o).getArrivee(), ((Transfert) o).getStock());
+				if(((Transfert) o).getStock() instanceof StockVaccin) {
+					((Transfert) o).getDepart().retireStockVaccin(((StockVaccin) ((Transfert) o).getStock()).getVaccin(), ((Transfert) o).getStock().getStock());
+				}
+				else if (((Transfert) o).getStock() instanceof StockTraitement) {
+					((Transfert) o).getDepart().retireStockTraitement(((StockTraitement) ((Transfert) o).getStock()).getTraitement(), ((Transfert) o).getStock().getStock());
+				}		
 				a.getGame().getTransferts().add((Transfert) o);
 			}
 		}
