@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Texte {
-	private String chaine;
 	private List<Sprite> sprites;
 	
 	public Texte(String chaine) {
-		this.chaine = chaine;
 		sprites = new ArrayList<Sprite>();
 		
 		for (int i = 0; i < chaine.length(); i++) {
@@ -24,5 +22,21 @@ public class Texte {
 			sprite.draw(x + offset, y);
 			offset += sprite.getWidth();
 		}
+	}
+	
+	public int getWidth() {
+		int width = 0;
+		for (Sprite sprite : sprites) {
+			width += sprite.getWidth();
+		}
+		return width;
+	}
+	
+	public int getHeight() {
+		int height = 0;
+		for (Sprite sprite : sprites) {
+			height = Math.max(height, sprite.getWidth());
+		}
+		return height;
 	}
 }

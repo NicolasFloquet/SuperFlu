@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import logique.PlayerManager;
@@ -230,9 +231,14 @@ public class Ville implements graphics.Drawable, Serializable {
 			hl_ville.draw(pos_x, pos_y);
 		else
 			ville.draw(pos_x, pos_y);
-
-		Texte t = new Texte("ABC");
-		t.draw(pos_x, pos_y);
+		
+		if (PlayerManager.getInstance().getTargetedVille() == this) {
+			// Affichage info
+			int encart_pos_y = ScreenManager.getInstance().getOrigineEncartY() + 15;
+			new Texte(nom).draw(10, y + 10);
+			new Texte("Population Totale " + getHabitants()).draw(10, encart_pos_y + 20);
+		}
+		
 		
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glPushMatrix();
@@ -269,20 +275,12 @@ public class Ville implements graphics.Drawable, Serializable {
 		      GL11.glVertex2f( 3 + width/2, 1 - height/2);
 			}
 			GL11.glEnd();
-			
+			GL11.glColor3f(0.5f+p,0.5f+p,0.5f+p);
 			GL11.glLineWidth(2);
 	    	GL11.glBegin(GL11.GL_LINES);
 			{
-				if(stock.stock>0) {
-					GL11.glColor3f(0.5f+p,0.5f+p,0.5f+p);
-				    GL11.glVertex2f( 3 + width/2, -2 + height*p );
-				    GL11.glVertex2f( 3 + width/2, 2 - height*p);
-				}
-				else {
-					GL11.glColor3f(1,0,0);
-				    GL11.glVertex2f( 3 + width/2, -2 + height/2 );
-				    GL11.glVertex2f( 3 + width/2, 2 - height/2);
-				}
+			      GL11.glVertex2f( 3 + width/2, -1 + height*p );
+			      GL11.glVertex2f( 3 + width/2, 1 - height*p);
 			}
 			GL11.glEnd();
 		}
