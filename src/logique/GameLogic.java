@@ -215,7 +215,7 @@ public class GameLogic implements Cloneable, Serializable{
 			}
 			transferts.add(new Transfert(depart, arrivee, stock, time));
 			Application.getInstance().sendTransfert(transferts.get(transferts.size()-1));
-		} else {
+		} /*else {
 			
 			if(stock instanceof StockVaccin) {
 				depart.retireStockVaccin(((StockVaccin) stock).getVaccin(), stock.getStock());
@@ -224,7 +224,7 @@ public class GameLogic implements Cloneable, Serializable{
 				depart.retireStockTraitement(((StockTraitement) stock).getTraitement(), stock.getStock());
 			}		
 			transferts.add(new Transfert(depart, arrivee, stock, time));
-		}
+		}*/
 	}
 
 	public synchronized List<Transfert> getTransferts()
