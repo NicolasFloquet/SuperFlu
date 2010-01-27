@@ -114,8 +114,8 @@ public class Usine extends Ville implements Serializable{
 			GL11.glLineWidth(6);
 	    	GL11.glBegin(GL11.GL_LINES);
 			{
-		      GL11.glVertex2f( dx + 3 + width/2, -1 + height/2 );
-		      GL11.glVertex2f( dx + 3 + width/2, 1 - height/2);
+		      GL11.glVertex2f( dx + 3 + width/2, 1 + height/2 );
+		      GL11.glVertex2f( dx + 3 + width/2, -1 - height/2);
 			}
 			GL11.glEnd();
 			GL11.glLineWidth(4);
@@ -123,8 +123,8 @@ public class Usine extends Ville implements Serializable{
 			{
 				if(stock.stock>0) {
 					GL11.glColor3f(0.5f+p,0.5f+p,0.5f+p);
-				    GL11.glVertex2f( 3 + width/2, -2 + height*p );
-				    GL11.glVertex2f( 3 + width/2, 2 - height*p);
+					 GL11.glVertex2f( 3 + width/2, +height/2 );
+				      GL11.glVertex2f( 3 + width/2, +height/2 - height*2*p);
 				}
 				else {
 					GL11.glColor3f(1,0,0);
