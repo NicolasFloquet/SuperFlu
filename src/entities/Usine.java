@@ -2,6 +2,7 @@ package entities;
 
 import graphics.ScreenManager;
 import graphics.Sprite;
+import graphics.Texte;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Usine extends Ville implements Serializable{
 	
 	public Usine(Zone zone, String nom, int x, int y) {
 		super(zone, nom, x, y);
+		this.retireHabitantsSains(this.getHabitantsSains());
 	}
 
 	public void produit() {
@@ -64,6 +66,21 @@ public class Usine extends Ville implements Serializable{
 			hl_usine.draw(pos_x, pos_y);
 		else
 			usine.draw(pos_x, pos_y);
+		
+		if (PlayerManager.getInstance().getTargetedVille() == this) {
+			// Affichage info
+			int encart_pos_y = ScreenManager.getInstance().getOrigineEncartY() + 15;
+			new Texte("Usine de "+this.getNom()).draw(10, encart_pos_y + 20);
+			if(getStocksTraitements().isEmpty())
+				new Texte("Stock Traitements 0").draw(10,encart_pos_y + 40);
+			else
+				new Texte("Stock Traitements " + getStocksTraitements().get(0).getStock()).draw(10,encart_pos_y + 40);
+				
+			if(getStocksVaccins().isEmpty())
+				new Texte("Stock Vaccins 0").draw(10,encart_pos_y + 60);
+			else
+				new Texte("Stock Vaccins " + getStocksVaccins().get(0).getStock()).draw(10,encart_pos_y + 60);
+		}
 		
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glPushMatrix();
