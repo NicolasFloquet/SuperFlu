@@ -2,6 +2,7 @@ package entities;
 
 import graphics.ScreenManager;
 import graphics.Sprite;
+import graphics.Texte;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -231,6 +232,9 @@ public class Ville implements graphics.Drawable, Serializable {
 		else
 			ville.draw(pos_x, pos_y);
 
+		Texte t = new Texte("ABC");
+		t.draw(pos_x, pos_y);
+		
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glPushMatrix();
 		GL11.glTranslatef(pos_x, pos_y, 0);
