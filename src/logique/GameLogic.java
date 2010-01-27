@@ -22,9 +22,12 @@ public class GameLogic implements Cloneable, Serializable{
 
     private int mortsTotal = 0;
     private int populationMondiale = 0;
+    private int populationInfectee = 0;
 	
 	/* Variables liées au timer */
 	private long time;
+	
+	public enum etatJeu{ EN_COURS, GAGNE, PERDU };
 
 	public GameLogic() {
 		joueurs =  Collections.synchronizedList(new ArrayList<Joueur>());
@@ -80,10 +83,12 @@ public class GameLogic implements Cloneable, Serializable{
 
 		mortsTotal = 0;
 		populationMondiale = 0;
+		populationInfectee = 0;
 		for(Zone zone_origine : carte.getZones()){
 			for(Ville ville : zone_origine.getVilles()){
 				mortsTotal += ville.getHabitantsMorts();
 				populationMondiale += ville.getHabitants();
+				populationInfectee += ville.getHabitantsInfectes();
 			}
 		}
 
@@ -248,12 +253,23 @@ public class GameLogic implements Cloneable, Serializable{
 		return time;
 	}
 	
+	public int getPopulationInfectee() {
+		return populationInfectee;
+	}
+	
 	public int getPopulationMondiale() {
 		return populationMondiale;
 	}
 	
 	public int getMortsTotal() {
 		return mortsTotal;
+	}
+	
+	public etatJeu jeuFini()
+	{
+		etatJeu etat=etatJeu.EN_COURS;
+		
+		return etat;
 	}
 
 	public GameLogic clone(){

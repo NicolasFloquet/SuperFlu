@@ -86,30 +86,30 @@ public class Usine extends Ville implements Serializable{
 		GL11.glPushMatrix();
 		GL11.glTranslatef(pos_x, pos_y, 0);
 		
-		// On dessine la barre de contamination
-    	GL11.glColor3f(0,0,0);
-		GL11.glLineWidth(6);
-    	GL11.glBegin(GL11.GL_LINES);
-		{
-	      GL11.glVertex2f( -width/2 - 1, 3 + height/2);
-	      GL11.glVertex2f( width/2 + 1, 3 + height/2);
-		}
-		GL11.glEnd();
-		float p = (float)getPourcentageInfectes()/100.0f;
-		GL11.glColor3f(p,1-p,0);
-		GL11.glLineWidth(4);
-    	GL11.glBegin(GL11.GL_LINES);
-		{
-	      GL11.glVertex2f( -width*p/2 + 1, 3 + height/2);
-	      GL11.glVertex2f( width*p/2 - 1 , 3 + height/2);
-		}
-		GL11.glEnd();
+//		// On dessine la barre de contamination
+//    	GL11.glColor3f(0,0,0);
+//		GL11.glLineWidth(6);
+//    	GL11.glBegin(GL11.GL_LINES);
+//		{
+//	      GL11.glVertex2f( -width/2 - 1, 3 + height/2);
+//	      GL11.glVertex2f( width/2 + 1, 3 + height/2);
+//		}
+//		GL11.glEnd();
+//		float p = (float)getPourcentageInfectes()/100.0f;
+//		GL11.glColor3f(p,1-p,0);
+//		GL11.glLineWidth(4);
+//    	GL11.glBegin(GL11.GL_LINES);
+//		{
+//	      GL11.glVertex2f( -width*p/2 + 1, 3 + height/2);
+//	      GL11.glVertex2f( width*p/2 - 1 , 3 + height/2);
+//		}
+//		GL11.glEnd();
 		
 		
 		// On dessine la barre de stock
 		int dx = 0;
 		for(StockTraitement stock : getStocksTraitements()) {
-			p = 0.5f*(float)stock.stock/(float)stock.capacite_max;
+			float p = 0.5f*(float)stock.stock/(float)stock.capacite_max;
 			GL11.glColor3f(0,0,0);
 			GL11.glLineWidth(6);
 	    	GL11.glBegin(GL11.GL_LINES);
