@@ -232,7 +232,7 @@ public class ScreenManager {
 	}
 	
 	public int getOrigineCarteY() {
-		return screen_height/2 - map.getHeight()/2;
+		return 0;
 	}
 	
 	/**
