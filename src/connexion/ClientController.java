@@ -18,4 +18,10 @@ public class ClientController implements ConnexionController {
 			Send.sendData(o, s);
 		}
 	}
+
+	@Override
+	public void deconnection() {
+		// TODO Auto-generated method stub
+		
+	}
 }

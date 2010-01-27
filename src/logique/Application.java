@@ -96,6 +96,7 @@ public class Application
 		
 		if (isServer) {
 			timer.cancel();
+			c.deconnection();
 		}
 	}
 

@@ -9,11 +9,17 @@ import entities.Transfert;
 public class ThreadServ extends Thread {
 
 	private Socket s;
+	private boolean running;
 
 	public ThreadServ(Socket s) {
 		this.s = s;
+		this.running = true;
 	}
 
+	public void deconnecte() {
+		running = false;
+	}
+	
 	public void run() {
 		System.out.println("Création d'un nouveau thread serveur");
 
@@ -27,7 +33,7 @@ public class ThreadServ extends Thread {
 		a.getGame().ajouterJoueur(j);
 		Receive rec = new Receive(s);
 		Object o;
-		while (true) {
+		while (running) {
 			o = rec.getDataBlock();// reception des donnees blocante
 			if (o instanceof Transfert) {
 				// ajouter le transfert

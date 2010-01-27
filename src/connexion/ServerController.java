@@ -7,8 +7,11 @@ import logique.GameLogic;
 
 public class ServerController implements ConnexionController {
 
+	private Server server;
+	
 	public void connect() {
-		new Server().start();
+		server = new Server();
+		server.start();
 	}
 
 	public void send(Object o) {
@@ -23,6 +26,10 @@ public class ServerController implements ConnexionController {
 			
 			Send.sendData(g, ((GameLogic) o).getJoueurs());
 		}
+	}
+
+	public void deconnection() {
+		
 	}
 
 }

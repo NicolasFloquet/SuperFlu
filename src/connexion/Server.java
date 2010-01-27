@@ -12,13 +12,14 @@ public class Server extends Thread{
 	private ServerSocket serverSocket;
 	private ArrayList<Socket> socketList = new ArrayList<Socket>();
 	private final int MAX_PLAYER = 6;
+	private boolean running = true;
 
 	/** Default constructor. */
 	public void run() {
 
 		initServerSocket();
 		try {
-			for (int i = 0; i < MAX_PLAYER; i++) {
+			for (int i = 0; i < MAX_PLAYER && running; i++) {
 				// listen for and accept a client connection to serverSocket
 				// pour chaque socket accepte cree un nouveau thread
 				socketList.add(serverSocket.accept());
@@ -55,6 +56,10 @@ public class Server extends Thread{
 
 	public ArrayList<Socket> getSocketList() {
 		return this.socketList;
+	}
+	
+	public void deconnecte() {
+		running = false;
 	}
 
 	/**
