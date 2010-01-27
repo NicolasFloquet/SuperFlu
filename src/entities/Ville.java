@@ -11,6 +11,8 @@ import java.util.Random;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import logique.Application;
+import logique.GameLogic;
 import logique.PlayerManager;
 
 /**
@@ -234,6 +236,7 @@ public class Ville implements graphics.Drawable, Serializable {
 	public void draw() {
 		Sprite ville = ScreenManager.getSprite("ville.png");
 		Sprite hl_ville = ScreenManager.getSprite("HL_ville.png");
+		Sprite infected = ScreenManager.getSprite("infected.png");
 
 		int pos_x = x + ScreenManager.getInstance().getOrigineCarteX();
 		int pos_y = y + ScreenManager.getInstance().getOrigineCarteY();
@@ -256,6 +259,9 @@ public class Ville implements graphics.Drawable, Serializable {
 			new Texte("Mort " + getHabitantsMorts()).draw(10, encart_pos_y + 120);
 		}
 		
+		if((float)habitantsInfectes > 100) {
+			infected.draw(pos_x, pos_y);
+		}
 		
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glPushMatrix();
@@ -288,16 +294,16 @@ public class Ville implements graphics.Drawable, Serializable {
 			GL11.glLineWidth(6);
 	    	GL11.glBegin(GL11.GL_LINES);
 			{
-		      GL11.glVertex2f( 3 + width/2, -1 + height/2 );
-		      GL11.glVertex2f( 3 + width/2, 1 - height/2);
+		      GL11.glVertex2f( 3 + width/2, -2 + height/2 );
+		      GL11.glVertex2f( 3 + width/2, 2 - height/2);
 			}
 			GL11.glEnd();
 			GL11.glColor3f(0.5f+p,0.5f+p,0.5f+p);
 			GL11.glLineWidth(4);
 	    	GL11.glBegin(GL11.GL_LINES);
 			{
-			      GL11.glVertex2f( 3 + width/2, -1 + height*p );
-			      GL11.glVertex2f( 3 + width/2, 1 - height*p);
+			      GL11.glVertex2f( 3 + width/2, -2 + height*p );
+			      GL11.glVertex2f( 3 + width/2, 2 - height*p);
 			}
 			GL11.glEnd();
 		}

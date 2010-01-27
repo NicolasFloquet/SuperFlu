@@ -37,8 +37,8 @@ public class ScreenManager {
 	
 	private ScreenManager()
 	{
-		screen_width = 800;
-		screen_height = 600;
+		screen_width = 1024;
+		screen_height = 768;
 		fullscreen = false;
 		
 		selected_ville = null;
