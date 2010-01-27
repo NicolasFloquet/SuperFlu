@@ -251,18 +251,17 @@ public class GameLogic implements Cloneable, Serializable {
 
 	public synchronized void creerTransfert(Ville depart, Ville arrivee,
 			Stock stock) {
-		
-		if (stock instanceof StockVaccin) {
-			depart.retireStockVaccin(((StockVaccin) stock).getVaccin(), stock
-					.getStock());
-		} else if (stock instanceof StockTraitement) {
-			depart.retireStockTraitement(((StockTraitement) stock)
-					.getTraitement(), stock.getStock());
-		}
-		Transfert transport = new Transfert(depart, arrivee, stock, time);
-		transferts.add(transport);
-
 		if (!isServeur()) {
+			if (stock instanceof StockVaccin) {
+				depart.retireStockVaccin(((StockVaccin) stock).getVaccin(), stock
+						.getStock());
+			} else if (stock instanceof StockTraitement) {
+				depart.retireStockTraitement(((StockTraitement) stock)
+						.getTraitement(), stock.getStock());
+			}
+			Transfert transport = new Transfert(depart, arrivee, stock, time);
+			transferts.add(transport);
+			System.out.println("envoyer tranfert");
 			Application.getInstance().sendTransfert(transport);
 		}
 	}
