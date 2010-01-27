@@ -199,7 +199,7 @@ public class GameLogic implements Cloneable, Serializable{
 	}
 
 	public synchronized void creerTransfert(Ville depart, Ville arrivee, Stock stock){
-		//if (!isServeur()) {
+		if (!isServeur()) {
 		if(stock instanceof StockVaccin) {
 			depart.retireStockVaccin(((StockVaccin) stock).getVaccin(), stock.getStock());
 		}
@@ -207,7 +207,8 @@ public class GameLogic implements Cloneable, Serializable{
 			depart.retireStockTraitement(((StockTraitement) stock).getTraitement(), stock.getStock());
 		}
 		transferts.add(new Transfert(this, depart, arrivee, stock, time));
-		//} else {
+		Application.getInstance().sendTransfert(transferts.get(transferts.size()-1));
+		} //else {
 		//	System.out.println("T'es serveur, tu peux pas test.");
 		//}
 	}
