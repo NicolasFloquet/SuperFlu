@@ -5,7 +5,12 @@ import graphics.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+
 import logique.Application;
+import logique.GameLogic;
+import logique.PlayerManager;
 
 
 /**
@@ -50,6 +55,9 @@ public class Carte implements graphics.Drawable, Serializable {
 		Sprite map = ScreenManager.getInstance().getMap();
 		Sprite fond_map = ScreenManager.getSprite("fond_carte.png");
 		
+		updateCourbes();
+		drawCourbes();
+		
 		fond_map.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2);
 		map.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2);
 		
@@ -69,4 +77,73 @@ public class Carte implements graphics.Drawable, Serializable {
 		return zones;
 	}
 
+	public void updateCourbes() {
+		GameLogic game = Application.getInstance().getGame();
+		courbe_infectes[dephasage_courbes] = game.getPopulationInfectee();
+		courbe_morts[dephasage_courbes] = game.getMortsTotal();
+		courbe_pop[dephasage_courbes] = game.getPopulationMondiale();
+		courbe_vaccines[dephasage_courbes] = game.getVaccinesTotal();
+		dephasage_courbes++;
+		if(dephasage_courbes>=courbe_pop.length) {
+			dephasage_courbes = 0;
+		}
+	}
+	
+	public void drawCourbes() {
+		//dessin de la courbe
+		
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		
+		// On dessine la courbe
+		GL11.glPushMatrix();
+		GL11.glTranslatef(ScreenManager.getInstance().getOrigineCarteX(),
+							ScreenManager.getInstance().getOrigineCarteY(), 0);
+		
+		int index;
+		float max = (float)(
+				Application.getInstance().getGame().getMortsTotal()
+				+Application.getInstance().getGame().getPopulationMondiale()
+				)/ScreenManager.getInstance().getMap().getHeight();
+		System.out.println(max);
+		GL11.glBegin(GL11.GL_LINES);
+		GL11.glColor3f(1.0f,0.5f,0.5f);
+		index = dephasage_courbes;
+		for(int i=0 ; i<courbe_pop.length ; i++) {
+		    GL11.glVertex2f(i,courbe_infectes[index]/max);
+			index++;
+			if(index>=courbe_pop.length) {
+				index=0;
+			}
+		}
+		GL11.glColor3f(0.3f,0.3f,1.0f);
+		index = dephasage_courbes;
+		for(int i=0 ; i<courbe_pop.length ; i++) {
+	    	GL11.glVertex2f(i,courbe_vaccines[index]/max);
+			index++;
+			if(index>=courbe_pop.length) {
+				index=0;
+			}
+		}
+		GL11.glColor3f(1.0f,0.0f,0.0f);
+		index = dephasage_courbes;
+		for(int i=0 ; i<courbe_pop.length ; i++) {
+	    	GL11.glVertex2f(i,courbe_morts[index]/max);
+			index++;
+			if(index>=courbe_pop.length) {
+				index=0;
+			}
+		}
+		GL11.glColor3f(0.0f,1.0f,0.0f);
+		index = dephasage_courbes;
+		for(int i=0 ; i<courbe_pop.length ; i++) {
+		    GL11.glVertex2f(i,courbe_pop[index]/max);
+			index++;
+			if(index>=courbe_pop.length) {
+				index=0;
+			}
+		}
+    	GL11.glEnd();
+		GL11.glPopMatrix();	
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+	}
 }

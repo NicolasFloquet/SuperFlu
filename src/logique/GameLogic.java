@@ -22,6 +22,7 @@ public class GameLogic implements Cloneable, Serializable{
 
     private int mortsTotal = 0;
     private int populationMondiale = 0;
+    private int vaccinesTotal = 0;
     private int populationInfectee = 0;
 	
 	/* Variables liées au timer */
@@ -265,6 +266,9 @@ public class GameLogic implements Cloneable, Serializable{
 		return mortsTotal;
 	}
 	
+	public int getVaccinesTotal() {
+		return vaccinesTotal;
+	}
 	public etatJeu jeuFini()
 	{
 		etatJeu etat=etatJeu.EN_COURS;
