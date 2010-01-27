@@ -3,7 +3,6 @@ package logique;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
@@ -60,6 +59,14 @@ public class Application
 		return running;
 	}
 
+	public void quit()
+	{
+		running = false;
+		
+		//TODO : permettre de tuer le thread qui accept sur le socket pour pouvoir fermer proprement
+		System.exit(0);
+	}
+	
 	public void run(String[] args)
 	{	
 		if (args.length > 0) {
@@ -90,7 +97,7 @@ public class Application
 
 			if((Display.isCloseRequested()) || (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)))
 			{
-				running = false;
+				quit();
 			}
 		}
 		

@@ -20,7 +20,7 @@ public class ThreadClient extends Thread {
 		Application a = Application.getInstance();
 		Receive rec = new Receive(s);
 		Object o;
-		while (true) {
+		while (Application.getInstance().isRunning()) {
 			o = rec.getDataBlock();// reception des donnees blocante
 			if (o instanceof GameLogic) {
 				// acualiser le game

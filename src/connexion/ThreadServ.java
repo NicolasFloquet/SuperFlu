@@ -8,18 +8,18 @@ import entities.StockTraitement;
 import entities.StockVaccin;
 import entities.Transfert;
 
+
+
 public class ThreadServ extends Thread {
 
 	private Socket s;
-	private boolean running;
 
 	public ThreadServ(Socket s) {
 		this.s = s;
-		this.running = true;
 	}
 
 	public void deconnecte() {
-		running = false;
+		Application.getInstance().quit();
 	}
 	
 	public void run() {
@@ -35,7 +35,7 @@ public class ThreadServ extends Thread {
 		a.getGame().ajouterJoueur(j);
 		Receive rec = new Receive(s);
 		Object o;
-		while (running) {
+		while (Application.getInstance().isRunning()) {
 			o = rec.getDataBlock();// reception des donnees blocante
 			if (o instanceof Transfert) {
 				// ajouter le transfert
