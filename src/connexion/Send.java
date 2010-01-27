@@ -14,7 +14,7 @@ public abstract class Send {
 
 	public static void sendData(Object o, List<Joueur> jList) {
 		
-		TestConnexion.ecrire((GameLogic)o);
+		//TestConnexion.ecrire((GameLogic)o);
 		
 		ObjectOutputStream ooStream;
 		OutputStream oStream;
