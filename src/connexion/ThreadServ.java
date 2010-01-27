@@ -20,6 +20,9 @@ public class ThreadServ extends Thread {
 		// Reception du serveur
 		Application a = Application.getInstance();
 		Joueur j = new Joueur();
+		j.setZone(a.getNextZone());
+		Send.sendData(j, s);
+		
 		j.setSocket(s);
 		a.getGame().ajouterJoueur(j);
 		Receive rec = new Receive(s);
