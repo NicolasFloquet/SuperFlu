@@ -3,10 +3,10 @@ package connexion;
 import java.net.Socket;
 import java.util.List;
 
-import entities.Joueur;
-
 import logique.Application;
 import logique.GameLogic;
+import entities.Joueur;
+import entities.Zone;
 
 public class ThreadClient extends Thread {
 
@@ -27,10 +27,16 @@ public class ThreadClient extends Thread {
 				// acualiser le game
 				a.setGame((GameLogic) o);
 			} else if (o instanceof Joueur) {
-				List<Joueur> jList = a.getGame().getJoueurs();
-				for(Joueur j: jList){
-					if(j.getZone().getNom().equals(((Joueur) o).getZone().getNom())){
-						a.setJoueur(j);
+				System.out.println("joueur=> "+((Joueur) o).getZone().getNom());
+				List<Zone> zList = a.getGame().getCarte().getZones();
+				for(Zone z: zList){
+					System.out.println(z.getNom()+"??");
+					if(z.getNom().equals(((Joueur) o).getZone().getNom())){
+						System.out.println("set joueur: "+z.getNom());
+						z.setJoueur((Joueur) o);
+						((Joueur)o).setZone(z);
+						a.setJoueur((Joueur)o);
+						break;
 					}
 				}
 			}

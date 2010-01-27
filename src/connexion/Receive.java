@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.concurrent.Semaphore;
 
 public class Receive extends Thread {
@@ -61,6 +62,8 @@ public class Receive extends Thread {
 			iStream = socket.getInputStream();
 			oiStream = new ObjectInputStream(iStream);
 			o = oiStream.readObject();
+		} catch (SocketException se) {
+			System.exit(1);
 		} catch (IOException e) {
 			System.err.println("error:");
 			e.printStackTrace();

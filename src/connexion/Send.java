@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.List;
 
 import logique.GameLogic;
@@ -13,10 +14,10 @@ import entities.Joueur;
 public abstract class Send {
 
 	public static void sendData(Object o, List<Joueur> jList) {
-		
-		//System.out.println("send all: "+o);
-		//TestConnexion.ecrire((GameLogic)o);
-		
+
+		// System.out.println("send all: "+o);
+		// TestConnexion.ecrire((GameLogic)o);
+
 		ObjectOutputStream ooStream;
 		OutputStream oStream;
 		try {
@@ -25,6 +26,9 @@ public abstract class Send {
 				ooStream = new ObjectOutputStream(oStream);
 				ooStream.writeObject(o);
 			}
+
+		} catch (SocketException se) {
+			System.exit(1);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(1);
@@ -32,7 +36,7 @@ public abstract class Send {
 	}
 
 	public static void sendData(Object o, Socket s) {
-		System.out.println("send: "+o);
+		System.out.println("send: " + o);
 		ObjectOutputStream ooStream;
 		OutputStream oStream;
 		try {
