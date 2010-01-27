@@ -7,7 +7,7 @@ import java.net.Socket;
  * Classe qui contient les informations relatives à un joueur (score, zone)
  *
  */
-public class Joueur implements graphics.Drawable, Serializable {
+public class Joueur implements graphics.Drawable, Serializable,Cloneable {
 	private Zone zone;
 	private int score;
 	private Socket socket;
@@ -36,5 +36,14 @@ public class Joueur implements graphics.Drawable, Serializable {
 
 	public void setSocket(Socket socket) {
 		this.socket = socket;
+	}
+	public Joueur clone(){
+		try {
+			return (Joueur) super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
