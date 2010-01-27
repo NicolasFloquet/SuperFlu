@@ -60,8 +60,9 @@ public class Carte implements graphics.Drawable, Serializable {
 		Sprite fond_map = ScreenManager.getSprite("fond_carte.png");
 		Sprite fond_map_danger = ScreenManager.getSprite("fond_carte_danger.png");
 		
+		Application a = Application.getInstance();
 
-		if(Application.getInstance().getGame().getPopulationInfectee()*10 > Application.getInstance().getGame().getPopulationMondiale()) {
+		if(a.getGame().getPopulationInfectee()*10 > a.getGame().getPopulationMondiale()) {
 			fond_map_danger.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2);
 		}
 		else {
@@ -80,9 +81,9 @@ public class Carte implements graphics.Drawable, Serializable {
 			}
 		}
 		
-		new Texte("Population Mondiale : " + Application.getInstance().getGame().getPopulationMondiale()).draw(10, 10, 255, 255, 255);
-		new Texte("Nombre de morts : " + Application.getInstance().getGame().getMortsTotal()).draw(10, 30, 255, 255, 255);
-		new Texte("Nombre de malades : " + Application.getInstance().getGame().getPopulationInfectee()).draw(10, 50, 255, 255, 255);
+		new Texte("Population Mondiale : " + a.getGame().getPopulationMondiale()).draw(10, 10, 255, 255, 255);
+		new Texte("Nombre de morts : " + a.getGame().getMortsTotal()).draw(10, 30, 255, 255, 255);
+		new Texte("Nombre de malades : " + a.getGame().getPopulationInfectee()).draw(10, 50, 255, 255, 255);
 	}
 
 	public ArrayList<Zone> getZones() {
@@ -112,11 +113,12 @@ public class Carte implements graphics.Drawable, Serializable {
 		GL11.glTranslatef(ScreenManager.getInstance().getOrigineCarteX(),
 							ScreenManager.getInstance().getOrigineCarteY(), 0);
 		
+		Application a = Application.getInstance();
 		int index;
 		int map_height = ScreenManager.getInstance().getMap().getHeight();
 		float max = (float)(
-				Application.getInstance().getGame().getMortsTotal()
-				+Application.getInstance().getGame().getPopulationMondiale()
+				a.getGame().getMortsTotal()
+				+a.getGame().getPopulationMondiale()
 				)/ map_height;
 		GL11.glBegin(GL11.GL_POINTS);
 		index = dephasage_courbes;
