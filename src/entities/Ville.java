@@ -38,7 +38,7 @@ public class Ville implements graphics.Drawable, Serializable {
 		this.nom = nom;
 		this.x = x;
 		this.y = y;
-		this.habitantsSains = 1000000 + r.nextInt(500000) - 250000;
+		this.habitantsSains = 300000 + r.nextInt(300000);
 		this.habitantsInfectes = 0;
 		this.habitantsImmunises = 0;
 		this.habitantsMorts = 0;

@@ -19,8 +19,8 @@ public class Usine extends Ville implements Serializable{
 
 	private ArrayList<Traitement> traitements = new ArrayList<Traitement>();
 	private ArrayList<Vaccin> vaccins = new ArrayList<Vaccin>();
-	private int productionRateVaccins = 5;
-	private int productionRateTraitements = 20;
+	private int productionRateVaccins = 2;
+	private int productionRateTraitements = 5;
 	
 	public Usine(Zone zone, String nom, int x, int y) {
 		super(zone, nom, x, y);
