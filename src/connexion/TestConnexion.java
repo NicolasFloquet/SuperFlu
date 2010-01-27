@@ -14,15 +14,7 @@ public class TestConnexion {
 	 */
 	
 	/* 
-	 * Pour faire les test j'ai besoin de mettre comme commentaire:
-	 * import org.lwjgl.opengl.GL11; de Usine et de Ville
-	 * 
-	 * import org.lwjgl.input.Keyboard; et
-	 * import org.lwjgl.opengl.Display; de Application
-	 * 
-	 * screen = ScreenManager.getInstance(); du constructeur d'Application
-	 * 
-	 * et creer les fichiers zone1 - zone6 dans le fichier root
+	 * commenter screen = ScreenManager.getInstance(); du constructeur d'Application
 	 */
 
 	public static void ecrire(GameLogic g) {
