@@ -5,13 +5,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Cette classe répresente une zone. Cette zone contient une liste de villes.
  *
  */
-public class Zone {
+public class Zone implements Serializable{
 	private int id;
 	private String nom;
 	private Joueur joueur;

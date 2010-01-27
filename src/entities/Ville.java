@@ -3,6 +3,7 @@ package entities;
 import graphics.ScreenManager;
 import graphics.Sprite;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,7 +14,7 @@ import logique.PlayerManager;
  * @author max
  *
  */
-public class Ville implements graphics.Drawable {
+public class Ville implements graphics.Drawable, Serializable {
 
 	private String nom;
 	protected int x;

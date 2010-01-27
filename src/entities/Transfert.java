@@ -1,5 +1,7 @@
 package entities;
 
+import java.io.Serializable;
+
 import logique.GameLogic;
 import graphics.ScreenManager;
 import graphics.Sprite;
@@ -8,7 +10,7 @@ import graphics.Sprite;
  * Cette classe représente un transfert de traitements ou vaccins.
  *
  */
-public class Transfert implements graphics.Drawable {
+public class Transfert implements graphics.Drawable,Serializable {
 	
 	private final static float VITESSE = 0.1f;
 	

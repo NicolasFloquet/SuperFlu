@@ -1,10 +1,12 @@
 package entities;
 
+import java.io.Serializable;
+
 /**
  * Cette classe représente un type de traitement. 
  *
  */
-public class Traitement {
+public class Traitement implements Serializable{
 	private Virus virus;
 	//private float efficacite; // TODO
 

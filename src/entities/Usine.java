@@ -3,6 +3,7 @@ package entities;
 import graphics.ScreenManager;
 import graphics.Sprite;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import logique.PlayerManager;
@@ -11,7 +12,7 @@ import logique.PlayerManager;
  * Cette classe représente une usine. C'est une ville qui possède la propriété de pouvoir produire des vaccins et traitements.
  *
  */
-public class Usine extends Ville {
+public class Usine extends Ville implements Serializable{
 
 	private ArrayList<Traitement> traitements = new ArrayList<Traitement>();
 	private ArrayList<Vaccin> vaccins = new ArrayList<Vaccin>();

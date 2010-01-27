@@ -1,10 +1,12 @@
 package entities;
 
+import java.io.Serializable;
+
 /**
  * Classe abstraite qui représente un stock. Cette classe est étendue par StockTraitement et StockVaccin pour être spécialisé.
  * 
  */
-public abstract class Stock {
+public abstract class Stock implements Serializable{
 	protected int capacite_max = 5000;
 	protected int stock = 0;
 	

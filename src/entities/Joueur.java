@@ -1,12 +1,13 @@
 package entities;
 
+import java.io.Serializable;
 import java.net.Socket;
 
 /**
  * Classe qui contient les informations relatives à un joueur (score, zone)
  *
  */
-public class Joueur implements graphics.Drawable {
+public class Joueur implements graphics.Drawable, Serializable {
 	private Zone zone;
 	private int score;
 	private Socket socket;

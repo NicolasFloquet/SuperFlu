@@ -2,6 +2,7 @@ package entities;
 
 import graphics.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * Classe qui représente la carte et qui est composée de Zones.
  *
  */
-public class Carte implements graphics.Drawable {
+public class Carte implements graphics.Drawable, Serializable {
 
 	private ArrayList<Zone> zones = new ArrayList<Zone>();
 	
