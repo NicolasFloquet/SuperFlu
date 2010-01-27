@@ -159,9 +159,9 @@ public class Ville implements graphics.Drawable, Serializable {
 	 */
 	public void update() {
 		//System.out.println("Update !");
-		float transmission = 1.2f;
+		float transmission = 1.5f;
 		float perteImmunite = 0.01f;
-		float mortalite = 0.01f;
+		float mortalite = 0.001f;
 
 		if (getHabitants() > 0) {
 
