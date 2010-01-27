@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import org.lwjgl.opengl.GL11;
 
+import logique.Application;
 import logique.PlayerManager;
 
 /**
@@ -28,6 +29,9 @@ public class Usine extends Ville implements Serializable{
 	}
 
 	public void produit() {
+		productionRateTraitements = (int) (3 * Math.log(1 + Application.getInstance().getGame().getPopulationInfectee()));
+		productionRateVaccins = (int) (0.5 * Math.log(1 + Application.getInstance().getGame().getPopulationInfectee()));
+
 		for (Traitement traitement : traitements) {
 			ajouteStockTraitement(traitement, productionRateTraitements);
 		}
@@ -85,25 +89,6 @@ public class Usine extends Ville implements Serializable{
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glPushMatrix();
 		GL11.glTranslatef(pos_x, pos_y, 0);
-		
-//		// On dessine la barre de contamination
-//    	GL11.glColor3f(0,0,0);
-//		GL11.glLineWidth(6);
-//    	GL11.glBegin(GL11.GL_LINES);
-//		{
-//	      GL11.glVertex2f( -width/2 - 1, 3 + height/2);
-//	      GL11.glVertex2f( width/2 + 1, 3 + height/2);
-//		}
-//		GL11.glEnd();
-//		float p = (float)getPourcentageInfectes()/100.0f;
-//		GL11.glColor3f(p,1-p,0);
-//		GL11.glLineWidth(4);
-//    	GL11.glBegin(GL11.GL_LINES);
-//		{
-//	      GL11.glVertex2f( -width*p/2 + 1, 3 + height/2);
-//	      GL11.glVertex2f( width*p/2 - 1 , 3 + height/2);
-//		}
-//		GL11.glEnd();
 		
 		
 		// On dessine la barre de stock

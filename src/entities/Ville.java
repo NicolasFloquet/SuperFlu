@@ -38,7 +38,7 @@ public class Ville implements graphics.Drawable, Serializable {
 		this.nom = nom;
 		this.x = x;
 		this.y = y;
-		this.habitantsSains = 300000 + r.nextInt(300000);
+		this.habitantsSains = 200000 + r.nextInt(300000);
 		this.habitantsInfectes = 0;
 		this.habitantsImmunises = 0;
 		this.habitantsMorts = 0;
@@ -158,7 +158,7 @@ public class Ville implements graphics.Drawable, Serializable {
 	 */
 	public void update() {
 		//System.out.println("Update !");
-		float transmission = 0.01f;
+		float transmission = 0.015f;
 		float perteImmunite = 0.01f;
 		float mortalite = 0.0001f;
 

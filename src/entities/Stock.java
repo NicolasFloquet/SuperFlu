@@ -7,9 +7,13 @@ import java.io.Serializable;
  * 
  */
 public abstract class Stock implements Serializable{
-	protected int capacite_max = 5000;
+	protected int capacite_max = 10000;
 	protected int stock = 0;
-	
+
+	public Stock(int stock) {
+		this.stock = Math.min(capacite_max, stock);
+	}
+
 	public int getStock() {
 		return stock;
 	}
