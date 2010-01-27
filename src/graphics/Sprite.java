@@ -38,7 +38,7 @@ public class Sprite{
 			// a tad abrupt, but our purposes if you can't find a 
 			// sprite's image you might as well give up.
 			System.err.println("Unable to load texture: "+ref);
-			System.exit(0);
+			System.exit(42);
 		}
 	}
 	

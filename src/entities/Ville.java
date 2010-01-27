@@ -254,6 +254,15 @@ public class Ville implements graphics.Drawable, Serializable {
 			new Texte("Population Malade " + getHabitantsInfectes()).draw(10, encart_pos_y + 80);
 			new Texte("Population Immunisée " + getHabitantsImmunises()).draw(10, encart_pos_y + 100);
 			new Texte("Mort " + getHabitantsMorts()).draw(10, encart_pos_y + 120);
+			if(getStocksTraitements().isEmpty())
+				new Texte("Stock Traitements 0").draw(10,encart_pos_y + 140);
+			else
+				new Texte("Stock Traitements " + getStocksTraitements().get(0).getStock()).draw(10,encart_pos_y + 140);
+				
+			if(getStocksVaccins().isEmpty())
+				new Texte("Stock Vaccins 0").draw(10,encart_pos_y + 160);
+			else
+				new Texte("Stock Vaccins " + getStocksVaccins().get(0).getStock()).draw(10,encart_pos_y + 140);
 		}
 		
 		if((float)habitantsInfectes > 100) {
