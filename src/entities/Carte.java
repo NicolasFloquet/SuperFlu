@@ -5,6 +5,8 @@ import graphics.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import logique.Application;
+
 
 /**
  * Classe qui représente la carte et qui est composée de Zones.
@@ -39,6 +41,9 @@ public class Carte implements graphics.Drawable, Serializable {
 				ville.draw();
 			}
 		}
+		
+		new Texte("Population Mondiale : " + Application.getInstance().getGame().getPopulationMondiale()).draw(10, 10);
+		new Texte("Nombre de morts : " + Application.getInstance().getGame().getMortsTotal()).draw(10, 30);
 	}
 
 	public ArrayList<Zone> getZones() {
