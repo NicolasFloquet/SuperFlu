@@ -14,6 +14,7 @@ public abstract class Send {
 
 	public static void sendData(Object o, List<Joueur> jList) {
 		
+		//System.out.println("send all: "+o);
 		//TestConnexion.ecrire((GameLogic)o);
 		
 		ObjectOutputStream ooStream;
@@ -31,6 +32,7 @@ public abstract class Send {
 	}
 
 	public static void sendData(Object o, Socket s) {
+		System.out.println("send: "+o);
 		ObjectOutputStream ooStream;
 		OutputStream oStream;
 		try {
