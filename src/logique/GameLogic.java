@@ -61,7 +61,7 @@ public class GameLogic implements Cloneable, Serializable{
 		}while(rand_zone.getVilles().size()==0);
 		
 		rand_ville = rand_zone.getVilles().get(rand.nextInt(rand_zone.getVilles().size()));
-		rand_ville.ajouteHabitantsInfectes((int)(rand_ville.getHabitants()*0.001));
+		rand_ville.ajouteHabitantsInfectes((int)(rand_ville.getHabitants()*0.01));
 
 		/* MOUHOUHOUHOHOHAHAHAHAHAHAHAHA */
 
@@ -116,9 +116,9 @@ public class GameLogic implements Cloneable, Serializable{
 				int flux_sain = 0;
 				int flux_infecte = 0;
 				int flux_immunise = 0;
-				float taux_sain = ville_origine.getHabitantsSains()/ville_origine.getHabitants();
-				float taux_infection = ville_origine.getHabitantsInfectes()/ville_origine.getHabitants();
-				float taux_immunisation = ville_origine.getHabitantsImmunises()/ville_origine.getHabitants();
+				float taux_sain = (float)ville_origine.getHabitantsSains()/(float)ville_origine.getHabitants();
+				float taux_infection = (float)ville_origine.getHabitantsInfectes()/(float)ville_origine.getHabitants();
+				float taux_immunisation = (float)ville_origine.getHabitantsImmunises()/(float)ville_origine.getHabitants();
 
 				for(Zone zone_dest : carte.getZones()){
 					for(Ville ville_dest : zone_dest.getVilles()){ /* Woot 4 boucles imbriquées */
@@ -132,11 +132,14 @@ public class GameLogic implements Cloneable, Serializable{
 						System.out.println("population " + ville_origine.getHabitants() + " flux " + flux);
 						*/
 						
+						
 						/*TODO: Trouver une meilleur formule pour le nombre de migrants infectés*/
 						flux_sain = (int)(taux_sain*flux);
 						flux_infecte = (int)(taux_infection*flux);
 						flux_immunise = (int)(taux_immunisation*flux);
-						
+						/*if(flux_sain!=flux)
+							System.out.println(ville_origine.getNom()+" => "+flux_sain);
+						*/
 						/*
 						System.out.println("flux sain " + flux_sain);
 						System.out.println("flux infecte " + flux_infecte);
