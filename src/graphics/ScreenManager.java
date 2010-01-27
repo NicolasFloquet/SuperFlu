@@ -11,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 
 import logique.Application;
+import logique.PlayerManager;
 
 public class ScreenManager {
 	static ScreenManager instance = new ScreenManager();
@@ -129,10 +130,12 @@ public class ScreenManager {
 		
 		if(selected_ville != null) {
 			GL11.glDisable(GL11.GL_TEXTURE_2D);
+			
+			// On dessine le chemin
 			GL11.glPushMatrix();
 			GL11.glTranslatef(0, 0, 0);
 	    	GL11.glColor3f(0.3f,0.4f,0.5f);
-			GL11.glLineWidth(3);
+			GL11.glLineWidth(5);
 	    	GL11.glBegin(GL11.GL_LINES);
 			{
 		      GL11.glVertex2f(getOrigineCarteX()+selected_ville.getX(),
@@ -141,6 +144,38 @@ public class ScreenManager {
 			}
 			GL11.glEnd();
 			GL11.glPopMatrix();
+			
+			// On dessine l'anneau
+			GL11.glPushMatrix();
+			GL11.glTranslatef(0, 0, 0);
+	    	GL11.glColor3f(0.3f,0.4f,0.5f);
+			GL11.glLineWidth(5);
+	    	GL11.glBegin(GL11.GL_LINES);
+			{
+				float pourcentage = (float)PlayerManager.getInstance().getPourcentageVoulu()/100.0f;
+				float old_dx = 30.0f;
+				float old_dy = 0.0f;
+				for(int i=1 ; i<=32 ; i++)
+				{
+					/*
+					float dx = (float)(30*Math.cos(pourcentage*Math.PI*i/16.0));
+					float dy = (float)(30*Math.sin(pourcentage*Math.PI*i/16.0));
+					*/
+					float dx = (float)(30*Math.cos(pourcentage*Math.PI*i/16.0f));
+					float dy = (float)(30*Math.sin(pourcentage*Math.PI*i/16.0f));
+					
+					GL11.glVertex2f(getOrigineCarteX()+selected_ville.getX()+old_dx,
+	    		  			getOrigineCarteY()+selected_ville.getY()+old_dy);
+					GL11.glVertex2f(getOrigineCarteX()+selected_ville.getX()+dx,
+	    		  			getOrigineCarteY()+selected_ville.getY()+dy);
+					
+					old_dx = dx;
+					old_dy = dy;
+				}
+			}
+			GL11.glEnd();
+			GL11.glPopMatrix();
+			
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
 		}
 
