@@ -77,7 +77,7 @@ public class GameLogic implements Cloneable, Serializable{
 
 	}
 
-	public synchronized void updateServeur(long elapsed_time){
+	public synchronized etatJeu updateServeur(long elapsed_time){
 		/* Mise à jour du temps */
 		time += elapsed_time * 10;
 
@@ -202,6 +202,7 @@ public class GameLogic implements Cloneable, Serializable{
 
 			}
 		}
+		return jeuFini();
 	}
 
 	public synchronized void creerTransfert(Ville depart, Ville arrivee, Stock stock){
@@ -271,7 +272,12 @@ public class GameLogic implements Cloneable, Serializable{
 	}
 	public etatJeu jeuFini()
 	{
-		etatJeu etat=etatJeu.EN_COURS;
+		etatJeu etat = etatJeu.EN_COURS;
+			
+		if(populationInfectee == 0)
+			etat = etatJeu.GAGNE;
+		if(mortsTotal == (populationMondiale+mortsTotal)/10)
+			etat = etatJeu.PERDU;
 		
 		return etat;
 	}
