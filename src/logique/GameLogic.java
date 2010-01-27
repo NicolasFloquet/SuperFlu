@@ -20,6 +20,9 @@ public class GameLogic implements Cloneable, Serializable{
 	private List<Virus> virus;
 	private Carte carte;
 
+    private int mortsTotal = 0;
+    private int populationMondiale = 0;
+	
 	/* Variables liées au timer */
 	private long time;
 
@@ -56,10 +59,12 @@ public class GameLogic implements Cloneable, Serializable{
 		}
 
 		/* Choisir le point de départ de l'épidemie aléatoirement */
-		do{
 		rand_zone = carte.getZones().get(rand.nextInt(carte.getZones().size()));
-		}while(rand_zone.getVilles().size()==0);
-		
+
+		do {
+			rand_ville = rand_zone.getVilles().get(rand.nextInt(rand_zone.getVilles().size()));
+		} while (rand_ville == rand_zone.getUsine());
+
 		rand_ville = rand_zone.getVilles().get(rand.nextInt(rand_zone.getVilles().size()));
 		//rand_ville.ajouteHabitantsInfectes((int)(rand_ville.getHabitants()*0.01));
 		rand_ville.ajouteHabitantsInfectes(1000);
@@ -71,7 +76,17 @@ public class GameLogic implements Cloneable, Serializable{
 	public synchronized void updateServeur(long elapsed_time){
 		/* Mise à jour du temps */
 		time += elapsed_time;
-		
+
+
+		mortsTotal = 0;
+		populationMondiale = 0;
+		for(Zone zone_origine : carte.getZones()){
+			for(Ville ville : zone_origine.getVilles()){
+				mortsTotal += ville.getHabitantsMorts();
+				populationMondiale += ville.getHabitants();
+			}
+		}
+
 		Iterator<Transfert> it = transferts.iterator();
 		while (it.hasNext()) {
 			Transfert t = it.next();
@@ -120,33 +135,33 @@ public class GameLogic implements Cloneable, Serializable{
 
 				for(Zone zone_dest : carte.getZones()){
 					for(Ville ville_dest : zone_dest.getVilles()){ /* Woot 4 boucles imbriquées */
-						
+
 						if(ville_dest==ville_origine || ville_dest == zone_dest.getUsine()) {
 							continue;
 						}
-						
+
 						distance = Ville.distance(ville_origine, ville_dest);
 
 						/*
 						 * distance = 1;
 						 * LOL
 						 */
-						
+
 						/*Inserer ici une formule magique */
 						flux = (int) ((rand.nextFloat()*TAUX_MIGRATION*ville_origine.getHabitants())/(distance)); 
-						
+
 						/*TODO: Trouver une meilleur formule pour le nombre de migrants infectés*/
 						flux_sain = (int)(taux_sain*flux);
 						flux_infecte = (int)(taux_infection*flux);
 						flux_immunise = (int)(taux_immunisation*flux);
 						if(flux_infecte!=0)
 							System.out.println(ville_origine.getNom()+" => "+flux_sain);
-						
+
 						/*
 						System.out.println("flux sain " + flux_sain);
 						System.out.println("flux infecte " + flux_infecte);
 						System.out.println("flux immunise " + flux_immunise);
-						*/
+						 */
 
 						/* Mise à jour de la population saine*/
 						if(ville_origine.getHabitantsSains()>=flux_sain){
@@ -187,13 +202,13 @@ public class GameLogic implements Cloneable, Serializable{
 
 	public synchronized void creerTransfert(Ville depart, Ville arrivee, Stock stock){
 		//if (!isServeur()) {
-			if(stock instanceof StockVaccin) {
-				depart.retireStockVaccin(((StockVaccin) stock).getVaccin(), stock.getStock());
-			}
-			else if (stock instanceof StockTraitement) {
-				depart.retireStockTraitement(((StockTraitement) stock).getTraitement(), stock.getStock());
-			}
-			transferts.add(new Transfert(this, depart, arrivee, stock, time));
+		if(stock instanceof StockVaccin) {
+			depart.retireStockVaccin(((StockVaccin) stock).getVaccin(), stock.getStock());
+		}
+		else if (stock instanceof StockTraitement) {
+			depart.retireStockTraitement(((StockTraitement) stock).getTraitement(), stock.getStock());
+		}
+		transferts.add(new Transfert(this, depart, arrivee, stock, time));
 		//} else {
 		//	System.out.println("T'es serveur, tu peux pas test.");
 		//}
@@ -225,6 +240,14 @@ public class GameLogic implements Cloneable, Serializable{
 
 	public long getTime(){
 		return time;
+	}
+	
+	public int getPopulationMondiale() {
+		return populationMondiale;
+	}
+	
+	public int getMortsTotal() {
+		return mortsTotal;
 	}
 
 	public GameLogic clone(){
