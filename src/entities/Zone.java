@@ -46,7 +46,6 @@ public class Zone implements Serializable{
 				if (tab.length == 3) {
 					if (usine == null) {
 						usine = new Usine(this, tab[0], Integer.valueOf(tab[1]), Integer.valueOf(tab[2]));
-						villes.add(usine);
 					} else {
 						Ville ville = new Ville(this, tab[0], Integer.valueOf(tab[1]), Integer.valueOf(tab[2]));
 						villes.add(ville);

@@ -65,9 +65,7 @@ public class GameLogic implements Cloneable, Serializable{
 		/* Choisir le point de départ de l'épidemie aléatoirement */
 		rand_zone = carte.getZones().get(rand.nextInt(carte.getZones().size()));
 
-		do {
-			rand_ville = rand_zone.getVilles().get(rand.nextInt(rand_zone.getVilles().size()));
-		} while (rand_ville == rand_zone.getUsine());
+		rand_ville = rand_zone.getVilles().get(rand.nextInt(rand_zone.getVilles().size()));
 
 		rand_ville = rand_zone.getVilles().get(rand.nextInt(rand_zone.getVilles().size()));
 		//rand_ville.ajouteHabitantsInfectes((int)(rand_ville.getHabitants()*0.01));

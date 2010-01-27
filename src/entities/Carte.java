@@ -63,6 +63,7 @@ public class Carte implements graphics.Drawable, Serializable {
 		
 		for(Zone zone : zones)
 		{
+			zone.getUsine().draw();
 			for(Ville ville : zone.getVilles())
 			{
 				ville.draw();
