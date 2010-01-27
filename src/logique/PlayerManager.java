@@ -23,12 +23,18 @@ public class PlayerManager {
 		}
 		else {
 			if(selected != null) {
-				// TODO ajouter un transfert
+				// TODO vraiment gerer les transferts
+				Ville released = getTargetedVille();
+				if(released != null) {
+					Application.getInstance().getGame().creerTransfert(selected,released,null);
+				}
+				selected = null;
 			}
 			else {
 				selected = null;
 			}
 		}
+		ScreenManager.getInstance().setSelected(selected);
 	}
 	
 	public static PlayerManager getInstance() {

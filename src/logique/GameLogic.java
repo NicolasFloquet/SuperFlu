@@ -72,6 +72,9 @@ public class GameLogic implements Cloneable{
 		/* Mise à jour du temps */
 		time += elapsed_time;
 
+		// Gestion des inputs
+		PlayerManager.getInstance().update();
+		
 		Iterator<Transfert> it = transferts.iterator();
 		while (it.hasNext()) {
 			Transfert t = it.next();

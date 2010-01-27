@@ -5,6 +5,8 @@ import graphics.Sprite;
 
 import java.util.ArrayList;
 
+import logique.PlayerManager;
+
 /**
  * Cette classe représente une usine. C'est une ville qui possède la propriété de pouvoir produire des vaccins et traitements.
  *
@@ -48,6 +50,12 @@ public class Usine extends Ville {
 	@Override
 	public void draw() {
 		Sprite usine = ScreenManager.getSprite("usine.png");
-		usine.draw(x + ScreenManager.getInstance().getOrigineCarteX(), y + ScreenManager.getInstance().getOrigineCarteY());
+		Sprite hl_usine = ScreenManager.getSprite("HL_usine.png");
+		
+		if(PlayerManager.getInstance().getTargetedVille() == this)
+			hl_usine.draw(x + ScreenManager.getInstance().getOrigineCarteX(), y + ScreenManager.getInstance().getOrigineCarteY());
+		else
+			usine.draw(x + ScreenManager.getInstance().getOrigineCarteX(), y + ScreenManager.getInstance().getOrigineCarteY());
 	}
 }
+

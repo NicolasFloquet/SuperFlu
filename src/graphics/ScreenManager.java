@@ -4,9 +4,11 @@ import entities.*;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.glu.GLU;
 
 import logique.Application;
 
@@ -31,11 +33,15 @@ public class ScreenManager {
 	
 	private Sprite map = null;
 	
+	private Ville selected_ville;
+	
 	private ScreenManager()
 	{
 		screen_width = 800;
 		screen_height = 600;
 		fullscreen = false;
+		
+		selected_ville = null;
 		
 		timerTicksPerSecond = Sys.getTimerResolution();
 		lastLoopTime = getTime();
@@ -121,6 +127,23 @@ public class ScreenManager {
 			transfert.draw();
 		}
 		
+		if(selected_ville != null) {
+			GL11.glDisable(GL11.GL_TEXTURE_2D);
+			GL11.glPushMatrix();
+			GL11.glTranslatef(0, 0, 0);
+	    	GL11.glColor3f(0.3f,0.4f,0.5f);
+			GL11.glLineWidth(3);
+	    	GL11.glBegin(GL11.GL_LINES);
+			{
+		      GL11.glVertex2f(getOrigineCarteX()+selected_ville.getX(),
+		    		  			getOrigineCarteY()+selected_ville.getY());
+		      GL11.glVertex2f(Mouse.getX(),screen_height-Mouse.getY());
+			}
+			GL11.glEnd();
+			GL11.glPopMatrix();
+			GL11.glEnable(GL11.GL_TEXTURE_2D);
+		}
+
 		Display.update();
 	}
 	
@@ -153,7 +176,7 @@ public class ScreenManager {
 			GL11.glMatrixMode(GL11.GL_MODELVIEW);
 			GL11.glLoadIdentity();
 			GL11.glViewport(0, 0, screen_width, screen_height);
-			 
+
 			textureLoader = new TextureLoader();
 		}
 		catch (LWJGLException le)
@@ -208,5 +231,8 @@ public class ScreenManager {
 	public int getScreenHeight() {
 		return screen_height;
 	}
-	
+
+	public void setSelected(Ville v) {
+		selected_ville = v;
+	}
 }
