@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+
 import logique.PlayerManager;
 
 /**
@@ -198,10 +201,39 @@ public class Ville implements graphics.Drawable, Serializable {
 		Sprite ville = ScreenManager.getSprite("ville.png");
 		Sprite hl_ville = ScreenManager.getSprite("HL_ville.png");
 
+		int pos_x = x + ScreenManager.getInstance().getOrigineCarteX();
+		int pos_y = y + ScreenManager.getInstance().getOrigineCarteY();
+			
 		if(PlayerManager.getInstance().getTargetedVille() == this)
-			hl_ville.draw(x + ScreenManager.getInstance().getOrigineCarteX(), y + ScreenManager.getInstance().getOrigineCarteY());
+			hl_ville.draw(pos_x, pos_y);
 		else
-			ville.draw(x + ScreenManager.getInstance().getOrigineCarteX(), y + ScreenManager.getInstance().getOrigineCarteY());
+			ville.draw(pos_x, pos_y);
+		
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		
+		// On dessine la barre de contamination
+		GL11.glPushMatrix();
+		GL11.glTranslatef(pos_x, pos_y, 0);
+    	GL11.glColor3f(0,0,0);
+		GL11.glLineWidth(6);
+    	GL11.glBegin(GL11.GL_LINES);
+		{
+	      GL11.glVertex2f( -ville.getWidth()/2 - 1, 3 + ville.getHeight()/2);
+	      GL11.glVertex2f( ville.getWidth()/2 + 1, 3 + ville.getHeight()/2);
+		}
+		GL11.glEnd();
+		float p = (float)getPourcentageInfectes()/100.0f;
+		GL11.glColor3f(p,1-p,0);
+		GL11.glLineWidth(2);
+    	GL11.glBegin(GL11.GL_LINES);
+		{
+	      GL11.glVertex2f( -ville.getWidth()*p/2 + 1, 3 + ville.getHeight()/2);
+	      GL11.glVertex2f( ville.getWidth()*p/2 - 1 , 3 + ville.getHeight()/2);
+		}
+		GL11.glEnd();
+		GL11.glPopMatrix();
+		
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 
 	public ArrayList<StockVaccin> getStocksVaccins() {
