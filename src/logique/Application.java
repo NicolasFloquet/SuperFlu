@@ -77,15 +77,6 @@ public class Application
 			clientController.connect();
 		}
 
-		/** TEST **/
-		game.creerTransfert(game.getCarte().getZones().get(0).getVilles().get(0),
-				game.getCarte().getZones().get(0).getVilles().get(1), 
-				null);
-
-		game.creerTransfert(game.getCarte().getZones().get(0).getVilles().get(1),
-				game.getCarte().getZones().get(0).getVilles().get(2), 
-				null);
-
 		running = true;
 		while(running)
 		{

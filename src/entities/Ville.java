@@ -62,6 +62,16 @@ public class Ville implements graphics.Drawable, Serializable {
 			stocksVaccins.add(new StockVaccin(quantite, vaccin));
 		}
 	}
+	
+	public void retireStockVaccin(Vaccin vaccin, int quantite) {
+
+		for (StockVaccin sv : stocksVaccins) {
+			if (sv.getVaccin() == vaccin) {
+				sv.retireStock(quantite);
+				break;
+			}
+		}
+	}
 
 	public void ajouteStockTraitement(Traitement traitement, int quantite) {
 		boolean ajoute = false;
@@ -75,6 +85,16 @@ public class Ville implements graphics.Drawable, Serializable {
 		}
 		if (!ajoute) {
 			stocksTraitements.add(new StockTraitement(quantite, traitement));
+		}
+	}
+	
+	public void retireStockTraitement(Traitement traitement, int quantite) {
+
+		for (StockTraitement st : stocksTraitements) {
+			if (st.getTraitement() == traitement) {
+				st.retireStock(quantite);
+				break;
+			}
 		}
 	}
 

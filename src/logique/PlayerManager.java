@@ -41,9 +41,11 @@ public class PlayerManager {
 					/* TODO La on envoi que des stocks de traitement, il faut aussi gerer les vaccins
 					        + Existance de differents traitement (pour un itération future */
 					if (!selected.getStocksTraitements().isEmpty()) {
-						Stock nouveau_stock = new StockTraitement(selected.getStocksTraitements().get(0).getStock()*pourcentage/100,
-																  selected.getStocksTraitements().get(0).getTraitement());
-						Application.getInstance().getGame().creerTransfert(selected,released,nouveau_stock);
+						if(selected.getStocksTraitements().get(0).getStock()>0) {
+							Stock nouveau_stock = new StockTraitement(selected.getStocksTraitements().get(0).getStock()*pourcentage/100,
+																	  selected.getStocksTraitements().get(0).getTraitement());
+							Application.getInstance().getGame().creerTransfert(selected,released,nouveau_stock);
+						}
 					}
 				}
 				selected = null;

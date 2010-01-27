@@ -32,6 +32,14 @@ public abstract class Stock implements Serializable{
 		return reste;
 	}
 	
+	public void retireStock(int valeur) {	
+		if (stock-valeur < 0) {
+			stock = 0;
+		} else {
+			stock = stock - valeur;
+		}
+	}
+	
 	
 	public void utilise(int n) {
 		stock -= n;
