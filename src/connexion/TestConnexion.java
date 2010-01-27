@@ -21,6 +21,8 @@ public class TestConnexion {
 	 * import org.lwjgl.opengl.Display; de Application
 	 * 
 	 * screen = ScreenManager.getInstance(); du constructeur d'Application
+	 * 
+	 * et creer les fichiers zone1 - zone6 dans le fichier root
 	 */
 
 	public static void ecrire(GameLogic g) {
