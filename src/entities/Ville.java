@@ -179,8 +179,8 @@ public class Ville implements graphics.Drawable, Serializable {
 					stocksTraitements.get(0).utilise(stocksTraitements.get(0).getStock());
 					/*System.out.println("Utilise : " + stocksTraitements.get(0).getStock());*/
 				} else {
-					habitantsInfectes = 0;
 					stocksTraitements.get(0).utilise(habitantsInfectes);
+					habitantsInfectes = 0;
 					/*System.out.println("Utilise : " + habitantsInfectes);*/
 				}
 			}
