@@ -154,7 +154,7 @@ public class GameLogic implements Cloneable, Serializable{
 						 */
 
 						/*Inserer ici une formule magique */
-						flux = (int) ((rand.nextFloat()*TAUX_MIGRATION*ville_origine.getHabitants())/(distance + getMortsTotal())); 
+						flux = (int) ((rand.nextFloat()*TAUX_MIGRATION*ville_origine.getHabitants())/(distance + getPopulationInfectee()/50f)); 
 
 						/*TODO: Trouver une meilleur formule pour le nombre de migrants infectés*/
 						flux_sain = (int)(taux_sain*flux);
