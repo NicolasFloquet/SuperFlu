@@ -20,7 +20,6 @@ public abstract class Send {
 		OutputStream oStream;
 		try {
 			for (Joueur joueur : jList) {
-				System.out.println(joueur);
 				oStream = joueur.getSocket().getOutputStream();
 				ooStream = new ObjectOutputStream(oStream);
 				ooStream.writeObject(o);
