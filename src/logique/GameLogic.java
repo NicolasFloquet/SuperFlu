@@ -75,7 +75,7 @@ public class GameLogic implements Cloneable, Serializable{
 
 	public synchronized void updateServeur(long elapsed_time){
 		/* Mise à jour du temps */
-		time += elapsed_time;
+		time += elapsed_time * 10;
 
 
 		mortsTotal = 0;
@@ -154,8 +154,6 @@ public class GameLogic implements Cloneable, Serializable{
 						flux_sain = (int)(taux_sain*flux);
 						flux_infecte = (int)(taux_infection*flux);
 						flux_immunise = (int)(taux_immunisation*flux);
-						if(flux_infecte!=0)
-							System.out.println(ville_origine.getNom()+" => "+flux_sain);
 
 						/*
 						System.out.println("flux sain " + flux_sain);
