@@ -264,8 +264,8 @@ public class ScreenManager {
 		return 0;
 	}
 	
-	public int getEncartHeight() {
-		return screen_height-map.getHeight();
+	public int getOrigineEncartY() {
+		return map.getHeight();
 	}
 	
 	/**
