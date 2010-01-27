@@ -83,11 +83,13 @@ public class GameLogic implements Cloneable, Serializable{
 		mortsTotal = 0;
 		populationMondiale = 0;
 		populationInfectee = 0;
+		vaccinesTotal = 0;
 		for(Zone zone_origine : carte.getZones()){
 			for(Ville ville : zone_origine.getVilles()){
 				mortsTotal += ville.getHabitantsMorts();
 				populationMondiale += ville.getHabitants();
 				populationInfectee += ville.getHabitantsInfectes();
+				vaccinesTotal += ville.getHabitantsImmunises();
 			}
 		}
 

@@ -54,11 +54,17 @@ public class Carte implements graphics.Drawable, Serializable {
 	{		
 		Sprite map = ScreenManager.getInstance().getMap();
 		Sprite fond_map = ScreenManager.getSprite("fond_carte.png");
+		Sprite fond_map_danger = ScreenManager.getSprite("fond_carte_danger.png");
 		
+
+		if(Application.getInstance().getGame().getPopulationInfectee()*10 > Application.getInstance().getGame().getPopulationMondiale()) {
+			fond_map_danger.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2);
+		}
+		else {
+			fond_map.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2);
+		}
 		updateCourbes();
-		drawCourbes();
-		
-		fond_map.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2);
+		drawCourbes();	
 		map.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2);
 		
 		for(Zone zone : zones)
@@ -72,6 +78,7 @@ public class Carte implements graphics.Drawable, Serializable {
 		
 		new Texte("Population Mondiale : " + Application.getInstance().getGame().getPopulationMondiale()).draw(10, 10, 255, 255, 255);
 		new Texte("Nombre de morts : " + Application.getInstance().getGame().getMortsTotal()).draw(10, 30, 255, 255, 255);
+		new Texte("Nombre de malades : " + Application.getInstance().getGame().getPopulationInfectee()).draw(10, 50, 255, 255, 255);
 	}
 
 	public ArrayList<Zone> getZones() {
@@ -92,8 +99,9 @@ public class Carte implements graphics.Drawable, Serializable {
 	
 	public void drawCourbes() {
 		//dessin de la courbe
-		
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GL11.glEnable(GL11.GL_POINT_SMOOTH);
+		GL11.glPointSize(3);
 		
 		// On dessine la courbe
 		GL11.glPushMatrix();
@@ -101,43 +109,51 @@ public class Carte implements graphics.Drawable, Serializable {
 							ScreenManager.getInstance().getOrigineCarteY(), 0);
 		
 		int index;
+		int map_height = ScreenManager.getInstance().getMap().getHeight();
 		float max = (float)(
 				Application.getInstance().getGame().getMortsTotal()
 				+Application.getInstance().getGame().getPopulationMondiale()
-				)/ScreenManager.getInstance().getMap().getHeight();
-		System.out.println(max);
-		GL11.glBegin(GL11.GL_LINES);
-		GL11.glColor3f(1.0f,0.5f,0.5f);
+				)/ map_height;
+		GL11.glBegin(GL11.GL_POINTS);
 		index = dephasage_courbes;
 		for(int i=0 ; i<courbe_pop.length ; i++) {
-		    GL11.glVertex2f(i,courbe_infectes[index]/max);
+			GL11.glColor4f(0.0f,0.0f,0.0f,0.2f);
+		    GL11.glVertex2f(i,4+map_height-courbe_infectes[index]/max);
+			GL11.glColor3f(0.7f,0.5f,0.5f);
+		    GL11.glVertex2f(i,map_height-courbe_infectes[index]/max);
 			index++;
 			if(index>=courbe_pop.length) {
 				index=0;
 			}
 		}
-		GL11.glColor3f(0.3f,0.3f,1.0f);
 		index = dephasage_courbes;
 		for(int i=0 ; i<courbe_pop.length ; i++) {
-	    	GL11.glVertex2f(i,courbe_vaccines[index]/max);
+			GL11.glColor4f(0.0f,0.0f,0.0f,0.2f);
+	    	GL11.glVertex2f(i,4+map_height-courbe_vaccines[index]/max);
+	    	GL11.glColor4f(0.3f,0.3f,1.0f,1.0f);
+	    	GL11.glVertex2f(i,map_height-courbe_vaccines[index]/max);
 			index++;
 			if(index>=courbe_pop.length) {
 				index=0;
 			}
 		}
-		GL11.glColor3f(1.0f,0.0f,0.0f);
 		index = dephasage_courbes;
 		for(int i=0 ; i<courbe_pop.length ; i++) {
-	    	GL11.glVertex2f(i,courbe_morts[index]/max);
+			GL11.glColor4f(0.0f,0.0f,0.0f,0.2f);
+	    	GL11.glVertex2f(i,4+map_height-courbe_morts[index]/max);
+	    	GL11.glColor4f(1.0f,0.0f,0.0f,1.0f);
+	    	GL11.glVertex2f(i,map_height-courbe_morts[index]/max);
 			index++;
 			if(index>=courbe_pop.length) {
 				index=0;
 			}
 		}
-		GL11.glColor3f(0.0f,1.0f,0.0f);
 		index = dephasage_courbes;
 		for(int i=0 ; i<courbe_pop.length ; i++) {
-		    GL11.glVertex2f(i,courbe_pop[index]/max);
+			GL11.glColor4f(0.0f,0.0f,0.0f,0.2f);
+		    GL11.glVertex2f(i,4+map_height-courbe_pop[index]/max);
+		    GL11.glColor4f(0.0f,1.0f,0.0f,1.0f);
+		    GL11.glVertex2f(i,map_height-courbe_pop[index]/max);
 			index++;
 			if(index>=courbe_pop.length) {
 				index=0;
