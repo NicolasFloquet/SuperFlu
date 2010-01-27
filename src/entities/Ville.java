@@ -223,23 +223,25 @@ public class Ville implements graphics.Drawable, Serializable {
 
 		int pos_x = x + ScreenManager.getInstance().getOrigineCarteX();
 		int pos_y = y + ScreenManager.getInstance().getOrigineCarteY();
+		int height = ville.getHeight();
+		int width = ville.getWidth();
 			
 		if(PlayerManager.getInstance().getTargetedVille() == this)
 			hl_ville.draw(pos_x, pos_y);
 		else
 			ville.draw(pos_x, pos_y);
-		
+
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		
-		// On dessine la barre de contamination
 		GL11.glPushMatrix();
 		GL11.glTranslatef(pos_x, pos_y, 0);
+		
+		// On dessine la barre de contamination
     	GL11.glColor3f(0,0,0);
 		GL11.glLineWidth(6);
     	GL11.glBegin(GL11.GL_LINES);
 		{
-	      GL11.glVertex2f( -ville.getWidth()/2 - 1, 3 + ville.getHeight()/2);
-	      GL11.glVertex2f( ville.getWidth()/2 + 1, 3 + ville.getHeight()/2);
+	      GL11.glVertex2f( -width/2 - 1, 3 + height/2);
+	      GL11.glVertex2f( width/2 + 1, 3 + height/2);
 		}
 		GL11.glEnd();
 		float p = (float)getPourcentageInfectes()/100.0f;
@@ -247,12 +249,34 @@ public class Ville implements graphics.Drawable, Serializable {
 		GL11.glLineWidth(2);
     	GL11.glBegin(GL11.GL_LINES);
 		{
-	      GL11.glVertex2f( -ville.getWidth()*p/2 + 1, 3 + ville.getHeight()/2);
-	      GL11.glVertex2f( ville.getWidth()*p/2 - 1 , 3 + ville.getHeight()/2);
+	      GL11.glVertex2f( -width*p/2 + 1, 3 + height/2);
+	      GL11.glVertex2f( width*p/2 - 1 , 3 + height/2);
 		}
 		GL11.glEnd();
-		GL11.glPopMatrix();
 		
+		
+		// On dessine la barre de stock
+		for(StockTraitement stock : stocksTraitements) {
+			p = 0.5f*stock.stock/stock.capacite_max;
+			GL11.glColor3f(0,0,0);
+			GL11.glLineWidth(6);
+	    	GL11.glBegin(GL11.GL_LINES);
+			{
+		      GL11.glVertex2f( 3 + width/2, -1 + height/2 );
+		      GL11.glVertex2f( 3 + width/2, 1 - height/2);
+			}
+			GL11.glEnd();
+			GL11.glColor3f(0.5f+p,0.5f+p,0.5f+p);
+			GL11.glLineWidth(2);
+	    	GL11.glBegin(GL11.GL_LINES);
+			{
+			      GL11.glVertex2f( 3 + width/2, -1 + height*p );
+			      GL11.glVertex2f( 3 + width/2, 1 - height*p);
+			}
+			GL11.glEnd();
+		}
+		
+		GL11.glPopMatrix();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 
