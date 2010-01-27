@@ -169,7 +169,7 @@ public class Ville implements graphics.Drawable, Serializable {
 
 			// Infection :
 			/*System.out.println("Infection :");*/
-			int nouveauxHabitantsInfectes = (int) (habitantsInfectes * transmission * (habitantsSains / getHabitants()));
+			int nouveauxHabitantsInfectes = (int) (habitantsInfectes * transmission * ((float)habitantsSains / getHabitants()));
 			habitantsSains -= nouveauxHabitantsInfectes;
 			habitantsInfectes += nouveauxHabitantsInfectes;
 			/*System.out.println("nouveaux : " + nouveauxHabitantsInfectes + " infectés (total) " + habitantsInfectes);*/
