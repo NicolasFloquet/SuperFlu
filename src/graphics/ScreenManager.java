@@ -128,57 +128,74 @@ public class ScreenManager {
 		}
 		
 		if(selected_ville != null) {
-			GL11.glDisable(GL11.GL_TEXTURE_2D);
-			
-			// On dessine le chemin
-			GL11.glPushMatrix();
-			GL11.glTranslatef(0, 0, 0);
-	    	GL11.glColor3f(0.3f,0.4f,0.5f);
-			GL11.glLineWidth(5);
-	    	GL11.glBegin(GL11.GL_LINES);
-			{
-		      GL11.glVertex2f(getOrigineCarteX()+selected_ville.getX(),
-		    		  			getOrigineCarteY()+selected_ville.getY());
-		      GL11.glVertex2f(Mouse.getX(),screen_height-Mouse.getY());
-			}
-			GL11.glEnd();
-			GL11.glPopMatrix();
-			
-			// On dessine l'anneau
-			GL11.glPushMatrix();
-			GL11.glTranslatef(0, 0, 0);
-	    	GL11.glColor3f(0.3f,0.4f,0.5f);
-			GL11.glLineWidth(5);
-	    	GL11.glBegin(GL11.GL_LINES);
-			{
-				float pourcentage = (float)PlayerManager.getInstance().getPourcentageVoulu()/100.0f;
-				float old_dx = 30.0f;
-				float old_dy = 0.0f;
-				for(int i=1 ; i<=32 ; i++)
-				{
-					/*
-					float dx = (float)(30*Math.cos(pourcentage*Math.PI*i/16.0));
-					float dy = (float)(30*Math.sin(pourcentage*Math.PI*i/16.0));
-					*/
-					float dx = (float)(30*Math.cos(pourcentage*Math.PI*i/16.0f));
-					float dy = (float)(30*Math.sin(pourcentage*Math.PI*i/16.0f));
-					
-					GL11.glVertex2f(getOrigineCarteX()+selected_ville.getX()+old_dx,
-	    		  			getOrigineCarteY()+selected_ville.getY()+old_dy);
-					GL11.glVertex2f(getOrigineCarteX()+selected_ville.getX()+dx,
-	    		  			getOrigineCarteY()+selected_ville.getY()+dy);
-					
-					old_dx = dx;
-					old_dy = dy;
-				}
-			}
-			GL11.glEnd();
-			GL11.glPopMatrix();
-			
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
+			drawTransfertWidget(selected_ville);
 		}
 
 		Display.update();
+	}
+
+	private void drawTransfertWidget(Ville selected_ville) {
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GL11.glEnable(GL11.GL_LINE_SMOOTH);
+		
+		// On dessine le chemin
+		GL11.glPushMatrix();
+		GL11.glTranslatef(0, 0, 0);
+    	GL11.glColor3f(0.3f,0.4f,0.5f);
+		GL11.glLineWidth(5);
+    	GL11.glBegin(GL11.GL_LINES);
+		{
+	      GL11.glVertex2f(getOrigineCarteX()+selected_ville.getX(),
+	    		  			getOrigineCarteY()+selected_ville.getY());
+	      GL11.glVertex2f(Mouse.getX(),screen_height-Mouse.getY());
+		}
+		GL11.glEnd();
+		GL11.glPopMatrix();
+		
+		// On dessine l'anneau
+		GL11.glPushMatrix();
+		GL11.glTranslatef(getOrigineCarteX()+selected_ville.getX(),
+							getOrigineCarteY()+selected_ville.getY(), 0);
+    	GL11.glColor3f(0.3f,0.4f,0.5f);
+		GL11.glLineWidth(3);
+    	GL11.glBegin(GL11.GL_LINES);
+		{
+			float pourcentage = (float)PlayerManager.getInstance().getPourcentageVoulu()/100.0f;
+			float old_dx = 20.0f;
+			float old_dy = 0.0f;
+			for(int i=1 ; i<=32 ; i++)
+			{
+				float dx = (float)(20*Math.cos(pourcentage*Math.PI*i/16.0f));
+				float dy = (float)(20*Math.sin(pourcentage*Math.PI*i/16.0f));
+				
+				GL11.glVertex2f(old_dx, old_dy);
+				GL11.glVertex2f(dx, dy);
+				
+				old_dx = dx;
+				old_dy = dy;
+			}
+		}
+		GL11.glEnd();
+		GL11.glPopMatrix();
+		// On dessine la cible
+		Ville target = PlayerManager.getInstance().getTargetedVille();
+		if(target != null && target != selected_ville) {
+			GL11.glPushMatrix();
+			GL11.glTranslatef(getOrigineCarteX()+target.getX(), getOrigineCarteY()+target.getY(), 0);
+	    	GL11.glColor3f(0.3f,0.4f,0.5f);
+			GL11.glLineWidth(3);
+	    	GL11.glBegin(GL11.GL_LINE_LOOP);
+			{
+					GL11.glVertex2f(0, 20);
+					GL11.glVertex2f(20, 0);
+					GL11.glVertex2f(0, -20);
+					GL11.glVertex2f(-20, 0);
+			}
+			GL11.glEnd();
+			GL11.glPopMatrix();
+		}
+		
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 	
 	/**
