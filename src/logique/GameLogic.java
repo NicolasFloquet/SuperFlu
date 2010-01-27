@@ -11,7 +11,9 @@ import entities.*;
 
 public class GameLogic implements Cloneable, Serializable{
 	/*TODO: Calibrer TAUX_MIGRATION*/
-	private final static float TAUX_MIGRATION = 0.0001f;
+	private final static float TAUX_MIGRATION = 0.01f;
+
+	
 
 	private Random rand = new Random(); 
 
@@ -61,7 +63,8 @@ public class GameLogic implements Cloneable, Serializable{
 		}while(rand_zone.getVilles().size()==0);
 		
 		rand_ville = rand_zone.getVilles().get(rand.nextInt(rand_zone.getVilles().size()));
-		rand_ville.ajouteHabitantsInfectes((int)(rand_ville.getHabitants()*0.01));
+		//rand_ville.ajouteHabitantsInfectes((int)(rand_ville.getHabitants()*0.01));
+		rand_ville.ajouteHabitantsInfectes(1000);
 
 		/* MOUHOUHOUHOHOHAHAHAHAHAHAHAHA */
 
@@ -119,24 +122,32 @@ public class GameLogic implements Cloneable, Serializable{
 
 				for(Zone zone_dest : carte.getZones()){
 					for(Ville ville_dest : zone_dest.getVilles()){ /* Woot 4 boucles imbriquées */
+						
+						if(ville_dest==ville_origine || ville_dest == zone_dest.getUsine()) {
+							continue;
+						}
+						
 						distance = Ville.distance(ville_origine, ville_dest);
 
-						distance = 1;
+						/*
+						 * distance = 1;
+						 * LOL
+						 */
 						
 						/*Inserer ici une formule magique */
-						flux = (int) ((rand.nextFloat()*TAUX_MIGRATION*ville_origine.getHabitants())/distance); 
-						/*
-						System.out.println("population " + ville_origine.getHabitants() + " flux " + flux);
-						*/
+						flux = (int) ((rand.nextFloat()*TAUX_MIGRATION*ville_origine.getHabitants())/(distance)); 
+						
+						System.out.println(ville_origine.getNom()+" => " + flux + ":" + distance);
+						
 						
 						
 						/*TODO: Trouver une meilleur formule pour le nombre de migrants infectés*/
 						flux_sain = (int)(taux_sain*flux);
 						flux_infecte = (int)(taux_infection*flux);
 						flux_immunise = (int)(taux_immunisation*flux);
-						/*if(flux_sain!=flux)
+						if(flux_infecte!=0)
 							System.out.println(ville_origine.getNom()+" => "+flux_sain);
-						*/
+						
 						/*
 						System.out.println("flux sain " + flux_sain);
 						System.out.println("flux infecte " + flux_infecte);
