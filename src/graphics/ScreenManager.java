@@ -127,16 +127,18 @@ public class ScreenManager {
 		GL11.glEnd();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		
-		Application.getInstance().getGame().getCarte().draw();
+		Application a = Application.getInstance();
 		
-		for(Joueur joueur : Application.getInstance().getGame().getJoueurs())
+		a.getGame().getCarte().draw();
+		
+		for(Joueur joueur : a.getGame().getJoueurs())
 		{
 			joueur.draw();
 		}
 		
-		for(Transfert transfert : Application.getInstance().getGame().getTransferts())
+		for(Transfert transfert : a.getGame().getTransferts())
 		{
-			synchronized (Application.getInstance().getGame()) {
+			synchronized (a.getGame()) {
 				transfert.draw();
 			}
 		}
