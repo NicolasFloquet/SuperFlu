@@ -1,5 +1,6 @@
 package connexion;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import logique.Application;
@@ -71,16 +72,17 @@ public class TestConnexion {
 
 	public static void main(String[] args) {
 		Application a = Application.getInstance();
-		// ecrire(a.getGame());
+		//ecrire(a.getGame());
 
 		ConnexionController c = new ServerController();
 		c.connect();
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(50000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		System.out.println("Serveur envoye");
 
 		c.send(a.getGame());
