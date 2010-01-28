@@ -13,10 +13,10 @@ public class Texte {
 		for (int i = 0; i < chaine.length(); i++) {
 			String c = chaine.substring(i, i + 1);
 
-			if (c.charAt(0) >= 'a' && c.charAt(0) <= 'z') {
+			if ((c.charAt(0) >= 'a' && c.charAt(0) <= 'z') || c.charAt(0) == 'é') {
 				c += "_min";
 			}
-			
+
 			if (c.equals(":")) {
 				c = "dp";
 			}
