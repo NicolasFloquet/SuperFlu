@@ -22,4 +22,8 @@ public class StockVaccin extends Stock implements Serializable {
 	public Vaccin getVaccin() {
 		return vaccin;
 	}
+	
+	public void setVaccin(Vaccin v) {
+		this.vaccin = v;
+	}
 }

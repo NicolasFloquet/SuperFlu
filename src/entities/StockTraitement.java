@@ -12,7 +12,7 @@ public class StockTraitement extends Stock implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final Traitement traitement;
+	private Traitement traitement;
 	
 	public StockTraitement(int stock, Traitement traitement) {
 		super(stock);
@@ -21,5 +21,9 @@ public class StockTraitement extends Stock implements Serializable{
 	
 	public Traitement getTraitement() {
 		return traitement;
+	}
+	
+	public void setTraitement(Traitement t) {
+		this.traitement = t;
 	}
 }
