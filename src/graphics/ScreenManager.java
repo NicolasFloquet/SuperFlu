@@ -34,6 +34,7 @@ public class ScreenManager {
 	private Sprite map = null;
 	
 	private Ville selected_ville;
+	private boolean transfertIsTraitement;
 
 	private ScreenManager()
 	{
@@ -237,20 +238,25 @@ public class ScreenManager {
 		}
 		
 		if(selected_ville != null) {
-			drawTransfertWidget(selected_ville);
+			drawTransfertWidget(selected_ville, transfertIsTraitement);
 		}
 
 		Display.update();
 	}
 
-	private void drawTransfertWidget(Ville selected_ville) {
+	private void drawTransfertWidget(Ville selected_ville, boolean isTraitement) {
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL11.GL_LINE_SMOOTH);
 		
 		// On dessine le chemin
 		GL11.glPushMatrix();
 		GL11.glTranslatef(0, 0, 0);
-    	GL11.glColor3f(0.3f,0.4f,0.5f);
+		
+		if(isTraitement) {
+			GL11.glColor3f(0.2f,0.2f,1.0f);
+		} else {
+			GL11.glColor3f(1.0f,0.2f,0.2f);
+		}
 		GL11.glLineWidth(5);
     	GL11.glBegin(GL11.GL_LINES);
 		{
@@ -265,7 +271,6 @@ public class ScreenManager {
 		GL11.glPushMatrix();
 		GL11.glTranslatef(getOrigineCarteX()+selected_ville.getX(),
 							getOrigineCarteY()+selected_ville.getY(), 0);
-    	GL11.glColor3f(0.3f,0.4f,0.5f);
 		GL11.glLineWidth(3);
     	GL11.glBegin(GL11.GL_LINES);
 		{
@@ -291,8 +296,6 @@ public class ScreenManager {
 		if(target != null && target != selected_ville) {
 			GL11.glPushMatrix();
 			GL11.glTranslatef(getOrigineCarteX()+target.getX(), getOrigineCarteY()+target.getY(), 0);
-	    	GL11.glColor3f(0.3f,0.4f,0.5f);
-			GL11.glLineWidth(3);
 	    	GL11.glBegin(GL11.GL_LINE_LOOP);
 			{
 					GL11.glVertex2f(0, 20);
@@ -400,7 +403,8 @@ public class ScreenManager {
 		return screen_width;
 	}
 
-	public void setSelected(Ville v) {
+	public void setSelected(Ville v, boolean isTraitement) {
 		selected_ville = v;
+		transfertIsTraitement = isTraitement;
 	}
 }

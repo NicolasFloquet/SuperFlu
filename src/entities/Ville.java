@@ -332,16 +332,16 @@ public class Ville implements graphics.Drawable, Serializable {
 			GL11.glLineWidth(6);
 	    	GL11.glBegin(GL11.GL_LINES);
 			{
-		      GL11.glVertex2f( 3 + width/2, 1 + height/2 );
-		      GL11.glVertex2f( 3 + width/2, -1 - height/2);
+		      GL11.glVertex2f( -(3 + width/2), 1 + height/2 );
+		      GL11.glVertex2f( -(3 + width/2), -1 - height/2);
 			}
 			GL11.glEnd();
-			GL11.glColor3f(0.5f+p,0.5f+p,0.5f+p);
+			GL11.glColor3f(0.2f,0.2f,0.5f+p);
 			GL11.glLineWidth(4);
 	    	GL11.glBegin(GL11.GL_LINES);
 			{
-			      GL11.glVertex2f( 3 + width/2, +height/2 );
-			      GL11.glVertex2f( 3 + width/2, +height/2 - height*2*p);
+			      GL11.glVertex2f( -(3 + width/2), +height/2 );
+			      GL11.glVertex2f( -(3 + width/2), +height/2 - height*2*p);
 			}
 			GL11.glEnd();
 		}
@@ -357,12 +357,12 @@ public class Ville implements graphics.Drawable, Serializable {
 		      GL11.glVertex2f( 3 + width/2, -1 - height/2);
 			}
 			GL11.glEnd();
-			GL11.glColor3f(0.5f+p,0.5f+p,0.5f+p);
+			GL11.glColor3f(0.5f+p,0.2f,0.2f);
 			GL11.glLineWidth(4);
 	    	GL11.glBegin(GL11.GL_LINES);
 			{
-			      GL11.glVertex2f( -(3 + width/2), +height/2 );
-			      GL11.glVertex2f( -(3 + width/2), +height/2 - height*2*p);
+			      GL11.glVertex2f( (3 + width/2), +height/2 );
+			      GL11.glVertex2f( (3 + width/2), +height/2 - height*2*p);
 			}
 			GL11.glEnd();
 		}

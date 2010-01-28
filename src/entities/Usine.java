@@ -104,36 +104,47 @@ public class Usine extends Ville implements Serializable{
 		GL11.glPushMatrix();
 		GL11.glTranslatef(pos_x, pos_y, 0);
 		
-		
-		// On dessine la barre de stock
-		int dx = 0;
+		float p;
+		// On dessine la barre de stock de traitement
 		for(StockTraitement stock : getStocksTraitements()) {
-			float p = 0.5f*(float)stock.stock/(float)stock.capacite_max;
+			p = 0.5f*stock.getStock()/stock.getCapacite_max();
 			GL11.glColor3f(0,0,0);
 			GL11.glLineWidth(6);
 	    	GL11.glBegin(GL11.GL_LINES);
 			{
-		      GL11.glVertex2f( dx + 3 + width/2, 1 + height/2 );
-		      GL11.glVertex2f( dx + 3 + width/2, -1 - height/2);
+		      GL11.glVertex2f( -(3 + width/2), 1 + height/2 );
+		      GL11.glVertex2f( -(3 + width/2), -1 - height/2);
 			}
 			GL11.glEnd();
+			GL11.glColor3f(0.2f,0.2f,0.5f+p);
 			GL11.glLineWidth(4);
 	    	GL11.glBegin(GL11.GL_LINES);
 			{
-				if(stock.stock>0) {
-					GL11.glColor3f(0.5f+p,0.5f+p,0.5f+p);
-					 GL11.glVertex2f( 3 + width/2, +height/2 );
-				      GL11.glVertex2f( 3 + width/2, +height/2 - height*2*p);
-				}
-				else {
-					GL11.glColor3f(1,0,0);
-				    GL11.glVertex2f( 3 + width/2, -2 + height/2 );
-				    GL11.glVertex2f( 3 + width/2, 2 - height/2);
-				}
+			      GL11.glVertex2f( -(3 + width/2), +height/2 );
+			      GL11.glVertex2f( -(3 + width/2), +height/2 - height*2*p);
 			}
 			GL11.glEnd();
-			
-			dx+=6;
+		}
+		
+		// On dessine la barre de stock de vaccins
+		for(StockVaccin stock : getStocksVaccins()) {
+			p = 0.5f*stock.getStock()/stock.getCapacite_max();
+			GL11.glColor3f(0,0,0);
+			GL11.glLineWidth(6);
+	    	GL11.glBegin(GL11.GL_LINES);
+			{
+		      GL11.glVertex2f( 3 + width/2, 1 + height/2 );
+		      GL11.glVertex2f( 3 + width/2, -1 - height/2);
+			}
+			GL11.glEnd();
+			GL11.glColor3f(0.5f+p,0.2f,0.2f);
+			GL11.glLineWidth(4);
+	    	GL11.glBegin(GL11.GL_LINES);
+			{
+			      GL11.glVertex2f( (3 + width/2), +height/2 );
+			      GL11.glVertex2f( (3 + width/2), +height/2 - height*2*p);
+			}
+			GL11.glEnd();
 		}
 		
 		GL11.glPopMatrix();

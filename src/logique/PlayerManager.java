@@ -124,8 +124,6 @@ public class PlayerManager {
 			if(selected != null) {
 				Ville released = getTargetedVille();
 				if(released != null) {
-					/* TODO La on envoi que des stocks de traitement, il faut aussi gerer les vaccins
-					        + Existance de differents traitement (pour un itération future */
 					if (vaccin) {
 						if (!selected.getStocksVaccins().isEmpty()) {
 							if(selected.getStocksVaccins().get(0).getStock()>0) {
@@ -150,7 +148,7 @@ public class PlayerManager {
 				selected = null;
 			}
 		}
-		ScreenManager.getInstance().setSelected(selected);
+		ScreenManager.getInstance().setSelected(selected,!vaccin);
 	}
 
 	public static PlayerManager getInstance() {
