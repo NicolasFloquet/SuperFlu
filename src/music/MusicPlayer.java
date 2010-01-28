@@ -9,13 +9,15 @@ public class MusicPlayer {
 	private Song hard;
 	
 	private class Song extends Thread {
+		private FileInputStream file;
 		private Player p; 
 		private boolean running;
 		private boolean playing;
 		
 		public Song(String title) {
 			try {
-				p = new Player(new FileInputStream(title));
+				file = new FileInputStream(title);
+				p = new Player(file);
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -33,6 +35,11 @@ public class MusicPlayer {
 				if(playing) {
 					try {
 						p.play(1024);
+						
+						if(p.isComplete()) {
+							p.close();
+							p = new Player(file);
+						}
 					}
 					catch (Exception e) {
 						e.printStackTrace();
