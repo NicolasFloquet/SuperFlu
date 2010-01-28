@@ -270,7 +270,7 @@ public class GameLogic implements Cloneable, Serializable {
 			Stock stock) {
 		
 		//TODO  definir quand on peut jouer, maintenan on peut jouer en notre zone
-		if ((!isServeur()) && (inMyZone(depart)) && (inMyZone(arrivee))) {
+		if ((!isServeur()) && (inMyZone(depart))) {
 			if (stock instanceof StockVaccin) {
 				depart.retireStockVaccin(((StockVaccin) stock).getVaccin(),
 						stock.getStock());
