@@ -5,7 +5,6 @@ import java.util.TimerTask;
 
 import music.MusicPlayer;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import connexion.ClientController;
@@ -46,7 +45,7 @@ public class Application
 
 	private boolean isServer = true;
 	private boolean running;
-	private Timer timer;
+	private Timer timer = new Timer();
 	private ConnexionController c;
 
 	private Application()
@@ -123,17 +122,16 @@ public class Application
 			
 		}
 
-		timer = new Timer();
 		if (isServer) {
 			c = new ServerController();
 			((ServerController)c).setNbjoueurs(nbjoueurs);
 			c.connect();
-			timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD);
+
 		} else {
 			c = new ClientController();
 			((ClientController)c).setIP(ip);
 			c.connect();
-			timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD/10);
+			startGame();
 		}
 
 		boolean pandemic = false;
@@ -215,5 +213,14 @@ public class Application
 	public Zone getNextZone(){
 		zone++;
 		return game.getCarte().getZones().get(zone);
+	}
+
+	public void startGame() {
+		System.out.println("Partie lancée !");
+		if (isServeur()) {
+			timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD);
+		} else {
+			timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD/10);
+		}
 	}
 }

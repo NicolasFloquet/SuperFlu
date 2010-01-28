@@ -6,6 +6,8 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
+import logique.Application;
+
 public class Server extends Thread{
 	private final int COMM_PORT = 5050; // socket port for client comms
 
@@ -27,6 +29,7 @@ public class Server extends Thread{
 				// pour chaque socket accepte cree un nouveau thread
 				socketList.add(serverSocket.accept());
 			}
+			Application.getInstance().startGame();
 			System.out.println("creer les threads: "+socketList.size());
 			for (Socket s:socketList){
 				new ThreadServ(s,nbjoueurs).start();
