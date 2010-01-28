@@ -5,6 +5,8 @@ import graphics.Texte;
 
 import java.io.Serializable;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 import logique.Application;
 
@@ -17,15 +19,15 @@ public class Joueur implements graphics.Drawable, Serializable,Cloneable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Zone zone;
+	private List<Zone> zone = new ArrayList<Zone>();
 	private int score;
 	private Socket socket;
 	
-	public void setZone(Zone zone) {
+	public void setZone(List<Zone> zone) {
 		this.zone = zone;
 	}
 
-	public Zone getZone() {
+	public List<Zone> getZone() {
 		return zone;
 	}
 	
@@ -39,11 +41,12 @@ public class Joueur implements graphics.Drawable, Serializable,Cloneable {
 		int milieu_ecran = ScreenManager.getInstance().getScreenWidth()/2;
 		Joueur joueur = Application.getInstance().getJoueur();
 		
-		Zone z = joueur.getZone(); 
-		new Texte(z.getNom() + ":").draw(milieu_ecran, encart_pos_y + 20);
-		new Texte("Habitants ").draw(milieu_ecran+50, encart_pos_y + 40);
-		new Texte("Habitants infectes ").draw(milieu_ecran+50, encart_pos_y + 60);
-		new Texte("Habitants morts ").draw(milieu_ecran+50, encart_pos_y + 80);
+		for(Zone z: joueur.getZone()){ 
+			new Texte(z.getNom() + ":").draw(milieu_ecran, encart_pos_y + 20);
+			new Texte("Habitants ").draw(milieu_ecran+50, encart_pos_y + 40);
+			new Texte("Habitants infectes ").draw(milieu_ecran+50, encart_pos_y + 60);
+			new Texte("Habitants morts ").draw(milieu_ecran+50, encart_pos_y + 80);
+		}
 
 	}
 	
