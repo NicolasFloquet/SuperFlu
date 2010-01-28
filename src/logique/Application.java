@@ -18,7 +18,7 @@ import graphics.ScreenManager;
 public class Application
 {
 	/* Periode du timer */
-	private final static int TIMER_PERIOD = 100;
+	private final static int TIMER_PERIOD = 200;
 
 	private class UpdateTask extends TimerTask {
 
@@ -79,14 +79,15 @@ public class Application
 			screen.setProperties(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Boolean.valueOf(args[3]));
 		}
 		
+		timer = new Timer();
 		if (isServer) {
 			c = new ServerController();
 			c.connect();
-			timer = new Timer();
 			timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD);
 		} else {
 			c = new ClientController();
 			c.connect();
+			timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD/10);
 		}
 
 		running = true;
