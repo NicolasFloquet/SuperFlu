@@ -19,7 +19,7 @@ public class PlayerManager {
 	}
 
 	public void update() {
-		if (Mouse.isButtonDown(2) || Mouse.isButtonDown(0)) {
+		if (Mouse.isButtonDown(1) || Mouse.isButtonDown(0)) {
 			if(selected == null) {
 				selected = getTargetedVille();
 				System.out.println(selected);
@@ -34,7 +34,7 @@ public class PlayerManager {
 				pourcentage = 0;
 			}
 
-			vaccin = Mouse.isButtonDown(2);
+			vaccin = Mouse.isButtonDown(1);
 		} else {
 			if(selected != null) {
 				// TODO vraiment gerer les transferts
