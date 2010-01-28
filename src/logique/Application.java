@@ -145,6 +145,7 @@ public class Application
 		}
 		
 		if (isServer) {
+			running = true;
 			while(running && game.getEtat()==GameLogic.etatJeu.EN_COURS) {
 				try {
 					Thread.sleep(100);
