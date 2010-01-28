@@ -261,7 +261,7 @@ public class Ville implements graphics.Drawable, Serializable {
 		if (isMine()) {
 			couleur = 1.0f;
 		} else {
-			couleur = 0.8f;
+			couleur = 0.7f;
 		}
 		if(PlayerManager.getInstance().getTargetedVille() == this) {
 			hl_ville.draw(pos_x, pos_y);
@@ -269,7 +269,7 @@ public class Ville implements graphics.Drawable, Serializable {
 			ville.draw(pos_x, pos_y, 0, 1, couleur, couleur, couleur);
 		}
 		
-		if (PlayerManager.getInstance().getTargetedVille() == this) {
+		if (PlayerManager.getInstance().getTargetedVille() == this && isMine()) {
 			// Affichage info
 			int encart_pos_y = ScreenManager.getInstance().getOrigineEncartY() + 15;
 			new Texte(nom).draw(10, encart_pos_y + 20);
