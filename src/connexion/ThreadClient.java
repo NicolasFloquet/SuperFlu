@@ -1,6 +1,7 @@
 package connexion;
 
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.List;
 
 import logique.Application;
@@ -20,9 +21,14 @@ public class ThreadClient extends Thread {
 		// reception de client
 		Application a = Application.getInstance();
 		Receive rec = new Receive(s);
-		Object o;
+		Object o = null;
 		while (Application.getInstance().isRunning()) {
-			o = rec.getDataBlock();// reception des donnees blocante
+			try {
+				o = rec.getDataBlock();
+			} catch (SocketException e) {
+				System.err.println("Serveur deconecte");
+				System.exit(1);
+			}// reception des donnees blocante
 			if (o instanceof GameLogic) {
 				// acualiser le game
 				a.setGame((GameLogic) o);

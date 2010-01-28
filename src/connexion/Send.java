@@ -26,7 +26,6 @@ public abstract class Send {
 			}
 
 		} catch (SocketException se) {
-			System.exit(1);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(1);
