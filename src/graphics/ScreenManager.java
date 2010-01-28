@@ -51,7 +51,7 @@ public class ScreenManager {
 		getSprite("avion.png");
 		getSprite("carte.png");
 		getSprite("fond_carte.png");
-		getSprite("fond_carte_dangeR.png");
+		getSprite("fond_carte_danger.png");
 		getSprite("HL_usine.png");
 		getSprite("HL_ville.png");
 		getSprite("infected.png");
