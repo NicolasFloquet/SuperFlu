@@ -91,8 +91,8 @@ public void run() {
 
 			
 
-			System.out.println("  *"+depart.getNom());
-			System.out.println("  *"+arrivee.getNom());
+			System.out.print(depart.getNom());
+			System.out.println(" -> "+arrivee.getNom());
 			if ((depart != null)&&(arrivee !=null)) {
 				if (stock instanceof StockVaccin) {
 					depart.retireStockVaccin(((StockVaccin) stock)
