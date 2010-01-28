@@ -93,6 +93,7 @@ public class Application
 		}
 
 		timer = new Timer();
+		running = true;
 		if (isServer) {
 			c = new ServerController();
 			((ServerController)c).setNbjoueurs(nbjoueurs);
@@ -112,7 +113,6 @@ public class Application
 			player.start();
 		}
 		
-		running = true;
 		if (isServer) {
 			while(running && game.getEtat()==GameLogic.etatJeu.EN_COURS) {
 				try {

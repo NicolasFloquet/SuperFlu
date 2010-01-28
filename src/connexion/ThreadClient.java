@@ -20,10 +20,11 @@ public class ThreadClient extends Thread {
 
 	public void run() {
 		// reception de client
+
 		Application a = Application.getInstance();
 		Receive rec = new Receive(s);
 		Object o = null;
-		while (Application.getInstance().isRunning()) {
+		while (a.isRunning()) {
 			try {
 				o = rec.getDataBlock();
 			} catch (SocketException e) {
