@@ -76,10 +76,11 @@ public class Application
 
 	public void run(String[] args)
 	{	
+		int nbjoueurs =6;
 		if (args.length > 0) {
 			isServer = Boolean.valueOf(args[0]);
 			if(args.length > 1){
-				((ServerController)c).setNbjoueurs(Integer.valueOf(args[1]));
+				nbjoueurs = Integer.valueOf(args[1]);
 			}
 		}
 
@@ -94,6 +95,7 @@ public class Application
 		timer = new Timer();
 		if (isServer) {
 			c = new ServerController();
+			((ServerController)c).setNbjoueurs(nbjoueurs);
 			c.connect();
 			timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD);
 		} else {
