@@ -159,7 +159,17 @@ public class Ville implements graphics.Drawable, Serializable {
 	}
 
 	public boolean isMine() {
-		return (Application.getInstance().getJoueur() == null) || (zone.getId() == Application.getInstance().getJoueur().getZone().getId());
+		boolean bool = false;
+		Application a = Application.getInstance();
+		if (a.getJoueur() != null) {
+			for (Zone z : a.getJoueur().getZone()) {
+				if (zone.getId() == z.getId()) {
+					bool = true;
+					break;
+				}
+			}
+		}
+		return bool;
 	}
 	
 	/**
