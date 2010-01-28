@@ -83,8 +83,11 @@ public class Application
 				nbjoueurs = Integer.valueOf(args[1]);
 			}
 		}
-
+		String ip = "localhost";
 		if (!isServer) {
+			if(args.length>0){
+				ip = args[0];
+			}
 			screen = ScreenManager.getInstance();
 			screen.initialize();
 			if (args.length == 4) {
@@ -101,6 +104,7 @@ public class Application
 			timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD);
 		} else {
 			c = new ClientController();
+			((ClientController)c).setIP(ip);
 			c.connect();
 			timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD/10);
 		}
