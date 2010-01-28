@@ -6,15 +6,14 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Client {
-	public final static String SERVER_HOSTNAME = "localhost";
-	public final static int COMM_PORT = 5050; // socket port for client comms
+	private final static int COMM_PORT = 5050; // socket port for client comms
 
 	private Socket socket;
 
 	/** Default constructor. */
-	public Client() {
+	public Client(String ip) {
 		try {
-			this.socket = new Socket(SERVER_HOSTNAME, COMM_PORT);
+			this.socket = new Socket(ip, COMM_PORT);
 		} catch (ConnectException ce){
 			System.err.println("Le serveur est deconnecte ou il y a deja 6 joueurs");
 			System.exit(1);
@@ -49,7 +48,7 @@ public class Client {
 	 * personne.getHobbies(); for (int i = 0; i < liste.size(); i++) {
 	 * System.out.println("  > " + liste.get(i)); }
 	 * 
-	 * personne.setNom("Bien"); personne.setPrenom("reçu"); new
+	 * personne.setNom("Bien"); personne.setPrenom("reï¿½u"); new
 	 * Send(s).sendData(personne);
 	 * 
 	 * rec.close(); rec.stop(); try { s.close(); } catch (IOException e) {
