@@ -132,6 +132,9 @@ public class Application
 					player.backNormal();
 				}
 				
+				
+				
+				
 				if((Display.isCloseRequested()) || (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)))
 				{
 					quit();

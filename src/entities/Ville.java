@@ -313,7 +313,7 @@ public class Ville implements graphics.Drawable, Serializable {
 		GL11.glEnd();
 		
 		
-		// On dessine la barre de stock
+		// On dessine la barre de stock de traitement
 		for(StockTraitement stock : stocksTraitements) {
 			p = 0.5f*stock.getStock()/stock.getCapacite_max();
 			GL11.glColor3f(0,0,0);
@@ -330,6 +330,27 @@ public class Ville implements graphics.Drawable, Serializable {
 			{
 			      GL11.glVertex2f( 3 + width/2, +height/2 );
 			      GL11.glVertex2f( 3 + width/2, +height/2 - height*2*p);
+			}
+			GL11.glEnd();
+		}
+		
+		// On dessine la barre de stock de vaccins
+		for(StockVaccin stock : stocksVaccins) {
+			p = 0.5f*stock.getStock()/stock.getCapacite_max();
+			GL11.glColor3f(0,0,0);
+			GL11.glLineWidth(6);
+	    	GL11.glBegin(GL11.GL_LINES);
+			{
+		      GL11.glVertex2f( 3 + width/2, 1 + height/2 );
+		      GL11.glVertex2f( 3 + width/2, -1 - height/2);
+			}
+			GL11.glEnd();
+			GL11.glColor3f(0.5f+p,0.5f+p,0.5f+p);
+			GL11.glLineWidth(4);
+	    	GL11.glBegin(GL11.GL_LINES);
+			{
+			      GL11.glVertex2f( -(3 + width/2), +height/2 );
+			      GL11.glVertex2f( -(3 + width/2), +height/2 - height*2*p);
 			}
 			GL11.glEnd();
 		}
