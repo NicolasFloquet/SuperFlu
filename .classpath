@@ -14,5 +14,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="lwjgl-2.2.1/jar/lzma.jar"/>
+	<classpathentry kind="lib" path="jl1.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
