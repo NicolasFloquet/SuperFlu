@@ -325,6 +325,10 @@ public class GameLogic implements Cloneable, Serializable {
 		return vaccinesTotal;
 	}
 
+	public boolean isPandemic() {
+		return populationInfectee*20>populationMondiale;
+	}
+	
 	public etatJeu jeuFini() {
 		etatJeu etat = etatJeu.EN_COURS;
 

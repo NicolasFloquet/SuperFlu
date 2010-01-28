@@ -29,7 +29,7 @@ public class ScreenManager {
 	/** The recorded fps */
 	private int fps;
 	
-	private String WINDOW_TITLE = "4GI_flu";
+	private String WINDOW_TITLE = "SuperFlu";
 	
 	private Sprite map = null;
 	

@@ -3,6 +3,8 @@ package logique;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import music.MusicPlayer;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
@@ -93,6 +95,14 @@ public class Application
 			timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD/10);
 		}
 
+		boolean pandemic = false;
+		MusicPlayer player = null;
+		
+		if(!isServer) {
+			player = new MusicPlayer();
+			player.start();
+		}
+		
 		running = true;
 		if (isServer) {
 			while(running) {
@@ -100,14 +110,24 @@ public class Application
 					Thread.sleep(100);
 				} catch (InterruptedException e) {}
 			}
-		} else {
+		}
+		else {
 			while(running)
 			{
 				screen.draw();
-
 				// Gestion des inputs
 				PlayerManager.getInstance().update();
-
+		
+				// On detecte si on vient d'atteindre l'etat pandemique 
+				if(game.isPandemic() && !pandemic) {
+					pandemic = true;
+					player.goPandemic();
+				}
+				else if(!game.isPandemic() && pandemic) {
+					pandemic = false;
+					player.backNormal();
+				}
+				
 				if((Display.isCloseRequested()) || (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)))
 				{
 					quit();
@@ -118,6 +138,9 @@ public class Application
 		if (isServer) {
 			timer.cancel();
 			c.deconnection();
+		}
+		else {
+			player.quit();
 		}
 	}
 
