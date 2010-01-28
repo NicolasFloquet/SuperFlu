@@ -26,7 +26,7 @@ public class GameLogic implements Cloneable, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/* TODO: Calibrer TAUX_MIGRATION */
-	private final static float TAUX_MIGRATION = 0.1f;
+	private final static float TAUX_MIGRATION = 5f;
 	
 	public enum etatJeu {
 		EN_COURS, GAGNE, PERDU
@@ -187,7 +187,7 @@ public class GameLogic implements Cloneable, Serializable {
 							continue;
 						}
 
-						distance = Ville.distance(ville_origine, ville_dest);
+						distance = Ville.distance_carre(ville_origine, ville_dest);
 
 						/*
 						 * distance = 1; LOL
@@ -195,7 +195,7 @@ public class GameLogic implements Cloneable, Serializable {
 
 						/* Inserer ici une formule magique */
 						flux = (int) ((rand.nextFloat() * TAUX_MIGRATION * ville_origine
-								.getHabitants()) / (distance + getPopulationInfectee() / 50f));
+								.getHabitants()) / (distance + getPopulationInfectee()));
 
 						/*
 						 * TODO: Trouver une meilleur formule pour le nombre de

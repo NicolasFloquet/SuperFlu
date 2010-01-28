@@ -30,7 +30,7 @@ public class Transfert implements graphics.Drawable,Serializable {
 		this.depart = depart;
 		this.arrivee = arrivee;
 		this.temps_depart = temps_depart;
-		this.temps_arrivee = temps_depart + (long)(Ville.distance(depart, arrivee) / VITESSE);
+		this.temps_arrivee = temps_depart + (long)(Math.sqrt(Ville.distance_carre(depart, arrivee)) / VITESSE);
 		this.stock = stock;
 	}
 	

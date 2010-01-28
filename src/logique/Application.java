@@ -146,7 +146,7 @@ public class Application
 			running = true;
 			while(running && game.getEtat()==GameLogic.etatJeu.EN_COURS) {
 				try {
-					Thread.sleep(100);
+					Thread.sleep(200);
 				} catch (InterruptedException e) {}
 			}
 		}

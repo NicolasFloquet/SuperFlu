@@ -49,8 +49,8 @@ public class Ville implements graphics.Drawable, Serializable {
 		this.habitantsMorts = 0;
 	}
 
-	public static int distance(Ville depart, Ville arrivee) {
-		return (int) Math.sqrt((arrivee.x - depart.x) * (arrivee.x - depart.x) + (arrivee.y - depart.y) * (arrivee.y - depart.y));
+	public static int distance_carre(Ville depart, Ville arrivee) {
+		return (arrivee.x - depart.x) * (arrivee.x - depart.x) + (arrivee.y - depart.y) * (arrivee.y - depart.y);
 	}
 
 	public void ajouteStockVaccin(Vaccin vaccin, int quantite) {
@@ -178,7 +178,7 @@ public class Ville implements graphics.Drawable, Serializable {
 	public void update() {
 		//System.out.println("Update !");
 		float transmission = 0.015f;
-		float perteImmunite = 0.01f;
+		float perteImmunite = 0.0001f;
 		float mortalite = 0.0001f;
 
 		if (getHabitants() > 0) {
@@ -203,10 +203,12 @@ public class Ville implements graphics.Drawable, Serializable {
 			if (stocksTraitements.size() > 0) {
 				if (habitantsInfectes > stocksTraitements.get(0).getStock()) {
 					habitantsInfectes -= stocksTraitements.get(0).getStock();
+					habitantsImmunises += stocksTraitements.get(0).getStock();
 					stocksTraitements.get(0).utilise(stocksTraitements.get(0).getStock());
 					/*System.out.println("Utilise : " + stocksTraitements.get(0).getStock());*/
 				} else {
 					stocksTraitements.get(0).utilise(habitantsInfectes);
+					habitantsImmunises += habitantsInfectes;
 					habitantsInfectes = 0;
 					/*System.out.println("Utilise : " + habitantsInfectes);*/
 				}
