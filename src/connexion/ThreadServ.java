@@ -8,8 +8,10 @@ import entities.Joueur;
 import entities.Stock;
 import entities.StockTraitement;
 import entities.StockVaccin;
+import entities.Traitement;
 import entities.Transfert;
 import entities.Usine;
+import entities.Vaccin;
 import entities.Ville;
 import entities.Zone;
 
@@ -45,9 +47,8 @@ public void run() {
 
 			Ville depart = null;
 			Ville arrivee = null;
-
-			System.out.println("reçu: "+((Transfert) o).getDepart().getNom());
 			
+			Stock stock = ((Transfert) o).getStock();
 			ArrayList<Zone> zList = a.getGame().getCarte().getZones();
 			for (Zone z : zList) {
 				ArrayList<Ville> vList = z.getVilles();
@@ -61,6 +62,7 @@ public void run() {
 						arrivee = v;
 					}
 				}
+				
 				Usine u = z.getUsine();
 				if (u.getNom().equals(
 						((Transfert) o).getDepart().getNom())) {
@@ -70,11 +72,28 @@ public void run() {
 						((Transfert) o).getArrivee().getNom())) {
 					arrivee = u;
 				}
+				if (stock instanceof StockVaccin) {
+					ArrayList<Vaccin> vaList = u.getVaccins();
+					for(Vaccin vac: vaList){
+						if(vac.getVirus().getNom().equals(((StockVaccin) stock).getVaccin().getVirus().getNom())){
+							((StockVaccin)((Transfert) o).getStock()).setVaccin(vac);
+						}
+					}
+				} else if (stock instanceof StockTraitement) {
+					ArrayList<Traitement> trList = u.getTraitements();
+					for(Traitement tr: trList){
+						if(tr.getVirus().getNom().equals(((StockTraitement) stock).getTraitement().getVirus().getNom())){
+							((StockTraitement)((Transfert) o).getStock()).setTraitement(tr);
+						}
+					}
+				}
 			}
 
-			System.out.println("  "+depart);
-			if (depart != null) {
-				Stock stock = ((Transfert) o).getStock();
+			
+
+			System.out.println("  *"+depart.getNom());
+			System.out.println("  *"+arrivee.getNom());
+			if ((depart != null)&&(arrivee !=null)) {
 				if (stock instanceof StockVaccin) {
 					depart.retireStockVaccin(((StockVaccin) stock)
 							.getVaccin(), stock.getStock());
