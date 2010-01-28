@@ -23,6 +23,7 @@ public class Usine extends Ville implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Traitement> traitements = new ArrayList<Traitement>();
+
 	private ArrayList<Vaccin> vaccins = new ArrayList<Vaccin>();
 	private int productionRateVaccins = 2;
 	private int productionRateTraitements = 10;
@@ -129,6 +130,14 @@ public class Usine extends Ville implements Serializable{
 		
 		GL11.glPopMatrix();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
+	}
+	
+	public ArrayList<Traitement> getTraitements() {
+		return traitements;
+	}
+
+	public ArrayList<Vaccin> getVaccins() {
+		return vaccins;
 	}
 }
 
