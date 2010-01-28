@@ -56,7 +56,10 @@ public class ThreadServ extends Thread {
 		j.setZone(zListe);
 		Send.sendData(j, s);
 
+		j = new Joueur();
+		j.setZone(zListe);
 		j.setSocket(s);
+
 		a.getGame().ajouterJoueur(j);
 		Receive rec = new Receive(s);
 		Object o = null;

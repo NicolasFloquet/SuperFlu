@@ -100,23 +100,8 @@ public class GameLogic implements Cloneable, Serializable {
 		time += elapsed_time;
 	}
 
-	public synchronized void updateServeur(long elapsed_time) {
-		/* Mise à jour du temps */
-		time += elapsed_time;
-
-		mortsTotal = 0;
-		populationMondiale = 0;
-		populationInfectee = 0;
-		vaccinesTotal = 0;
-		for (Zone zone_origine : carte.getZones()) {
-			for (Ville ville : zone_origine.getVilles()) {
-				mortsTotal += ville.getHabitantsMorts();
-				populationMondiale += ville.getHabitants();
-				populationInfectee += ville.getHabitantsInfectes();
-				vaccinesTotal += ville.getHabitantsImmunises();
-			}
-		}
-
+	private void gereTransferts() {
+		// Utiliser un tas permettrait de meilleures perfs !
 		Iterator<Transfert> it = transferts.iterator();
 		while (it.hasNext()) {
 			Transfert t = it.next();
@@ -137,9 +122,21 @@ public class GameLogic implements Cloneable, Serializable {
 				}
 
 				it.remove();
-				System.out.println("Transfert fini.");
 			}
 		}
+	}
+	
+	public synchronized void updateServeur(long elapsed_time) {
+		/* Mise à jour du temps */
+		time += elapsed_time;
+
+		mortsTotal = 0;
+		populationMondiale = 0;
+		populationInfectee = 0;
+		vaccinesTotal = 0;
+
+		gereTransferts();
+
 
 		/* Calcul des déplacement de population */
 		for (Zone zone_origine : carte.getZones()) {
@@ -150,6 +147,11 @@ public class GameLogic implements Cloneable, Serializable {
 			}
 
 			for (Ville ville_origine : zone_origine.getVilles()) {
+				
+				mortsTotal += ville_origine.getHabitantsMorts();
+				populationMondiale += ville_origine.getHabitants();
+				populationInfectee += ville_origine.getHabitantsInfectes();
+				vaccinesTotal += ville_origine.getHabitantsImmunises();
 
 				if (ville_origine.getHabitants() == 0) {
 					continue;
@@ -181,8 +183,7 @@ public class GameLogic implements Cloneable, Serializable {
 																	 * imbriquées
 																	 */
 
-						if (ville_dest == ville_origine
-								|| ville_dest == zone_dest.getUsine()) {
+						if (ville_dest == ville_origine) {
 							continue;
 						}
 
