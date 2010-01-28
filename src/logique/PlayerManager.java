@@ -1,5 +1,6 @@
 package logique;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import entities.*;
@@ -13,12 +14,85 @@ public class PlayerManager {
 	private int pourcentage; //le pourcentage à envoyer lors du transfert (se change à la molette)
 	private boolean vaccin = true;
 
+	private int selected_menu;	// 0=>start 1=>aide 2=>credits
+	private boolean key_lock; // Ceci permet de ne pas interpreter 2x de suite la même touche
+	
 	private PlayerManager() {
 		selected = null;
+		selected_menu = 0;
 		pourcentage = 50;
+		key_lock = false;
 	}
 
+	public int getSelectedMenu() {
+		return selected_menu;
+	}
+	
+	// Return l'etat selectionné ou 3 si aucun etat n'est selectioné
+	public int update_menu() {
+		if(!key_lock) {			
+			if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {
+				selected_menu--;
+				
+				if(selected_menu<0) {
+					selected_menu = 2;
+				}
+				
+				key_lock = true;
+			}
+			else if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+				selected_menu++;
+					
+				if(selected_menu>2) {
+					selected_menu = 0;
+				}
+				
+				key_lock = true;
+			}
+			else if(Keyboard.isKeyDown(Keyboard.KEY_RETURN)) {
+				key_lock = true;
+				
+				return selected_menu;
+			}
+			else if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+				key_lock = true;
+				Application.getInstance().quit();
+				return 3;
+			}
+		}
+		else {
+			// Si on a locké le clavier on attend que les touches soient relachées 
+			key_lock = Keyboard.isKeyDown(Keyboard.KEY_UP)
+						|| Keyboard.isKeyDown(Keyboard.KEY_DOWN)
+						|| Keyboard.isKeyDown(Keyboard.KEY_RETURN)
+						|| Keyboard.isKeyDown(Keyboard.KEY_ESCAPE);
+		}
+		
+		return 3;
+	}
+	
+	public int update_submenu (int ret) {
+		if(!key_lock) {
+			if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+				key_lock = true;
+				return 3;
+			}
+		}
+		else {
+			// Si on a locké le clavier on attend que les touches soient relachées 
+			key_lock = Keyboard.isKeyDown(Keyboard.KEY_UP)
+						|| Keyboard.isKeyDown(Keyboard.KEY_DOWN)
+						|| Keyboard.isKeyDown(Keyboard.KEY_RETURN)
+						|| Keyboard.isKeyDown(Keyboard.KEY_ESCAPE);
+		}
+		return ret;
+	}
+	
 	public void update() {
+		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+			Application.getInstance().quit();
+		}
+		
 		if (Mouse.isButtonDown(1) || Mouse.isButtonDown(0)) {
 			if(selected == null) {
 				selected = getTargetedVille();
@@ -37,7 +111,6 @@ public class PlayerManager {
 			vaccin = Mouse.isButtonDown(1);
 		} else {
 			if(selected != null) {
-				// TODO vraiment gerer les transferts
 				Ville released = getTargetedVille();
 				if(released != null) {
 					/* TODO La on envoi que des stocks de traitement, il faut aussi gerer les vaccins

@@ -47,6 +47,20 @@ public class ScreenManager {
 		lastLoopTime = getTime();
 	}
 	
+	public void preloadTextures() {
+		getSprite("avion.png");
+		getSprite("carte.png");
+		getSprite("fond_carte.png");
+		getSprite("fond_carte_dangeR.png");
+		getSprite("HL_usine.png");
+		getSprite("HL_ville.png");
+		getSprite("infected.png");
+		getSprite("menu.png");
+		getSprite("seringue.png");
+		getSprite("usine.png");
+		getSprite("ville.png");
+	}
+	
 	public void setProperties(int width, int height, boolean is_fullscreen)
 	{
 		screen_height = height;
@@ -94,6 +108,74 @@ public class ScreenManager {
 		// then divide by the number of ticks in a second giving
 		// us a nice clear time in milliseconds
 		return (Sys.getTime() * 1000) / timerTicksPerSecond;
+	}
+	
+	public void draw_aide() {
+		Display.sync(60);
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+    	GL11.glColor3f(0.4f,0.4f,0.4f);
+    	GL11.glBegin(GL11.GL_QUADS);
+		{
+	      GL11.glVertex2f(0,0);
+	      GL11.glVertex2f(screen_width,0);
+	      GL11.glVertex2f(screen_width,screen_height);
+	      GL11.glVertex2f(0,screen_height);
+		}
+		GL11.glEnd();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		
+		Sprite fond = getSprite("menu.png");
+		fond.draw(getOrigineCarteX()+fond.getWidth()/2, getOrigineCarteY()+fond.getHeight()/2);
+		Display.update();
+	}
+	
+	public void draw_credits() {
+		Display.sync(60);
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+    	GL11.glColor3f(0.4f,0.4f,0.4f);
+    	GL11.glBegin(GL11.GL_QUADS);
+		{
+	      GL11.glVertex2f(0,0);
+	      GL11.glVertex2f(screen_width,0);
+	      GL11.glVertex2f(screen_width,screen_height);
+	      GL11.glVertex2f(0,screen_height);
+		}
+		GL11.glEnd();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		
+		Sprite fond = getSprite("menu.png");
+		fond.draw(getOrigineCarteX()+fond.getWidth()/2, getOrigineCarteY()+fond.getHeight()/2);
+		Display.update();
+	}
+	
+	public void draw_menu() {
+		Display.sync(60);
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+    	GL11.glColor3f(0.4f,0.4f,0.4f);
+    	GL11.glBegin(GL11.GL_QUADS);
+		{
+	      GL11.glVertex2f(0,0);
+	      GL11.glVertex2f(screen_width,0);
+	      GL11.glVertex2f(screen_width,screen_height);
+	      GL11.glVertex2f(0,screen_height);
+		}
+		GL11.glEnd();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		
+		Sprite fond = getSprite("menu.png");
+		Sprite selected = getSprite("seringue.png");
+		float transp = 0.85f + 0.5f*(float)Math.sin(2*Math.PI*((float)(getTime()%1000))/1000);
+		fond.draw(getOrigineCarteX()+fond.getWidth()/2, getOrigineCarteY()+fond.getHeight()/2);
+		int offset = 96*PlayerManager.getInstance().getSelectedMenu();
+		selected.draw(getOrigineCarteX()+304, getOrigineCarteY()+288+offset, 0, 1, 1, 1, 1, transp);
+		
+		Display.update();
 	}
 	
 	public void draw()
@@ -260,7 +342,7 @@ public class ScreenManager {
 	}
 	
 	public int getOrigineCarteX() {
-		return screen_width/2 - map.getWidth()/2;
+		return screen_width/2 - getMap().getWidth()/2;
 	}
 	
 	public int getOrigineCarteY() {
@@ -268,7 +350,7 @@ public class ScreenManager {
 	}
 	
 	public int getOrigineEncartY() {
-		return map.getHeight();
+		return getMap().getHeight();
 	}
 	
 	/**

@@ -93,10 +93,37 @@ public class Application
 			if (args.length == 4) {
 				screen.setProperties(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Boolean.valueOf(args[3]));
 			}
+			
+			int menu_type = 3;
+			//
+			// Boucle du menu
+			//
+			running = true;
+			screen.preloadTextures();
+			while(running && menu_type!=0) {
+				switch(menu_type) {
+					case 1 :
+						screen.draw_aide();
+						menu_type = PlayerManager.getInstance().update_submenu(1);
+						break;
+					case 2 :
+						screen.draw_credits();
+						menu_type = PlayerManager.getInstance().update_submenu(2);
+						break;
+					default :
+						screen.draw_menu();
+						menu_type = PlayerManager.getInstance().update_menu();
+						break;
+				}
+				if((Display.isCloseRequested()))
+				{
+					quit();
+				}
+			}
+			
 		}
 
 		timer = new Timer();
-		running = true;
 		if (isServer) {
 			c = new ServerController();
 			((ServerController)c).setNbjoueurs(nbjoueurs);
@@ -125,6 +152,9 @@ public class Application
 			}
 		}
 		else {
+			//
+			// Boucle du jeu
+			//
 			while(running && game.getEtat()==GameLogic.etatJeu.EN_COURS)
 			{
 				screen.draw();
@@ -141,10 +171,7 @@ public class Application
 					player.backNormal();
 				}
 				
-				
-				
-				
-				if((Display.isCloseRequested()) || (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)))
+				if(Display.isCloseRequested())
 				{
 					quit();
 				}
