@@ -31,6 +31,11 @@ public class Application
 			} else {
 				game.updateClient(1);
 			}
+			
+			if(game.getEtat()!=GameLogic.etatJeu.EN_COURS) {
+				this.cancel();
+			}
+				
 		}
 	}
 
@@ -43,7 +48,6 @@ public class Application
 	private boolean running;
 	private Timer timer;
 	private ConnexionController c;
-
 
 	private Application()
 	{
@@ -105,14 +109,14 @@ public class Application
 		
 		running = true;
 		if (isServer) {
-			while(running) {
+			while(running && game.getEtat()==GameLogic.etatJeu.EN_COURS) {
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {}
 			}
 		}
 		else {
-			while(running)
+			while(running && game.getEtat()==GameLogic.etatJeu.EN_COURS)
 			{
 				screen.draw();
 				// Gestion des inputs

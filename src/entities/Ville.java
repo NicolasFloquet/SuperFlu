@@ -309,7 +309,7 @@ public class Ville implements graphics.Drawable, Serializable {
 		{
 	      GL11.glVertex2f( -width/2, 3 + height/2);
 	      GL11.glVertex2f( -width/2 + p*width , 3 + height/2);
-		}
+		}	
 		GL11.glEnd();
 		
 		

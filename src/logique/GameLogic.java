@@ -27,6 +27,10 @@ public class GameLogic implements Cloneable, Serializable {
 
 	/* TODO: Calibrer TAUX_MIGRATION */
 	private final static float TAUX_MIGRATION = 0.1f;
+	
+	public enum etatJeu {
+		EN_COURS, GAGNE, PERDU
+	};
 
 	private Random rand = new Random();
 
@@ -42,10 +46,9 @@ public class GameLogic implements Cloneable, Serializable {
 
 	/* Variables liées au timer */
 	private long time;
-
-	public enum etatJeu {
-		EN_COURS, GAGNE, PERDU
-	};
+	
+	private etatJeu etat = etatJeu.EN_COURS;
+	
 
 	public GameLogic() {
 		joueurs = Collections.synchronizedList(new ArrayList<Joueur>());
@@ -97,7 +100,7 @@ public class GameLogic implements Cloneable, Serializable {
 		time += elapsed_time;
 	}
 
-	public synchronized etatJeu updateServeur(long elapsed_time) {
+	public synchronized void updateServeur(long elapsed_time) {
 		/* Mise à jour du temps */
 		time += elapsed_time;
 
@@ -250,7 +253,11 @@ public class GameLogic implements Cloneable, Serializable {
 
 			}
 		}
-		return jeuFini();
+		etat = jeuFini();
+	}
+
+	public etatJeu getEtat() {
+		return etat;
 	}
 
 	private boolean inMyZone(Ville v) {
