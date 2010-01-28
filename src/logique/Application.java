@@ -19,7 +19,7 @@ public class Application
 {
 	/* Periode du timer */
 	private final static int TIMER_PERIOD = 200;
-
+	private int zone = -1;
 	private class UpdateTask extends TimerTask {
 
 		public void run() {
@@ -146,6 +146,7 @@ public class Application
 	}
 
 	public Zone getNextZone(){
-		return game.getCarte().getZones().get(game.getJoueurs().size());
+		zone++;
+		return game.getCarte().getZones().get(zone);
 	}
 }
