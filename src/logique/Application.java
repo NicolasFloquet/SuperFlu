@@ -78,6 +78,9 @@ public class Application
 	{	
 		if (args.length > 0) {
 			isServer = Boolean.valueOf(args[0]);
+			if(args.length > 1){
+				((ServerController)c).setNbjoueurs(Integer.valueOf(args[1]));
+			}
 		}
 
 		if (!isServer) {
