@@ -56,10 +56,6 @@ public class GameLogic implements Cloneable, Serializable {
 		time = 0;
 	}
 
-	public List<Virus> getVirus() {
-		return virus;
-	}
-
 	public void creerEpidemie() {
 		Traitement traitement;
 		Vaccin vaccin;
