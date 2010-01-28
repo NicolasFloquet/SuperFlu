@@ -33,7 +33,7 @@ public class Joueur implements graphics.Drawable, Serializable,Cloneable {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	public Socket getSocket() {
 		return socket;
 	}

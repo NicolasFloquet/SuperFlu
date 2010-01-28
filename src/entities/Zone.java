@@ -83,6 +83,10 @@ public class Zone implements Serializable{
 		return joueur;
 	}
 	
+	public int getId() {
+		return id;
+	}
+	
 	public ArrayList<Ville> getVilles() {
 		return villes;
 	}

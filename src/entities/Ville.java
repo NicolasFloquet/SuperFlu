@@ -10,6 +10,7 @@ import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
+import logique.Application;
 import logique.PlayerManager;
 
 /**
@@ -157,6 +158,10 @@ public class Ville implements graphics.Drawable, Serializable {
 		return (int)(100 * ((float)habitantsInfectes / getHabitants()));
 	}
 
+	public boolean isMine() {
+		return (Application.getInstance().getJoueur() == null) || (zone.getId() == Application.getInstance().getJoueur().getZone().getId());
+	}
+	
 	/**
 	 * Mise à jour des données de la ville.
 	 */
@@ -252,10 +257,17 @@ public class Ville implements graphics.Drawable, Serializable {
 		int height = ville.getHeight();
 		int width = ville.getWidth();
 			
-		if(PlayerManager.getInstance().getTargetedVille() == this)
+		float couleur;
+		if (isMine()) {
+			couleur = 1.0f;
+		} else {
+			couleur = 0.8f;
+		}
+		if(PlayerManager.getInstance().getTargetedVille() == this) {
 			hl_ville.draw(pos_x, pos_y);
-		else
-			ville.draw(pos_x, pos_y);
+		} else {
+			ville.draw(pos_x, pos_y, 0, 1, couleur, couleur, couleur);
+		}
 		
 		if (PlayerManager.getInstance().getTargetedVille() == this) {
 			// Affichage info
