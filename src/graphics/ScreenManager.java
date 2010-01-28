@@ -160,7 +160,7 @@ public class ScreenManager {
 		
 		Sprite fond = getSprite("credits.png");
 		fond.draw(getOrigineCarteX()+fond.getWidth()/2, getOrigineCarteY()+fond.getHeight()/2);
-		dna[(int)(getTime()/80)%10].draw(getOrigineCarteX()+710, getOrigineCarteY()+300);
+		dna[(int)((getTime()/80)%10)].draw(getOrigineCarteX()+710, getOrigineCarteY()+300);
 		Display.update();
 	}
 	
