@@ -92,10 +92,14 @@ public class GameLogic implements Cloneable, Serializable {
 		/* MOUHOUHOUHOHOHAHAHAHAHAHAHAHA */
 
 	}
+	
+	public void updateClient(int elapsed_time) {
+		time += elapsed_time;
+	}
 
 	public synchronized etatJeu updateServeur(long elapsed_time) {
 		/* Mise à jour du temps */
-		time += elapsed_time * 10;
+		time += elapsed_time;
 
 		mortsTotal = 0;
 		populationMondiale = 0;

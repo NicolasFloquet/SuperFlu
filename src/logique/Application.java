@@ -24,8 +24,10 @@ public class Application
 
 		public void run() {
 			if (isServer) {
-				game.updateServeur(1);
+				game.updateServeur(10);
 				c.send(game);
+			} else {
+				game.updateClient(1);
 			}
 		}
 	}
