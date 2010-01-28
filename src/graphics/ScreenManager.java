@@ -45,7 +45,6 @@ public class ScreenManager {
 		
 		timerTicksPerSecond = Sys.getTimerResolution();
 		lastLoopTime = getTime();
-		initialize();
 	}
 	
 	public void setProperties(int width, int height, boolean is_fullscreen)

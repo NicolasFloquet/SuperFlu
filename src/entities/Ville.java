@@ -289,14 +289,6 @@ public class Ville implements graphics.Drawable, Serializable {
 				new Texte("Stock Vaccins " + getStocksVaccins().get(0).getStock()).draw(10,encart_pos_y + 140);
 		}
 		
-		// On affiche l'image d'infection
-		if((float)habitantsInfectes > 10000) {
-			infected.draw(pos_x, pos_y, 0, 1.5f);
-		}
-		else if((float)habitantsInfectes > 200) {
-			infected.draw(pos_x, pos_y);
-		}
-		
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glPushMatrix();
 		GL11.glTranslatef(pos_x, pos_y, 0);
@@ -344,6 +336,14 @@ public class Ville implements graphics.Drawable, Serializable {
 		
 		GL11.glPopMatrix();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		
+		// On affiche l'image d'infection
+		if((float)habitantsInfectes > 10000) {
+			infected.draw(pos_x, pos_y, 0, 1.5f);
+		}
+		else if((float)habitantsInfectes > 200) {
+			infected.draw(pos_x, pos_y);
+		}
 	}
 
 	public ArrayList<StockVaccin> getStocksVaccins() {

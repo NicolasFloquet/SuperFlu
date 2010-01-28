@@ -23,10 +23,10 @@ public class Carte implements graphics.Drawable, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int courbe_pop[];
-	private int courbe_morts[];
-	private int courbe_infectes[];
-	private int courbe_vaccines[];
+	private int courbe_pop[] = null;
+	private int courbe_morts[] = null;
+	private int courbe_infectes[] = null;
+	private int courbe_vaccines[] = null;
 	private int dephasage_courbes;
 	
 	private ArrayList<Zone> zones = new ArrayList<Zone>();
@@ -38,24 +38,26 @@ public class Carte implements graphics.Drawable, Serializable {
 		zones.add(new Zone(4));
 		zones.add(new Zone(5));
 		zones.add(new Zone(6));
-		
-		courbe_pop = new int[ScreenManager.getInstance().getMap().getWidth()];
-		courbe_morts = new int[courbe_pop.length];
-		courbe_infectes = new int[courbe_pop.length];
-		courbe_vaccines = new int[courbe_pop.length];
-		dephasage_courbes = 0;
-		
-		for(int i=0 ; i<courbe_pop.length ; i++) {
-			courbe_pop[i] = 0;
-			courbe_morts[i] = 0;
-			courbe_infectes[i] = 0;
-			courbe_vaccines[i] = 0;
-		}
 	}
 	
 	@Override
 	public void draw()
 	{		
+		if (courbe_pop == null) {
+			courbe_pop = new int[ScreenManager.getInstance().getMap().getWidth()];
+			courbe_morts = new int[courbe_pop.length];
+			courbe_infectes = new int[courbe_pop.length];
+			courbe_vaccines = new int[courbe_pop.length];
+			dephasage_courbes = 0;
+			
+			for(int i=0 ; i<courbe_pop.length ; i++) {
+				courbe_pop[i] = 0;
+				courbe_morts[i] = 0;
+				courbe_infectes[i] = 0;
+				courbe_vaccines[i] = 0;
+			}
+		}
+		
 		Sprite map = ScreenManager.getInstance().getMap();
 		Sprite fond_map = ScreenManager.getSprite("fond_carte.png");
 		Sprite fond_map_danger = ScreenManager.getSprite("fond_carte_danger.png");

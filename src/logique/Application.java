@@ -76,6 +76,7 @@ public class Application
 
 		if (!isServer) {
 			screen = ScreenManager.getInstance();
+			screen.initialize();
 			if (args.length == 4) {
 				screen.setProperties(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Boolean.valueOf(args[3]));
 			}
