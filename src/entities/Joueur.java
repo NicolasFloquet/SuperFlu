@@ -41,12 +41,15 @@ public class Joueur implements graphics.Drawable, Serializable,Cloneable {
 		int milieu_ecran = ScreenManager.getInstance().getScreenWidth()/2;
 		Joueur joueur = Application.getInstance().getJoueur();
 		
-		for(Zone z: joueur.getZone()){ 
-			new Texte(z.getNom() + ":").draw(milieu_ecran, encart_pos_y + 20);
-			new Texte("Habitants ").draw(milieu_ecran+50, encart_pos_y + 40);
-			new Texte("Habitants infectes ").draw(milieu_ecran+50, encart_pos_y + 60);
-			new Texte("Habitants morts ").draw(milieu_ecran+50, encart_pos_y + 80);
-		}
+		 int offset = 10;
+		 for(Zone z : joueur.getZone()) {
+			new Texte(z.getNom() + ":").draw(milieu_ecran, encart_pos_y + offset, 0.5f, 0.0f, 0.0f, 0.0f);
+			new Texte("Habitants ").draw(milieu_ecran+50, encart_pos_y + offset + 10, 0.5f, 0.0f, 0.0f, 0.0f);
+			new Texte("Habitants infectes ").draw(milieu_ecran+50, encart_pos_y + offset + 20, 0.5f, 0.0f, 0.0f, 0.0f);
+			new Texte("Habitants morts ").draw(milieu_ecran+50, encart_pos_y + offset  + 30, 0.5f, 0.0f, 0.0f, 0.0f);
+		 	offset+=10;
+		 }
+
 
 	}
 	
