@@ -3,6 +3,7 @@ package connexion;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.List;
 
 import logique.Application;
 import entities.Joueur;
@@ -20,9 +21,11 @@ public class ThreadServ extends Thread {
 
 	private Socket s;
 	private boolean end = false;
+	private int nbjoueurs = 6;
 
-	public ThreadServ(Socket s) {
+	public ThreadServ(Socket s,int nbjoueurs) {
 		this.s = s;
+		this.nbjoueurs = nbjoueurs;
 	}
 
 	public void deconnecte() {
@@ -35,7 +38,22 @@ public class ThreadServ extends Thread {
 		// Reception du serveur
 		Application a = Application.getInstance();
 		Joueur j = new Joueur();
-		j.setZone(a.getNextZone());
+		
+		System.out.print("zone: ");
+		List<Zone> zListe = new ArrayList<Zone>();
+		int extra = 6%nbjoueurs;
+		for(int i=0;i<6/nbjoueurs;i++){
+			Zone z = a.getNextZone();
+			System.out.print(z.getNom()+"  ");
+			zListe.add(z);
+			if((extra!=0)&&(z.getId()<=extra+1)){
+				z = a.getNextZone();
+				zListe.add(z);
+				System.out.print(z.getNom()+"  ");
+			}
+		}
+		
+		j.setZone(zListe);
 		Send.sendData(j, s);
 
 		j.setSocket(s);

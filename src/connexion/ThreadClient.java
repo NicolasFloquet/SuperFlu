@@ -2,6 +2,7 @@ package connexion;
 
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.List;
 
 import logique.Application;
@@ -30,21 +31,23 @@ public class ThreadClient extends Thread {
 				System.exit(1);
 			}// reception des donnees blocante
 			if (o instanceof GameLogic) {
+				
 				// acualiser le game
 				a.setGame((GameLogic) o);
 			} else if (o instanceof Joueur) {
-				System.out.println("joueur=> "+((Joueur) o).getZone().getNom());
 				List<Zone> zList = a.getGame().getCarte().getZones();
+				List<Zone> zList2 = new ArrayList<Zone>();
 				for(Zone z: zList){
-					System.out.println(z.getNom()+"??");
-					if(z.getNom().equals(((Joueur) o).getZone().getNom())){
-						System.out.println("set joueur: "+z.getNom());
-						z.setJoueur((Joueur) o);
-						((Joueur)o).setZone(z);
-						a.setJoueur((Joueur)o);
-						break;
+					for(Zone zon: ((Joueur)o).getZone()){
+						if(z.getNom().equals(zon.getNom())){
+							zList2.add(zon);
+							z.setJoueur((Joueur) o);
+						}
 					}
 				}
+				System.out.println(zList2);
+				((Joueur)o).setZone(zList2);
+				a.setJoueur((Joueur)o);
 			}
 		}
 	}
