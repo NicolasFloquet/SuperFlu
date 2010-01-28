@@ -54,6 +54,11 @@ public class PlayerManager {
 				
 				return selected_menu;
 			}
+			else if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+				key_lock = true;
+				
+				return selected_menu;
+			}
 			else if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				key_lock = true;
 				Application.getInstance().quit();
@@ -65,7 +70,8 @@ public class PlayerManager {
 			key_lock = Keyboard.isKeyDown(Keyboard.KEY_UP)
 						|| Keyboard.isKeyDown(Keyboard.KEY_DOWN)
 						|| Keyboard.isKeyDown(Keyboard.KEY_RETURN)
-						|| Keyboard.isKeyDown(Keyboard.KEY_ESCAPE);
+						|| Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)
+						|| Keyboard.isKeyDown(Keyboard.KEY_SPACE);
 		}
 		
 		return 3;
@@ -77,13 +83,18 @@ public class PlayerManager {
 				key_lock = true;
 				return 3;
 			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+				key_lock = true;
+				return ret+1;
+			}
 		}
 		else {
 			// Si on a locké le clavier on attend que les touches soient relachées 
 			key_lock = Keyboard.isKeyDown(Keyboard.KEY_UP)
 						|| Keyboard.isKeyDown(Keyboard.KEY_DOWN)
 						|| Keyboard.isKeyDown(Keyboard.KEY_RETURN)
-						|| Keyboard.isKeyDown(Keyboard.KEY_ESCAPE);
+						|| Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)
+						|| Keyboard.isKeyDown(Keyboard.KEY_SPACE);
 		}
 		return ret;
 	}

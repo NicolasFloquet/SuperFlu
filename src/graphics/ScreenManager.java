@@ -34,7 +34,7 @@ public class ScreenManager {
 	private Sprite map = null;
 	
 	private Ville selected_ville;
-	
+
 	private ScreenManager()
 	{
 		screen_width = 1024;
@@ -47,9 +47,19 @@ public class ScreenManager {
 		lastLoopTime = getTime();
 	}
 	
+	private Sprite[] dna;
+	
 	public void preloadTextures() {
+		getSprite("aide.png");
 		getSprite("avion.png");
 		getSprite("carte.png");
+		getSprite("credits.png");
+		
+		dna = new Sprite[10];
+		for(int i=0 ; i<10 ; i++) {
+			dna[i]=getSprite("dna"+String.valueOf(i+1)+".png");
+		}
+		
 		getSprite("fond_carte.png");
 		getSprite("fond_carte_danger.png");
 		getSprite("HL_usine.png");
@@ -59,6 +69,7 @@ public class ScreenManager {
 		getSprite("seringue.png");
 		getSprite("usine.png");
 		getSprite("ville.png");
+	
 	}
 	
 	public void setProperties(int width, int height, boolean is_fullscreen)
@@ -126,7 +137,7 @@ public class ScreenManager {
 		GL11.glEnd();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		
-		Sprite fond = getSprite("menu.png");
+		Sprite fond = getSprite("aide.png");
 		fond.draw(getOrigineCarteX()+fond.getWidth()/2, getOrigineCarteY()+fond.getHeight()/2);
 		Display.update();
 	}
@@ -147,8 +158,9 @@ public class ScreenManager {
 		GL11.glEnd();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		
-		Sprite fond = getSprite("menu.png");
+		Sprite fond = getSprite("credits.png");
 		fond.draw(getOrigineCarteX()+fond.getWidth()/2, getOrigineCarteY()+fond.getHeight()/2);
+		dna[(int)(getTime()/80)%10].draw(getOrigineCarteX()+710, getOrigineCarteY()+300);
 		Display.update();
 	}
 	
