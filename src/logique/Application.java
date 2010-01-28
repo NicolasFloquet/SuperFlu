@@ -45,7 +45,6 @@ public class Application
 
 	private Application()
 	{
-		screen = ScreenManager.getInstance();
 		game = new GameLogic();
 		game.creerEpidemie();
 		running = false;
@@ -64,21 +63,24 @@ public class Application
 	public void quit()
 	{
 		running = false;
-		
+
 		//TODO : permettre de tuer le thread qui accept sur le socket pour pouvoir fermer proprement
 		System.exit(0);
 	}
-	
+
 	public void run(String[] args)
 	{	
 		if (args.length > 0) {
 			isServer = Boolean.valueOf(args[0]);
 		}
-		
-		if (args.length == 4) {
-			screen.setProperties(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Boolean.valueOf(args[3]));
+
+		if (!isServer) {
+			screen = ScreenManager.getInstance();
+			if (args.length == 4) {
+				screen.setProperties(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Boolean.valueOf(args[3]));
+			}
 		}
-		
+
 		timer = new Timer();
 		if (isServer) {
 			c = new ServerController();
@@ -91,19 +93,27 @@ public class Application
 		}
 
 		running = true;
-		while(running)
-		{
-			screen.draw();
-			
-			// Gestion des inputs
-			PlayerManager.getInstance().update();
-
-			if((Display.isCloseRequested()) || (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)))
+		if (isServer) {
+			while(running) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {}
+			}
+		} else {
+			while(running)
 			{
-				quit();
+				screen.draw();
+
+				// Gestion des inputs
+				PlayerManager.getInstance().update();
+
+				if((Display.isCloseRequested()) || (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)))
+				{
+					quit();
+				}
 			}
 		}
-		
+
 		if (isServer) {
 			timer.cancel();
 			c.deconnection();
@@ -125,7 +135,7 @@ public class Application
 	public void setJoueur(Joueur joueur) {
 		this.joueur = joueur;
 	}
-	
+
 	public Joueur getJoueur() {
 		return joueur;
 	}
@@ -133,7 +143,7 @@ public class Application
 	public void sendTransfert(Transfert t){
 		c.send(t);
 	}
-	
+
 	public Zone getNextZone(){
 		return game.getCarte().getZones().get(game.getJoueurs().size());
 	}

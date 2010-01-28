@@ -264,7 +264,7 @@ public class Ville implements graphics.Drawable, Serializable {
 			couleur = 0.7f;
 		}
 		if(PlayerManager.getInstance().getTargetedVille() == this) {
-			hl_ville.draw(pos_x, pos_y);
+			hl_ville.draw(pos_x, pos_y, 0, 1, couleur, couleur, couleur);
 		} else {
 			ville.draw(pos_x, pos_y, 0, 1, couleur, couleur, couleur);
 		}
@@ -290,7 +290,10 @@ public class Ville implements graphics.Drawable, Serializable {
 		}
 		
 		// On affiche l'image d'infection
-		if((float)habitantsInfectes > 500) {
+		if((float)habitantsInfectes > 10000) {
+			infected.draw(pos_x, pos_y, 0, 1.5f);
+		}
+		else if((float)habitantsInfectes > 200) {
 			infected.draw(pos_x, pos_y);
 		}
 		

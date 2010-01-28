@@ -72,12 +72,18 @@ public class Usine extends Ville implements Serializable{
 		int height = usine.getHeight();
 		int width = usine.getWidth();
 		
+		float couleur;
+		if (isMine()) {
+			couleur = 1.0f;
+		} else {
+			couleur = 0.7f;
+		}
 		if(PlayerManager.getInstance().getTargetedVille() == this)
-			hl_usine.draw(pos_x, pos_y);
+			hl_usine.draw(pos_x, pos_y, 0, 1, couleur, couleur, couleur);
 		else
-			usine.draw(pos_x, pos_y);
+			usine.draw(pos_x, pos_y, 0, 1, couleur, couleur, couleur);
 		
-		if (PlayerManager.getInstance().getTargetedVille() == this) {
+		if (PlayerManager.getInstance().getTargetedVille() == this && isMine()) {
 			// Affichage info
 			int encart_pos_y = ScreenManager.getInstance().getOrigineEncartY() + 15;
 			new Texte("Usine de "+this.getNom()).draw(10, encart_pos_y + 20);
