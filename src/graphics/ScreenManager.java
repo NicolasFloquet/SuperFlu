@@ -301,6 +301,10 @@ public class ScreenManager {
 	public int getScreenHeight() {
 		return screen_height;
 	}
+	
+	public int getScreenWidth() {
+		return screen_width;
+	}
 
 	public void setSelected(Ville v) {
 		selected_ville = v;

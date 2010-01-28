@@ -22,17 +22,17 @@ public class Texte {
 	}
 
 	public void draw(int x, int y) {
-		draw(x, y, 0, 0, 0);
+		draw(x, y, 1, 0, 0, 0);
 	}
 	
-	public void draw(int x, int y, float red, float green, float blue) {
+	public void draw(int x, int y, float zoom, float red, float green, float blue) {
 		int offset = 0;
 		for (Sprite sprite : sprites) {
-			sprite.draw(x + offset, y, 0, 1, red, green, blue);
-			offset += sprite.getWidth();
+			sprite.draw(x + offset, y, zoom, 1, red, green, blue);
+			offset += sprite.getWidth()*zoom;
 		}
 	}
-
+	
 	public int getWidth() {
 		int width = 0;
 		for (Sprite sprite : sprites) {

@@ -1,7 +1,12 @@
 package entities;
 
+import graphics.ScreenManager;
+import graphics.Texte;
+
 import java.io.Serializable;
 import java.net.Socket;
+
+import logique.Application;
 
 /**
  * Classe qui contient les informations relatives à un joueur (score, zone)
@@ -30,8 +35,16 @@ public class Joueur implements graphics.Drawable, Serializable,Cloneable {
 	
 	@Override
 	public void draw() {
-		// TODO Auto-generated method stub
+		int encart_pos_y = ScreenManager.getInstance().getOrigineEncartY() + 15;
+		int milieu_ecran = ScreenManager.getInstance().getScreenWidth()/2;
+		Joueur joueur = Application.getInstance().getJoueur();
 		
+		Zone z = joueur.getZone(); 
+		new Texte(z.getNom() + ":").draw(milieu_ecran, encart_pos_y + 20);
+		new Texte("Habitants ").draw(milieu_ecran+50, encart_pos_y + 40);
+		new Texte("Habitants infectes ").draw(milieu_ecran+50, encart_pos_y + 60);
+		new Texte("Habitants morts ").draw(milieu_ecran+50, encart_pos_y + 80);
+
 	}
 	
 	public Socket getSocket() {
