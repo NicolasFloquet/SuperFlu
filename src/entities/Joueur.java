@@ -47,7 +47,7 @@ public class Joueur implements graphics.Drawable, Serializable,Cloneable {
 			new Texte("Habitants ").draw(milieu_ecran+50, encart_pos_y + offset + 10, 0.5f, 0.0f, 0.0f, 0.0f);
 			new Texte("Habitants infectes ").draw(milieu_ecran+50, encart_pos_y + offset + 20, 0.5f, 0.0f, 0.0f, 0.0f);
 			new Texte("Habitants morts ").draw(milieu_ecran+50, encart_pos_y + offset  + 30, 0.5f, 0.0f, 0.0f, 0.0f);
-		 	offset+=10;
+		 	offset+=50;
 		 }
 
 
