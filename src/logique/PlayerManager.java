@@ -8,44 +8,55 @@ import graphics.ScreenManager;
 public class PlayerManager {
 
 	private static PlayerManager instance = new PlayerManager();
-	
+
 	private Ville selected;
 	private int pourcentage; //le pourcentage à envoyer lors du transfert (se change à la molette)
-	
+	private boolean vaccin = true;
+
 	private PlayerManager() {
 		selected = null;
 		pourcentage = 50;
 	}
 
 	public void update() {
-		if(Mouse.isButtonDown(0)) {
+		if (Mouse.isButtonDown(2) || Mouse.isButtonDown(0)) {
 			if(selected == null) {
 				selected = getTargetedVille();
 				System.out.println(selected);
 			}
-			
+
 			pourcentage += Mouse.getDWheel()/15;
-			
+
 			if(pourcentage > 100) {
 				pourcentage = 100;
 			}
 			else if(pourcentage < 0) {
 				pourcentage = 0;
 			}
-				
-		}
-		else {
+
+			vaccin = Mouse.isButtonDown(2);
+		} else {
 			if(selected != null) {
 				// TODO vraiment gerer les transferts
 				Ville released = getTargetedVille();
 				if(released != null) {
 					/* TODO La on envoi que des stocks de traitement, il faut aussi gerer les vaccins
 					        + Existance de differents traitement (pour un itération future */
-					if (!selected.getStocksTraitements().isEmpty()) {
-						if(selected.getStocksTraitements().get(0).getStock()>0) {
-							Stock nouveau_stock = new StockTraitement(selected.getStocksTraitements().get(0).getStock()*pourcentage/100,
-																	  selected.getStocksTraitements().get(0).getTraitement());
-							Application.getInstance().getGame().creerTransfert(selected,released,nouveau_stock);
+					if (vaccin) {
+						if (!selected.getStocksVaccins().isEmpty()) {
+							if(selected.getStocksVaccins().get(0).getStock()>0) {
+								Stock nouveau_stock = new StockVaccin(selected.getStocksVaccins().get(0).getStock()*pourcentage/100,
+										selected.getStocksVaccins().get(0).getVaccin());
+								Application.getInstance().getGame().creerTransfert(selected,released,nouveau_stock);
+							}
+						}
+					} else {
+						if (!selected.getStocksTraitements().isEmpty()) {
+							if(selected.getStocksTraitements().get(0).getStock()>0) {
+								Stock nouveau_stock = new StockTraitement(selected.getStocksTraitements().get(0).getStock()*pourcentage/100,
+										selected.getStocksTraitements().get(0).getTraitement());
+								Application.getInstance().getGame().creerTransfert(selected,released,nouveau_stock);
+							}
 						}
 					}
 				}
@@ -57,7 +68,7 @@ public class PlayerManager {
 		}
 		ScreenManager.getInstance().setSelected(selected);
 	}
-	
+
 	public static PlayerManager getInstance() {
 		return instance;
 	}
@@ -78,7 +89,7 @@ public class PlayerManager {
 		}
 		return null;
 	}
-	
+
 	public int getPourcentageVoulu() {
 		return pourcentage;
 	}
