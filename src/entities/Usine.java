@@ -34,11 +34,13 @@ public class Usine extends Ville implements Serializable{
 	}
 
 	public void produit() {
+		System.out.println("usine " + nom + " produit");
 		Application a = Application.getInstance();
 		productionRateTraitements = (int) (3 * Math.log(1 + a.getGame().getPopulationInfectee()));
 		productionRateVaccins = (int) (0.5 * Math.log(1 + a.getGame().getPopulationInfectee()));
 
 		for (Traitement traitement : traitements) {
+			System.out.println("ajoute " + productionRateTraitements);
 			ajouteStockTraitement(traitement, productionRateTraitements);
 		}
 		for (Vaccin vaccin : vaccins) {

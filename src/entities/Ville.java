@@ -25,7 +25,7 @@ public class Ville implements graphics.Drawable, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Zone zone;
-	private String nom;
+	protected String nom;
 	protected int x;
 	protected int y;
 	private int habitantsSains;

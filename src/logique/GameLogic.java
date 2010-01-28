@@ -26,7 +26,7 @@ public class GameLogic implements Cloneable, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/* TODO: Calibrer TAUX_MIGRATION */
-	private final static float TAUX_MIGRATION = 5f;
+	private final static float TAUX_MIGRATION = 15f;
 	
 	public enum etatJeu {
 		EN_COURS, GAGNE, PERDU
@@ -130,10 +130,10 @@ public class GameLogic implements Cloneable, Serializable {
 		/* Mise à jour du temps */
 		time += elapsed_time;
 
-		mortsTotal = 0;
-		populationMondiale = 0;
-		populationInfectee = 0;
-		vaccinesTotal = 0;
+		int mortsTotal = 0;
+		int populationMondiale = 0;
+		int populationInfectee = 0;
+		int vaccinesTotal = 0;
 
 		gereTransferts();
 
@@ -147,11 +147,6 @@ public class GameLogic implements Cloneable, Serializable {
 			}
 
 			for (Ville ville_origine : zone_origine.getVilles()) {
-				
-				mortsTotal += ville_origine.getHabitantsMorts();
-				populationMondiale += ville_origine.getHabitants();
-				populationInfectee += ville_origine.getHabitantsInfectes();
-				vaccinesTotal += ville_origine.getHabitantsImmunises();
 
 				if (ville_origine.getHabitants() == 0) {
 					continue;
@@ -251,9 +246,19 @@ public class GameLogic implements Cloneable, Serializable {
 
 				/* Mise à jour de la ville */
 				ville_origine.update();
+				
+				mortsTotal += ville_origine.getHabitantsMorts();
+				populationMondiale += ville_origine.getHabitants();
+				populationInfectee += ville_origine.getHabitantsInfectes();
+				vaccinesTotal += ville_origine.getHabitantsImmunises();
 
 			}
 		}
+		this.mortsTotal = mortsTotal;
+		this.populationMondiale = populationMondiale;
+		this.populationInfectee = populationInfectee;
+		this.vaccinesTotal = vaccinesTotal;
+		
 		etat = jeuFini();
 	}
 
