@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import logique.Application;
 import logique.GameLogic;
@@ -29,6 +30,17 @@ public class Carte implements graphics.Drawable, Serializable {
 	private int courbe_vaccines[] = null;
 	private int dephasage_courbes;
 	
+	
+	
+	@Override
+	public String toString() {
+		return "Carte [courbe_infectes=" + Arrays.toString(courbe_infectes)
+				+ ", courbe_morts=" + Arrays.toString(courbe_morts)
+				+ ", courbe_pop=" + Arrays.toString(courbe_pop)
+				+ ", courbe_vaccines=" + Arrays.toString(courbe_vaccines)
+				+ ", dephasage_courbes=" + dephasage_courbes + "]";
+	}
+
 	private ArrayList<Zone> zones = new ArrayList<Zone>();
 	
 	public Carte() {
@@ -38,26 +50,24 @@ public class Carte implements graphics.Drawable, Serializable {
 		zones.add(new Zone(4));
 		zones.add(new Zone(5));
 		zones.add(new Zone(6));
+		
+		courbe_pop = new int[1024];
+		courbe_morts = new int[courbe_pop.length];
+		courbe_infectes = new int[courbe_pop.length];
+		courbe_vaccines = new int[courbe_pop.length];
+		dephasage_courbes = 0;
+		
+		for(int i=0 ; i<courbe_pop.length ; i++) {
+			courbe_pop[i] = 0;
+			courbe_morts[i] = 0;
+			courbe_infectes[i] = 0;
+			courbe_vaccines[i] = 0;
+		}
 	}
 	
 	@Override
 	public void draw()
 	{		
-		if (courbe_pop == null) {
-			courbe_pop = new int[ScreenManager.getInstance().getMap().getWidth()];
-			courbe_morts = new int[courbe_pop.length];
-			courbe_infectes = new int[courbe_pop.length];
-			courbe_vaccines = new int[courbe_pop.length];
-			dephasage_courbes = 0;
-			
-			for(int i=0 ; i<courbe_pop.length ; i++) {
-				courbe_pop[i] = 0;
-				courbe_morts[i] = 0;
-				courbe_infectes[i] = 0;
-				courbe_vaccines[i] = 0;
-			}
-		}
-		
 		Sprite map = ScreenManager.getInstance().getMap();
 		Sprite fond_map = ScreenManager.getSprite("fond_carte.png");
 		Sprite fond_map_danger = ScreenManager.getSprite("fond_carte_danger.png");
