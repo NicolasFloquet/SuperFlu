@@ -11,8 +11,12 @@ public class Texte {
 		sprites = new ArrayList<Sprite>();
 
 		for (int i = 0; i < chaine.length(); i++) {
-			String c = chaine.substring(i, i + 1).toUpperCase();
+			String c = chaine.substring(i, i + 1);
 
+			if (c.charAt(0) >= 'a' && c.charAt(0) <= 'z') {
+				c += "_min";
+			}
+			
 			if (c.equals(":")) {
 				c = "dp";
 			}
