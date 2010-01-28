@@ -115,7 +115,7 @@ public class ScreenManager {
 		}
 		
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
-    	GL11.glColor3f(1,1,1);
+    	GL11.glColor3f(0.4f,0.4f,0.4f);
     	GL11.glBegin(GL11.GL_QUADS);
 		{
 	      GL11.glVertex2f(0,0);

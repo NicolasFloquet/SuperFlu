@@ -80,6 +80,10 @@ public class Sprite{
 	}
 	
 	public void draw(int x, int y, float angle, float zoom, float r, float g, float b) {
+		draw(x,y,angle,zoom,r,g,b,1);
+	}
+	
+	public void draw(int x, int y, float angle, float zoom, float r, float g, float b, float a) {
 		// store the current model matrix
 		GL11.glPushMatrix();
 		
@@ -91,7 +95,7 @@ public class Sprite{
 		GL11.glRotatef(angle, 0, 0, 1);
 		GL11.glScalef(zoom, zoom, 1);
 		GL11.glTranslatef(-width/2, -height/2, 0);
-    	GL11.glColor3f(r,g,b);
+    	GL11.glColor4f(r,g,b,a);
 		
 		// draw a quad textured to match the sprite
     	GL11.glBegin(GL11.GL_QUADS);

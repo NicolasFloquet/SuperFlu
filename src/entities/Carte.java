@@ -74,11 +74,10 @@ public class Carte implements graphics.Drawable, Serializable {
 		
 		Application a = Application.getInstance();
 
-		if(a.getGame().getPopulationInfectee()*10 > a.getGame().getPopulationMondiale()) {
-			fond_map_danger.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2);
-		}
-		else {
-			fond_map.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2);
+		fond_map.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2);
+		if(Application.getInstance().getGame().isPandemic()) {
+			fond_map_danger.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2,
+									0,1,1,1,1,1-((float)(ScreenManager.getTime()%1000))/1000.0f);
 		}
 		updateCourbes();
 		drawCourbes();	
