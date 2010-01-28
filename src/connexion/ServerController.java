@@ -18,7 +18,11 @@ public class ServerController implements ConnexionController {
 
 
 	public void setNbjoueurs(int nbjoueurs) {
-		this.nbjoueurs = nbjoueurs;
+		if(nbjoueurs<=6){
+			this.nbjoueurs = nbjoueurs;
+		}else{
+			this.nbjoueurs = 6;
+		}
 	}
 
 
