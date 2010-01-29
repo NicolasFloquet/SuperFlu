@@ -92,6 +92,8 @@ public class Application
 			int minInfectee = Integer.MAX_VALUE;
 			Joueur minInfect = null;
 			for(Zone z:zList){
+				minInfect = null;
+				minInfectee = Integer.MAX_VALUE;
 				for(Joueur j:jList){
 					int infectee = 0;
 					for(Zone zj:j.getZone()){
