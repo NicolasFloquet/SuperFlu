@@ -31,8 +31,8 @@ public abstract class Send {
 
 		} catch(ConcurrentModificationException cme){
 			//TODO <- Reviser catch
-			System.out.println("catch");
-			cme.printStackTrace();
+			System.err.println("catch");
+			//cme.printStackTrace();
 			/*try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
