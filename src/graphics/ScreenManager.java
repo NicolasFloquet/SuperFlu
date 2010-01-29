@@ -15,11 +15,19 @@ import logique.PlayerManager;
 
 public class ScreenManager {
 	
-	private class Preloader extends Thread {
+	/*
+	 *  La parallelisation du chargement des textures ne fonctionne pas
+	 *  Cette version s'execute en mode bloquant  
+	 */
+	private class Preloader /* extends Thread */ {
 		public Preloader() {
 			start();
 		}
 
+		public void start() {
+			run();
+		}
+		
 		public void run() {
 			getSprite("aide.png");
 			getSprite("aide2.png");
@@ -321,6 +329,28 @@ public class ScreenManager {
 		Display.update();
 	}
 
+	private void draw_loading() {
+		Display.sync(60);
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+    	GL11.glColor3f(0.0f,0.0f,0.0f);
+    	GL11.glBegin(GL11.GL_QUADS);
+		{
+	      GL11.glVertex2f(0,0);
+	      GL11.glVertex2f(screen_width,0);
+	      GL11.glVertex2f(screen_width,screen_height);
+	      GL11.glVertex2f(0,screen_height);
+		}
+		GL11.glEnd();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		
+		Sprite fond = getSprite("loading.png");
+		fond.draw(screen_width/2, screen_height/2);
+		
+		Display.update();
+	}
+	
 	private void drawTransfertWidget(Ville selected_ville, boolean isTraitement) {
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL11.GL_LINE_SMOOTH);
@@ -427,6 +457,10 @@ public class ScreenManager {
 			return;
 		}
 		
+		// Affichage d'un ecran de chargement
+		draw_loading();
+		
+		// Chargement des textures
 		dna = new Sprite[10];
 		for(int i=0 ; i<10 ; i++) {
 			dna[i]=getSprite("dna"+String.valueOf(i+1)+".png");
