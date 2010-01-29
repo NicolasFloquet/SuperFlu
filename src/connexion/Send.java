@@ -8,8 +8,6 @@ import java.net.SocketException;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
-import logique.GameLogic;
-
 import entities.Joueur;
 
 public abstract class Send {

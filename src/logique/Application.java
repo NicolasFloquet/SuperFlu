@@ -47,7 +47,7 @@ public class Application
 	private boolean running;
 	private Timer timer = new Timer();
 	private ConnexionController c;
-	private int nbjoueurs;
+	private int nbjoueurs = 6;
 
 	private Application()
 	{
