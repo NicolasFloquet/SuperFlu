@@ -43,6 +43,7 @@ public class ThreadServ extends Thread {
 		
 		System.out.print("zone: ");
 		List<Zone> zListe = new ArrayList<Zone>();
+			
 		int extra = 6%nbjoueurs;
 		for(int i=0;i<6/nbjoueurs;i++){
 			Zone z = a.getNextZone();

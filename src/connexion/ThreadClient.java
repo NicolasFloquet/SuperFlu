@@ -56,7 +56,6 @@ public class ThreadClient extends Thread {
 						if(z.getNom().equals(zon.getNom())){
 							zList2.add(zon);
 							System.out.println(zon.getNom() + ":" + zon.getPopulation_infectee());
-							z.setJoueur((Joueur) o);
 						}
 					}
 				}

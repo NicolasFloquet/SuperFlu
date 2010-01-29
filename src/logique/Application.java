@@ -271,7 +271,7 @@ public class Application
 		c.send(t);
 	}
 
-	public Zone getNextZone(){
+	public synchronized Zone getNextZone(){
 		zone++;
 		return game.getCarte().getZones().get(zone);
 	}

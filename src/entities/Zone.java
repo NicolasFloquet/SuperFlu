@@ -96,20 +96,12 @@ public class Zone implements Serializable{
 		}
 	}
 	
-	public void setJoueur(Joueur joueur) {
-		this.joueur = joueur;
-	}
-	
 	public String getNom() {
 		return nom;
 	}
 	
 	public Usine getUsine() {
 		return usine;
-	}
-	
-	public Joueur getJoueur() {
-		return joueur;
 	}
 	
 	public int getId() {
