@@ -1,5 +1,6 @@
 package logique;
 
+import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -9,6 +10,21 @@ import graphics.ScreenManager;
 public class PlayerManager {
 
 	private static PlayerManager instance = new PlayerManager();
+	private int[] konami_code = {Keyboard.KEY_UP,
+								Keyboard.KEY_UP,
+								Keyboard.KEY_DOWN,
+								Keyboard.KEY_DOWN,
+								Keyboard.KEY_LEFT,
+								Keyboard.KEY_RIGHT,
+								Keyboard.KEY_LEFT,
+								Keyboard.KEY_RIGHT,
+								Keyboard.KEY_B,
+								Keyboard.KEY_A,
+								Keyboard.KEY_RETURN}; // Le dernier est un vieux hack stout
+	
+	private int currentKonami;
+	private boolean konamiLock;
+	private boolean konamiUnlocked;
 
 	private Ville selected;
 	private int pourcentage; //le pourcentage à envoyer lors du transfert (se change à la molette)
@@ -24,14 +40,89 @@ public class PlayerManager {
 		pourcentage = 50;
 		key_lock = false;
 		mouse_lock = false;
+		
+		currentKonami = 0;
+		konamiLock = false;
+		konamiUnlocked = false;
 	}
 
 	public int getSelectedMenu() {
 		return selected_menu;
 	}
 	
+	public boolean isKonami() {
+		return konamiUnlocked;
+	}
+	
+	private void updateKonami() {
+		if(!konamiLock) {
+			if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {
+				if(konami_code[currentKonami] == Keyboard.KEY_UP) {
+					currentKonami++;
+				} else {
+					currentKonami = 0;
+				}
+				konamiLock = true;
+			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+				if(konami_code[currentKonami] == Keyboard.KEY_DOWN) {
+					currentKonami++;
+				} else {
+					currentKonami = 0;
+				}
+				konamiLock = true;
+			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+				if(konami_code[currentKonami] == Keyboard.KEY_LEFT) {
+					currentKonami++;
+				} else {
+					currentKonami = 0;
+				}
+				konamiLock = true;
+			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+				if(konami_code[currentKonami] == Keyboard.KEY_RIGHT) {
+					currentKonami++;
+				} else {
+					currentKonami = 0;
+				}
+				konamiLock = true;
+			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
+				if(konami_code[currentKonami] == Keyboard.KEY_A) {
+					currentKonami++;
+				} else {
+					currentKonami = 0;
+				}
+				konamiLock = true;
+			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_B)) {
+				if(konami_code[currentKonami] == Keyboard.KEY_B) {
+					currentKonami++;
+				} else {
+					currentKonami = 0;
+				}
+				konamiLock = true;
+			}
+		} else {
+			konamiLock = Keyboard.isKeyDown(Keyboard.KEY_UP)
+						|| Keyboard.isKeyDown(Keyboard.KEY_DOWN)
+						|| Keyboard.isKeyDown(Keyboard.KEY_LEFT)
+						|| Keyboard.isKeyDown(Keyboard.KEY_RIGHT)
+						|| Keyboard.isKeyDown(Keyboard.KEY_B)
+						|| Keyboard.isKeyDown(Keyboard.KEY_A);
+		}
+		
+		if(currentKonami >= konami_code.length-1) {
+			konamiUnlocked = !konamiUnlocked;
+			currentKonami = 0;
+		}
+	}
+	
 	// Return l'etat selectionné ou 3 si aucun etat n'est selectioné
 	public int update_menu() {
+		updateKonami();
+		
 		if(!key_lock) {			
 			if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {
 				selected_menu--;
@@ -54,17 +145,19 @@ public class PlayerManager {
 			else if(Keyboard.isKeyDown(Keyboard.KEY_RETURN)) {
 				key_lock = true;
 				
-				return selected_menu;
+				//piege on retourne 4 si on devait retourner 2 (pour zapper les pages de l'aide)
+				return selected_menu==2?4:selected_menu;
 			}
 			else if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
 				key_lock = true;
 				
-				return selected_menu;
+				//piege on retourne 4 si on devait retourner 2 (pour zapper les pages de l'aide)
+				return selected_menu==2?4:selected_menu;
 			}
 			else if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				key_lock = true;
 				Application.getInstance().quit();
-				return 3;
+				return -1;
 			}
 		}
 		else {
@@ -82,7 +175,6 @@ public class PlayerManager {
 			
 			// On cherche le menu pointé
 			ScreenManager screen = ScreenManager.getInstance();
-			int x = Mouse.getX()-screen.getOrigineCarteX();
 			int y = screen.getScreenHeight()-Mouse.getY()-screen.getOrigineCarteY();
 			
 			if(y>288-43 && y<369-43) {
@@ -110,16 +202,18 @@ public class PlayerManager {
 			// si on a locké la souris on attend que le bouton soit relaché 
 			mouse_lock = Mouse.isButtonDown(0);		
 		}
-		return 3;
+		return -1;
 	}
 	
 	public int update_submenu (int ret) {
+		updateKonami();
+		
 		// On traite le clavier
 		if(!key_lock) {
 			// Sur escape on retourne à l'ecran principal
 			if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				key_lock = true;
-				return 3;
+				return -1;
 			}
 			// Sur espace ou entree on passe a l'ecran suivant 
 			if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)
@@ -148,10 +242,13 @@ public class PlayerManager {
 			// si on a locké la souris on attend que le bouton soit relaché 
 			mouse_lock = Mouse.isButtonDown(0);
 		}
+		
 		return ret;
 	}
 	
 	public void update() {
+		updateKonami();
+		
 		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			Application.getInstance().quit();
 		}

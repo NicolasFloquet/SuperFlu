@@ -19,9 +19,12 @@ public class ScreenManager {
 		public Preloader() {
 			start();
 		}
-		
+
 		public void run() {
 			getSprite("aide.png");
+			getSprite("aide2.png");
+			getSprite("aide3.png");
+			getSprite("aide4.png");
 			getSprite("avion.png");
 			getSprite("carte.png");
 			getSprite("carte_afr.png");
@@ -132,6 +135,12 @@ public class ScreenManager {
 		return (Sys.getTime() * 1000) / timerTicksPerSecond;
 	}
 	
+	public void drawKonami() {
+		if(PlayerManager.getInstance().isKonami()) {
+			getSprite("test.png").draw(screen_width/2, screen_height/2,0,1,1,1,1,0.5f);
+		}
+	}
+	
 	public void draw_error_connexion() {
 		Display.sync(60);
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
@@ -155,7 +164,7 @@ public class ScreenManager {
 		Display.update();
 	}
 	
-	public void draw_aide() {
+	public void draw_aide(int page) {
 		Display.sync(60);
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		
@@ -172,7 +181,24 @@ public class ScreenManager {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		
 		Sprite fond = getSprite("aide.png");
+		
+		switch (page) {
+		case 1:
+			fond = getSprite("aide.png");
+			break;
+		case 2:
+			fond = getSprite("aide2.png");
+			break;
+		case 3:
+			fond = getSprite("aide3.png");
+			break;
+		default:
+			break;
+		}
 		fond.draw(getOrigineCarteX()+fond.getWidth()/2, getOrigineCarteY()+fond.getHeight()/2);
+		
+		drawKonami();
+		
 		Display.update();
 	}
 	
@@ -195,6 +221,9 @@ public class ScreenManager {
 		Sprite fond = getSprite("credits.png");
 		fond.draw(getOrigineCarteX()+fond.getWidth()/2, getOrigineCarteY()+fond.getHeight()/2);
 		dna[(int)((getTime()/80)%10)].draw(getOrigineCarteX()+710, getOrigineCarteY()+300);
+		
+		drawKonami();
+		
 		Display.update();
 	}
 	
@@ -220,6 +249,8 @@ public class ScreenManager {
 		fond.draw(getOrigineCarteX()+fond.getWidth()/2, getOrigineCarteY()+fond.getHeight()/2);
 		int offset = 96*PlayerManager.getInstance().getSelectedMenu();
 		selected.draw(getOrigineCarteX()+304, getOrigineCarteY()+288+offset, 0, 1, 1, 1, 1, transp);
+		
+		drawKonami();
 		
 		Display.update();
 	}
@@ -284,6 +315,8 @@ public class ScreenManager {
 			default :
 				break;
 		}
+		
+		drawKonami();
 		
 		Display.update();
 	}

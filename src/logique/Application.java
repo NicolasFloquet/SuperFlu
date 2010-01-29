@@ -110,7 +110,7 @@ public class Application
 		} else {
 			boolean connected = false;
 			while(!connected) {
-				int menu_type = 3;
+				int menu_type = -1;
 				//
 				// Boucle du menu
 				//
@@ -118,12 +118,14 @@ public class Application
 				while(running && menu_type!=0) {
 					switch(menu_type) {
 						case 1 :
-							screen.draw_aide();
-							menu_type = PlayerManager.getInstance().update_submenu(1);
-							break;
 						case 2 :
+						case 3 :
+							screen.draw_aide(menu_type);
+							menu_type = PlayerManager.getInstance().update_submenu(menu_type);
+							break;
+						case 4 :
 							screen.draw_credits();
-							menu_type = PlayerManager.getInstance().update_submenu(2);
+							menu_type = PlayerManager.getInstance().update_submenu(menu_type);
 							break;
 						default :
 							screen.draw_menu();
