@@ -41,13 +41,20 @@ public class Joueur implements graphics.Drawable, Serializable,Cloneable {
 		int milieu_ecran = ScreenManager.getInstance().getScreenWidth()/2;
 		Joueur joueur = Application.getInstance().getJoueur();
 		
-		 int offset = 10;
+		 int offsety = 10;
+		 int offsetx = 0;
 		 for(Zone z : joueur.getZone()) {
-			new Texte(z.getNom() + ":").draw(milieu_ecran, encart_pos_y + offset, 0.5f, 0.0f, 0.0f, 0.0f);
-			new Texte("Habitants ").draw(milieu_ecran+50, encart_pos_y + offset + 10, 0.5f, 0.0f, 0.0f, 0.0f);
-			new Texte("Habitants infectes ").draw(milieu_ecran+50, encart_pos_y + offset + 20, 0.5f, 0.0f, 0.0f, 0.0f);
-			new Texte("Habitants morts ").draw(milieu_ecran+50, encart_pos_y + offset  + 30, 0.5f, 0.0f, 0.0f, 0.0f);
-		 	offset+=50;
+			new Texte(z.getNom() + ":").draw(milieu_ecran + offsetx, encart_pos_y + offsety, 0.5f, 0.0f, 0.0f, 0.0f);
+			new Texte("Habitants :").draw(milieu_ecran+50 + offsetx, encart_pos_y + offsety + 10, 0.5f, 0.0f, 0.0f, 0.0f);
+			new Texte("Habitants infectés :").draw(milieu_ecran+50 + offsetx, encart_pos_y + offsety + 20, 0.5f, 0.0f, 0.0f, 0.0f);
+			new Texte("Habitants morts :").draw(milieu_ecran+50 + offsetx, encart_pos_y + offsety  + 30, 0.5f, 0.0f, 0.0f, 0.0f);
+			
+		 	offsety+=50;
+		 	
+		 	if (offsety >= 160) {
+		 		offsety = 10;
+		 		offsetx += 200;
+		 	}
 		 }
 
 

@@ -32,8 +32,8 @@ public class Texte {
 	public void draw(int x, int y, float zoom, float red, float green, float blue) {
 		int offset = 0;
 		for (Sprite sprite : sprites) {
-			sprite.draw(x + offset, y, zoom, 1, red, green, blue);
-			offset += sprite.getWidth()*zoom;
+			sprite.draw(x + offset, y, 0, zoom, red, green, blue);
+			offset += sprite.getWidth() * zoom;
 		}
 	}
 	

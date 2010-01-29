@@ -24,11 +24,11 @@ public class Carte implements graphics.Drawable, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int courbe_pop[] = null;
-	private int courbe_morts[] = null;
-	private int courbe_infectes[] = null;
-	private int courbe_vaccines[] = null;
-	private int dephasage_courbes;
+	private static int courbe_pop[] = null;
+	private static int courbe_morts[] = null;
+	private static int courbe_infectes[] = null;
+	private static int courbe_vaccines[] = null;
+	private static int dephasage_courbes;
 	
 	
 	
@@ -86,7 +86,7 @@ public class Carte implements graphics.Drawable, Serializable {
 		
 		if(Application.getInstance().getJoueur() != null) {
 			for( Zone z : Application.getInstance().getJoueur().getZone()) {
-				Sprite zone;
+				Sprite zone; // LOL. J'aime les noms de continents codés en dur :D. (max)
 				if(z.getNom().equals("Europe")) {
 					zone = ScreenManager.getSprite("carte_eur.png");				
 				} else if(z.getNom().equals("AmeriqueDuNord")) {

@@ -317,7 +317,7 @@ public class Ville implements graphics.Drawable, Serializable {
 			if(getStocksVaccins().isEmpty())
 				new Texte("Stock Vaccins 0").draw(10,encart_pos_y + 160);
 			else
-				new Texte("Stock Vaccins " + getStocksVaccins().get(0).getStock()).draw(10,encart_pos_y + 140);
+				new Texte("Stock Vaccins " + getStocksVaccins().get(0).getStock()).draw(10,encart_pos_y + 160);
 		}
 		
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
