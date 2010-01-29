@@ -1,5 +1,6 @@
 package connexion;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
@@ -146,6 +147,10 @@ public class ThreadServ extends Thread {
 					end = true;
 					a.getGame().getJoueurs().remove(j);
 				}else err = false;
+			} catch (IOException e) {
+				System.err.println("perte connexion avec l'utilisateur");
+				end = true;
+				a.getGame().getJoueurs().remove(j);
 			}
 		}
 	}

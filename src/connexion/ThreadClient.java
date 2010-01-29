@@ -1,5 +1,6 @@
 package connexion;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
@@ -28,9 +29,12 @@ public class ThreadClient extends Thread {
 			try {
 				o = rec.getDataBlock();
 			} catch (SocketException e) {
-				System.err.println("Serveur deconecte");
+				System.err.println("Serveur deconnecte");
 				System.exit(1);
 			}// reception des donnees blocante
+			catch (IOException e) {
+				System.err.println("Connexion au serveur perdue !");
+			}
 			if (o instanceof GameLogic) {
 				
 				// acualiser le game

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.ConcurrentModificationException;
 import java.util.concurrent.Semaphore;
 
@@ -56,7 +55,7 @@ public class Receive extends Thread {
 		return o;
 	}
 
-	public Object getDataBlock() throws SocketException {
+	public Object getDataBlock() throws IOException {
 		InputStream iStream = null;
 		ObjectInputStream oiStream;
 		try {
@@ -68,13 +67,7 @@ public class Receive extends Thread {
 			System.out.println("catch");
 			cme.printStackTrace();
 		}catch (IOException e) {
-			if (e instanceof SocketException) {
-				throw (SocketException) e;
-			} else {
-				System.err.println("error:");
-				e.printStackTrace();
-				System.exit(1);
-			}
+			throw e;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			System.exit(1);
