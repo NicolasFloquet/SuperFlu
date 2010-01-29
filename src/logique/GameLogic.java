@@ -26,7 +26,7 @@ public class GameLogic implements Cloneable, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/* TODO: Calibrer TAUX_MIGRATION */
-	private final static float TAUX_MIGRATION = 50f;
+	private final static float TAUX_MIGRATION = 30f;
 	
 	public enum etatJeu {
 		EN_COURS, GAGNE, PERDU
