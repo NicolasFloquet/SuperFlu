@@ -11,7 +11,7 @@ public abstract class Stock implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected int capacite_max = 10000;
+	protected int capacite_max = 20000;
 	protected int stock = 0;
 
 	public Stock(int stock) {

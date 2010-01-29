@@ -37,7 +37,7 @@ public class Usine extends Ville implements Serializable{
 		//System.out.println("usine " + nom + " produit");
 		Application a = Application.getInstance();
 		productionRateTraitements = (int) (5 + 0.2 * Math.sqrt(a.getGame().getPopulationInfectee()));
-		productionRateVaccins = (int) (0.2 * Math.sqrt(a.getGame().getPopulationInfectee()));
+		productionRateVaccins = (int) (0.3 * Math.sqrt(a.getGame().getPopulationInfectee()));
 
 		for (Traitement traitement : traitements) {
 			//System.out.println("ajoute " + productionRateTraitements);
