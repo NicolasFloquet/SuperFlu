@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.List;
 
+import logique.GameLogic;
+
 import entities.Joueur;
 
 public abstract class Send {
@@ -15,6 +17,7 @@ public abstract class Send {
 
 		// System.out.println("send all: "+o);
 		// TestConnexion.ecrire((GameLogic)o);
+		//System.out.println("send: "+((GameLogic)o).getCarte());
 
 		ObjectOutputStream ooStream;
 		OutputStream oStream;
