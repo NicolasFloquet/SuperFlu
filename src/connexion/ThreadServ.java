@@ -23,8 +23,9 @@ public class ThreadServ extends Thread {
 	private boolean end = false;
 	private int nbjoueurs = 6;
 	private int deconnecte = 0;
+	private boolean err = false;
 
-	public ThreadServ(Socket s,int nbjoueurs) {
+	public ThreadServ(Socket s, int nbjoueurs) {
 		this.s = s;
 		this.nbjoueurs = nbjoueurs;
 	}
@@ -121,8 +122,7 @@ public class ThreadServ extends Thread {
 
 					}
 
-					System.out.print(depart.getNom());
-					System.out.println(" -> " + arrivee.getNom());
+					System.out.println(depart.getNom()+" -> " + arrivee.getNom());
 					if ((depart != null) && (arrivee != null)) {
 						if (stock instanceof StockVaccin) {
 							depart.retireStockVaccin(((StockVaccin) stock)
@@ -138,13 +138,14 @@ public class ThreadServ extends Thread {
 					}
 				}
 			} catch (SocketException e) {
-				if(s.getChannel()==null){
+				if(!err) err=true;
+				else if(s.getChannel()==null){
 					deconnecte++;
 					System.err.println(" joueur deconnecte ");
 					a.JoueurDeconnecte(nbjoueurs);
 					end = true;
 					a.getGame().getJoueurs().remove(j);
-				}
+				}else err = false;
 			}
 		}
 	}

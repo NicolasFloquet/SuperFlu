@@ -5,6 +5,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import logique.GameLogic;
@@ -28,15 +29,27 @@ public abstract class Send {
 				ooStream.writeObject(o);
 			}
 
-		} catch (SocketException se) {
+		} catch(ConcurrentModificationException cme){
+			//TODO <- Reviser catch
+			System.out.println("catch");
+			cme.printStackTrace();
+			/*try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}finally{
+				sendData(o,jList);
+			}*/
+		}catch (SocketException se) {
 		} catch (IOException e) {
+			System.err.println("cathc 2");
 			e.printStackTrace();
 			System.exit(1);
 		}
 	}
 
 	public static void sendData(Object o, Socket s) {
-		System.out.println("send: " + o);
+		//System.out.println("send: " + o);
 		ObjectOutputStream ooStream;
 		OutputStream oStream;
 		try {

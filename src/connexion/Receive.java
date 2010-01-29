@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ConcurrentModificationException;
 import java.util.concurrent.Semaphore;
 
 public class Receive extends Thread {
@@ -62,7 +63,11 @@ public class Receive extends Thread {
 			iStream = socket.getInputStream();
 			oiStream = new ObjectInputStream(iStream);
 			o = oiStream.readObject();
-		} catch (IOException e) {
+		} catch(ConcurrentModificationException cme){
+			//TODO <- Reviser catch
+			System.out.println("catch");
+			cme.printStackTrace();
+		}catch (IOException e) {
 			if (e instanceof SocketException) {
 				throw (SocketException) e;
 			} else {
