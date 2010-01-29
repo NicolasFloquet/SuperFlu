@@ -26,7 +26,7 @@ public class GameLogic implements Cloneable, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/* TODO: Calibrer TAUX_MIGRATION */
-	private final static float TAUX_MIGRATION = 15f;
+	private final static float TAUX_MIGRATION = 20f;
 	
 	public enum etatJeu {
 		EN_COURS, GAGNE, PERDU
@@ -90,7 +90,7 @@ public class GameLogic implements Cloneable, Serializable {
 		rand_ville = rand_zone.getVilles().get(
 				rand.nextInt(rand_zone.getVilles().size()));
 		// rand_ville.ajouteHabitantsInfectes((int)(rand_ville.getHabitants()*0.01));
-		rand_ville.ajouteHabitantsInfectes(1000);
+		rand_ville.ajouteHabitantsInfectes(2000);
 
 		/* MOUHOUHOUHOHOHAHAHAHAHAHAHAHA */
 
@@ -334,7 +334,7 @@ public class GameLogic implements Cloneable, Serializable {
 
 		if (populationInfectee == 0)
 			etat = etatJeu.GAGNE;
-		if (mortsTotal == (populationMondiale + mortsTotal) / 100)
+		if (mortsTotal >= (populationMondiale + mortsTotal) / 100)
 			etat = etatJeu.PERDU;
 
 		return etat;
