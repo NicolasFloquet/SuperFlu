@@ -168,9 +168,9 @@ public class Carte implements graphics.Drawable, Serializable {
 				index=0;	
 			}
 			GL11.glColor3f(0.7f,0.5f,0.5f);
-		    GL11.glVertex2f(1024/longueur_courbe*1.11f*i,map_height-courbe_infectes[index]/max);
+		    GL11.glVertex2f(1024/longueur_courbe*1.1f*i,map_height-courbe_infectes[index]/max);
 		    GL11.glColor3f(0.7f,0.5f,0.5f);
-		    GL11.glVertex2f(1024/longueur_courbe*1.11f*(i+1),map_height-courbe_infectes[index+1]/max);
+		    GL11.glVertex2f(1024/longueur_courbe*1.1f*(i+1),map_height-courbe_infectes[index+1]/max);
 	
 		}
 		GL11.glEnd();
@@ -190,9 +190,9 @@ public class Carte implements graphics.Drawable, Serializable {
 				index=0;
 			}
 	    	GL11.glColor4f(0.3f,0.3f,1.0f,1.0f);
-	    	GL11.glVertex2f(1024/longueur_courbe*1.11f*i,map_height-courbe_vaccines[index]/max);
+	    	GL11.glVertex2f(1024/longueur_courbe*1.1f*i,map_height-courbe_vaccines[index]/max);
 	    	GL11.glColor4f(0.3f,0.3f,1.0f,1.0f);
-	    	GL11.glVertex2f(1024/longueur_courbe*1.11f*(i+1),map_height-courbe_vaccines[index+1]/max);
+	    	GL11.glVertex2f(1024/longueur_courbe*1.1f*(i+1),map_height-courbe_vaccines[index+1]/max);
 
 		}
 		GL11.glEnd();
@@ -207,9 +207,9 @@ public class Carte implements graphics.Drawable, Serializable {
 				index=0;
 			}
 				GL11.glColor3f(1.0f,0.0f,0.0f);
-				GL11.glVertex2f(1024/longueur_courbe*1.11f*i,map_height-courbe_morts[index]/max);
+				GL11.glVertex2f(1024/longueur_courbe*1.1f*i,map_height-courbe_morts[index]/max);
 				GL11.glColor3f(1.0f,0.0f,0.0f);
-				GL11.glVertex2f(1024/longueur_courbe*1.11f*(i+1),map_height-courbe_morts[index+1]/max);
+				GL11.glVertex2f(1024/longueur_courbe*1.1f*(i+1),map_height-courbe_morts[index+1]/max);
 			
 		}
 		/*
