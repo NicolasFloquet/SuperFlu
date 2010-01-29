@@ -21,6 +21,7 @@ public class Application
 	/* Periode du timer */
 	private final static int TIMER_PERIOD = 200;
 	private int zone = -1;
+	private int deconnecte = 0;
 	private class UpdateTask extends TimerTask {
 
 		public void run() {
@@ -70,6 +71,13 @@ public class Application
 
 		//TODO : permettre de tuer le thread qui accept sur le socket pour pouvoir fermer proprement
 		System.exit(0);
+	}
+	
+	public void JoueurDeconnecte(int nbjoueurs){
+		deconnecte++;
+		if(deconnecte >= nbjoueurs){
+			this.quit();
+		}
 	}
 
 	public void run(String[] args)
