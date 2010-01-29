@@ -49,6 +49,7 @@ public class Application
 	private Timer timer = new Timer();
 	private ConnexionController c;
 	private int nbjoueurs = 6;
+	private int deconnectes = 0;
 
 	private Application()
 	{
@@ -76,8 +77,13 @@ public class Application
 	}
 	
 	public void JoueurDeconnecte(Socket s){
-		nbjoueurs--;
-		if(nbjoueurs<=0){
+		deconnectes++;
+		if(deconnectes >= nbjoueurs){
+			instance = new Application();
+			String[] args = new String[2];
+			args[0] = "true";
+			args[1] = ""+nbjoueurs;
+			instance.run(args);
 			this.quit();
 		}else{
 			List<Zone> zList = null;
@@ -106,23 +112,6 @@ public class Application
 				}
 				minInfect.getZone().add(z);
 			}
-			
-			/*
-			if( size == 1){
-				jList.get(6-size-1).getZone().add(zList.get(0));
-			}else if(size == 3){
-				for(Zone z:zList){
-					jList.get(0).getZone().add(z);
-				}
-			}else if(size == 2){
-				if((jList.size() == 4)||(jList.size() == 2)){
-					jList.get(0).getZone().add(zList.get(0));
-					jList.get(1).getZone().add(zList.get(1));
-				}else if(jList.size() == 3){
-					jList.get(1).getZone().add(zList.get(1));
-					jList.get(2).getZone().add(zList.get(2));
-				}
-			}*/
 		}
 	}
 
