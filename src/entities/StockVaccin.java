@@ -16,6 +16,7 @@ public class StockVaccin extends Stock implements Serializable {
 	
 	public StockVaccin(int stock, Vaccin vaccin) {
 		super(stock);
+		capacite_max = 500000;
 		this.vaccin = vaccin;
 	}
 

@@ -47,9 +47,4 @@ public abstract class Stock implements Serializable{
 			stock = stock - valeur;
 		}
 	}
-	
-	
-	public void utilise(int n) {
-		stock -= n;
-	}
 }

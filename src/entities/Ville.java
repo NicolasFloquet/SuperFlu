@@ -223,10 +223,10 @@ public class Ville implements graphics.Drawable, Serializable {
 				if (habitantsInfectes > stocksTraitements.get(0).getStock()) {
 					habitantsInfectes -= stocksTraitements.get(0).getStock();
 					habitantsImmunises += stocksTraitements.get(0).getStock();
-					stocksTraitements.get(0).utilise(stocksTraitements.get(0).getStock());
+					stocksTraitements.get(0).retireStock(stocksTraitements.get(0).getStock());
 					/*System.out.println("Utilise : " + stocksTraitements.get(0).getStock());*/
 				} else {
-					stocksTraitements.get(0).utilise(habitantsInfectes);
+					stocksTraitements.get(0).retireStock(habitantsInfectes);
 					habitantsImmunises += habitantsInfectes;
 					habitantsInfectes = 0;
 					/*System.out.println("Utilise : " + habitantsInfectes);*/
@@ -242,7 +242,7 @@ public class Ville implements graphics.Drawable, Serializable {
 			/*System.out.println("Utilisation vaccins : ");*/
 			if (stocksVaccins.size() > 0) {
 				int nouveauxHabitantsImmunises = Math.min(habitantsSains, stocksVaccins.get(0).getStock());
-				stocksVaccins.get(0).utilise(nouveauxHabitantsImmunises);
+				stocksVaccins.get(0).retireStock(nouveauxHabitantsImmunises);
 				habitantsSains -= nouveauxHabitantsImmunises;
 				habitantsImmunises += nouveauxHabitantsImmunises;
 				/*System.out.println("immunisés : " + habitantsImmunises);*/

@@ -44,11 +44,11 @@ public class Joueur implements graphics.Drawable, Serializable,Cloneable {
 		int offsety = 10;
 		int offsetx = 0;
 		for(Zone z : Application.getInstance().getGame().getCarte().getZones()) {
-
-			new Texte(z.getNom() + ":").draw(milieu_ecran + offsetx, encart_pos_y + offsety, 0.5f, 0.0f, 0.0f, 0.0f);
-			new Texte("Habitants :"+z.getPopulation()).draw(milieu_ecran+50 + offsetx, encart_pos_y + offsety + 10, 0.5f, 0.0f, 0.0f, 0.0f);
-			new Texte("Habitants infectés :"+(int)(100*(float)z.getPopulation_infectee()/z.getPopulation()) + "%").draw(milieu_ecran+50 + offsetx, encart_pos_y + offsety + 20, 0.5f, 0.0f, 0.0f, 0.0f);
-			new Texte("Habitants morts :"+(int)(100*(float)z.getPopulation_morte()/z.getPopulation())+ "%" ).draw(milieu_ecran+50 + offsetx, encart_pos_y + offsety  + 30, 0.5f, 0.0f, 0.0f, 0.0f);
+			
+			new Texte(z.getNom() + ":").draw(milieu_ecran + offsetx, encart_pos_y + offsety, 0.6f, 0.0f, 0.0f, 0.0f);
+			new Texte("Habitants :"+z.getPopulation()).draw(milieu_ecran+50 + offsetx, encart_pos_y + offsety + 10, 0.6f, 0.0f, 0.0f, 0.0f);
+			new Texte("Habitants infectés :"+(int)(100*(float)z.getPopulation_infectee()/z.getPopulation()) + "%").draw(milieu_ecran+50 + offsetx, encart_pos_y + offsety + 20, 0.6f, 0.0f, 0.0f, 0.0f);
+			new Texte("Habitants morts :"+(int)(100*(float)z.getPopulation_morte()/z.getPopulation())+ "%" ).draw(milieu_ecran+50 + offsetx, encart_pos_y + offsety  + 30, 0.6f, 0.0f, 0.0f, 0.0f);
 
 			offsety+=50;
 

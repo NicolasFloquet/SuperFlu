@@ -88,16 +88,16 @@ public class Carte implements graphics.Drawable, Serializable {
 		
 		if(Application.getInstance().getJoueur() != null) {
 			for( Zone z : Application.getInstance().getJoueur().getZone()) {
-				Sprite zone; // LOL. J'aime les noms de continents codés en dur :D. (max)
-				if(z.getNom().equals("Europe")) {
+				Sprite zone;
+				if(z.getId() == 1) {
 					zone = ScreenManager.getSprite("carte_eur.png");				
-				} else if(z.getNom().equals("AmeriqueDuNord")) {
+				} else if(z.getId() == 2) {
 					zone = ScreenManager.getSprite("carte_us.png");
-				} else if(z.getNom().equals("AmeriqueDuSud")) {
+				} else if(z.getId() == 3) {
 					zone = ScreenManager.getSprite("carte_ams.png");
-				} else if(z.getNom().equals("Afrique")) {
+				} else if(z.getId() == 4) {
 					zone = ScreenManager.getSprite("carte_afr.png");
-				} else if(z.getNom().equals("Oceanie")) {
+				} else if(z.getId() == 5) {
 					zone = ScreenManager.getSprite("carte_indo.png");
 				} else {
 					zone = ScreenManager.getSprite("carte_asia.png");	

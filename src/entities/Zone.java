@@ -70,12 +70,13 @@ public class Zone implements Serializable{
 			BufferedReader buff = new BufferedReader(new FileReader(filepath));
 			String line;
 			
-			nom = line = buff.readLine();
+			nom = buff.readLine();
 			
 			while ((line = buff.readLine()) != null) {
 				String tab[] = line.split(" ");
 				
 				if (tab.length == 3) {
+					tab[0].replace('_', ' ');
 					if (usine == null) {
 						usine = new Usine(this, tab[0], Integer.valueOf(tab[1]), Integer.valueOf(tab[2]));
 					} else {
