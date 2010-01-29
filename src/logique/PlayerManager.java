@@ -16,12 +16,14 @@ public class PlayerManager {
 
 	private int selected_menu;	// 0=>start 1=>aide 2=>credits
 	private boolean key_lock; // Ceci permet de ne pas interpreter 2x de suite la même touche
+	private boolean mouse_lock;
 	
 	private PlayerManager() {
 		selected = null;
 		selected_menu = 0;
 		pourcentage = 50;
 		key_lock = false;
+		mouse_lock = false;
 	}
 
 	public int getSelectedMenu() {
@@ -74,16 +76,54 @@ public class PlayerManager {
 						|| Keyboard.isKeyDown(Keyboard.KEY_SPACE);
 		}
 		
+		if(!mouse_lock) {
+			// Si on clique on passe au menu suivant
+			int pointed_menu = -1;
+			
+			// On cherche le menu pointé
+			ScreenManager screen = ScreenManager.getInstance();
+			int x = Mouse.getX()-screen.getOrigineCarteX();
+			int y = screen.getScreenHeight()-Mouse.getY()-screen.getOrigineCarteY();
+			
+			if(y>288-43 && y<369-43) {
+				pointed_menu = 0;
+				selected_menu = 0;
+			}
+			if(y>288+96-43 && y<369+96-43) {
+				pointed_menu = 1;
+				selected_menu = 1;
+			}
+			if(y>288+2*96-43 && y<369+2*96-43) {
+				pointed_menu = 2;
+				selected_menu = 2;
+			}
+			
+			// On detecte le clic
+			if(Mouse.isButtonDown(0)) {
+				mouse_lock = true;
+				if(pointed_menu != -1) {
+					return selected_menu;
+				}
+			}
+		}
+		else {
+			// si on a locké la souris on attend que le bouton soit relaché 
+			mouse_lock = Mouse.isButtonDown(0);		
+		}
 		return 3;
 	}
 	
 	public int update_submenu (int ret) {
+		// On traite le clavier
 		if(!key_lock) {
+			// Sur escape on retourne à l'ecran principal
 			if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				key_lock = true;
 				return 3;
 			}
-			if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+			// Sur espace ou entree on passe a l'ecran suivant 
+			if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)
+			|| Keyboard.isKeyDown(Keyboard.KEY_RETURN)) {
 				key_lock = true;
 				return ret+1;
 			}
@@ -95,6 +135,18 @@ public class PlayerManager {
 						|| Keyboard.isKeyDown(Keyboard.KEY_RETURN)
 						|| Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)
 						|| Keyboard.isKeyDown(Keyboard.KEY_SPACE);
+		}
+		// On traite la souris
+		if(!mouse_lock) {
+			// Si on clique on passe au menu suivant
+			if(Mouse.isButtonDown(0)) {
+				mouse_lock = true;
+				return ret+1;
+			}
+		}
+		else {
+			// si on a locké la souris on attend que le bouton soit relaché 
+			mouse_lock = Mouse.isButtonDown(0);
 		}
 		return ret;
 	}
