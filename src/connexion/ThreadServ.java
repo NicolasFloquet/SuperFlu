@@ -138,11 +138,13 @@ public class ThreadServ extends Thread {
 					}
 				}
 			} catch (SocketException e) {
-				deconnecte++;
-				System.err.println(" joueur deconnecte ");
-				a.JoueurDeconnecte(nbjoueurs);
-				end = true;
-				a.getGame().getJoueurs().remove(j);
+				if(s.getChannel()==null){
+					deconnecte++;
+					System.err.println(" joueur deconnecte ");
+					a.JoueurDeconnecte(nbjoueurs);
+					end = true;
+					a.getGame().getJoueurs().remove(j);
+				}
 			}
 		}
 	}
