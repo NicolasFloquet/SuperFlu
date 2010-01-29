@@ -23,6 +23,7 @@ public class Transfert implements graphics.Drawable,Serializable {
 	private final Ville arrivee;
 	private final long temps_depart; // ms
 	private final long temps_arrivee; // ms
+	private final boolean direct;
 	
 	private final Stock stock;
 	
@@ -30,8 +31,18 @@ public class Transfert implements graphics.Drawable,Serializable {
 		this.depart = depart;
 		this.arrivee = arrivee;
 		this.temps_depart = temps_depart;
-		this.temps_arrivee = temps_depart + (long)(Math.sqrt(Ville.distance_carre(depart, arrivee)) / VITESSE);
 		this.stock = stock;
+		
+		int d1 = Ville.distance_carre_sens1(depart, arrivee);
+		int d2 = Ville.distance_carre_sens2(depart, arrivee);
+		
+		this.direct = d1 <= d2;
+		
+		if (direct) {
+			this.temps_arrivee = temps_depart + (long)(Math.sqrt(d1) / VITESSE);
+		} else {
+			this.temps_arrivee = temps_depart + (long)(Math.sqrt(d2) / VITESSE);
+		}	
 	}
 	
 	public Ville getArrivee() {
@@ -58,9 +69,21 @@ public class Transfert implements graphics.Drawable,Serializable {
 	public void draw() {
 		
 		Sprite sprite = ScreenManager.getSprite("avion.png");
-		double angle = (180/Math.PI) * Math.atan2(arrivee.getY() - depart.getY(), arrivee.getX() - depart.getX());
+		
+		int depart_x, arrivee_x;
+		if (depart.getX() < arrivee.getX()) {
+			depart_x = depart.getX() + (direct ? 0 : 1024);
+			arrivee_x = arrivee.getX();
+		} else {
+			depart_x = depart.getX();
+			arrivee_x = arrivee.getX() + (direct ? 0 : 1024);
+		}
+		
+		double angle = (180/Math.PI) * Math.atan2(arrivee.getY() - depart.getY(), arrivee_x - depart_x);
 		double avancement = ((double)(Application.getInstance().getGame().getTime() - temps_depart)) / ((double)(temps_arrivee - temps_depart));
 		float zoom = 0.25f + 0.75f*(float)Math.sin(avancement*Math.PI);
-		sprite.draw((int)(depart.getX()*(1 - avancement) + arrivee.getX()*avancement) + ScreenManager.getInstance().getOrigineCarteX(), (int)(depart.getY()*(1 - avancement) + arrivee.getY()*avancement)  + ScreenManager.getInstance().getOrigineCarteY(), (float)angle, zoom);
+		
+
+		sprite.draw((int)(depart_x*(1 - avancement) + arrivee_x*avancement) % 1024 + ScreenManager.getInstance().getOrigineCarteX(), (int)(depart.getY()*(1 - avancement) + arrivee.getY()*avancement)  + ScreenManager.getInstance().getOrigineCarteY(), (float)angle, zoom);
 	}
 }

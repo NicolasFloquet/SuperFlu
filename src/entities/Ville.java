@@ -49,8 +49,27 @@ public class Ville implements graphics.Drawable, Serializable {
 		this.habitantsMorts = 0;
 	}
 
-	public static int distance_carre(Ville depart, Ville arrivee) {
+	public static int distance_carre_sens1(Ville depart, Ville arrivee) {
 		return (arrivee.x - depart.x) * (arrivee.x - depart.x) + (arrivee.y - depart.y) * (arrivee.y - depart.y);
+	}
+	
+	public static int distance_carre_sens2(Ville depart, Ville arrivee) {
+		int depart_x, arrivee_x;
+		if (depart.getX() < arrivee.getX()) {
+			depart_x = depart.getX() + 1024;
+			arrivee_x = arrivee.getX();
+		} else {
+			depart_x = depart.getX();
+			arrivee_x = arrivee.getX() + 1024;
+		}
+		
+		return (arrivee_x - depart_x) * (arrivee_x - depart_x) + (arrivee.y - depart.y) * (arrivee.y - depart.y);
+	}
+	
+	public static int distance_carre(Ville depart, Ville arrivee) {
+		int d1 = distance_carre_sens1(depart, arrivee);
+		int d2 = distance_carre_sens2(depart, arrivee);
+		return Math.min(d1, d2);
 	}
 
 	public void ajouteStockVaccin(Vaccin vaccin, int quantite) {
