@@ -23,7 +23,6 @@ public class ThreadServ extends Thread {
 	private Socket s;
 	private boolean end = false;
 	private int nbjoueurs = 6;
-	private int deconnecte = 0;
 	private boolean err = false;
 
 	public ThreadServ(Socket s, int nbjoueurs) {
@@ -141,7 +140,6 @@ public class ThreadServ extends Thread {
 			} catch (SocketException e) {
 				if(!err) err=true;
 				else if(s.getChannel()==null){
-					deconnecte++;
 					System.err.println(" joueur deconnecte ");
 					a.JoueurDeconnecte(s);
 					end = true;

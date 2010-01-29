@@ -89,7 +89,23 @@ public class Application
 					break;
 				}
 			}
-			int size = zList.size();
+			int minInfectee = Integer.MAX_VALUE;
+			Joueur minInfect = null;
+			for(Zone z:zList){
+				for(Joueur j:jList){
+					int infectee = 0;
+					for(Zone zj:j.getZone()){
+						infectee += zj.getPopulation_infectee();
+					}
+					if(infectee < minInfectee){
+						minInfectee = infectee;
+						minInfect = j;
+					}
+				}
+				minInfect.getZone().add(z);
+			}
+			
+			/*
 			if( size == 1){
 				jList.get(6-size-1).getZone().add(zList.get(0));
 			}else if(size == 3){
@@ -104,7 +120,7 @@ public class Application
 					jList.get(1).getZone().add(zList.get(1));
 					jList.get(2).getZone().add(zList.get(2));
 				}
-			}
+			}*/
 		}
 	}
 

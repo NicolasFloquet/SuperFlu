@@ -40,6 +40,13 @@ public class ThreadClient extends Thread {
 				// acualiser le game
 				//System.out.println(((GameLogic)o).getCarte());
 				a.setGame((GameLogic) o);
+				for(Joueur j:a.getGame().getJoueurs()){
+					if(j.getZone().get(0).getNom().equals(a.getJoueur().getZone().get(0).getNom())){
+						a.setJoueur(j);
+						break;
+					}					
+				}
+				
 			} else if (o instanceof Joueur) {
 				System.out.println("Joueur reçu!");
 				List<Zone> zList = a.getGame().getCarte().getZones();
