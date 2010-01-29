@@ -23,14 +23,13 @@ public class Carte implements graphics.Drawable, Serializable {
 	/**
 	 * 
 	 */
-	private static final int longueur_courbe = 1024;
+	private static final int longueur_courbe = 100;
 	private static final long serialVersionUID = 1L;
 	/*private static int courbe_pop[] = null;*/
 	private static int courbe_morts[] = null;
 	private static int courbe_infectes[] = null;
 	private static int courbe_vaccines[] = null;
 	private static int dephasage_courbes;
-	
 	
 	
 	@Override
@@ -68,7 +67,7 @@ public class Carte implements graphics.Drawable, Serializable {
 	
 	@Override
 	public void draw()
-	{		
+	{
 		Sprite map = ScreenManager.getInstance().getMap();
 		Sprite fond_map = ScreenManager.getSprite("fond_carte.png");
 		Sprite fond_map_danger = ScreenManager.getSprite("fond_carte_danger.png");
@@ -80,7 +79,9 @@ public class Carte implements graphics.Drawable, Serializable {
 			fond_map_danger.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2,
 									0,1,1,1,1,1-((float)(ScreenManager.getTime()%1000))/1000.0f);
 		}
-		updateCourbes();
+		
+		if(a.getGame().getTime()%10 == 0)
+			updateCourbes();
 		drawCourbes();	
 		map.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2,
 					0, 1, 0.0f, 0.3f, 0.0f);
@@ -154,46 +155,62 @@ public class Carte implements graphics.Drawable, Serializable {
 				a.getGame().getMortsTotal()
 				+a.getGame().getPopulationMondiale()
 				)/ map_height;*/
-		GL11.glBegin(GL11.GL_POINTS);
+		GL11.glBegin(GL11.GL_LINES);
 		
 		index = dephasage_courbes;
+		
 		max = (float)(a.getGame().getPopulationMondiale()*a.getGame().getPourcentagePandemic()/100)/ map_height;
-		for(int i=0 ; i<longueur_courbe ; i++) {
-			GL11.glColor4f(0.0f,0.0f,0.0f,0.2f);
-		    GL11.glVertex2f(i,4+map_height-courbe_infectes[index]/max);
-			GL11.glColor3f(0.7f,0.5f,0.5f);
-		    GL11.glVertex2f(i,map_height-courbe_infectes[index]/max);
+		for(int i=0 ; i<longueur_courbe-2 ; i++) {
 			index++;
-			if(index>=longueur_courbe) {
-				index=0;
+			if(index>=longueur_courbe-2) {
+				GL11.glEnd();
+				GL11.glBegin(GL11.GL_LINES);
+				index=0;	
 			}
+			GL11.glColor3f(0.7f,0.5f,0.5f);
+		    GL11.glVertex2f(1024/longueur_courbe*(i+2)+45,map_height-courbe_infectes[index]/max);
+		    GL11.glColor3f(0.7f,0.5f,0.5f);
+		    GL11.glVertex2f(1024/longueur_courbe*(i+3)+45,map_height-courbe_infectes[index+1]/max);
+	
 		}
-		index = dephasage_courbes;
+		GL11.glEnd();
+		GL11.glBegin(GL11.GL_LINES);
+		
+		
+		index = dephasage_courbes%longueur_courbe;
 		max = (float)(
 		a.getGame().getMortsTotal()
 		+a.getGame().getPopulationMondiale()
 		)/ map_height;
-		for(int i=0 ; i<longueur_courbe ; i++) {
-			GL11.glColor4f(0.0f,0.0f,0.0f,0.2f);
-	    	GL11.glVertex2f(i,4+map_height-courbe_vaccines[index]/max);
+		for(int i=0 ; i<longueur_courbe-2 ; i++) {
+			index++;
+			if(index>=longueur_courbe-2) {
+				GL11.glEnd();
+				GL11.glBegin(GL11.GL_LINES);
+				index=0;
+			}
 	    	GL11.glColor4f(0.3f,0.3f,1.0f,1.0f);
-	    	GL11.glVertex2f(i,map_height-courbe_vaccines[index]/max);
-			index++;
-			if(index>=longueur_courbe) {
-				index=0;
-			}
+	    	GL11.glVertex2f(1024/longueur_courbe*(i+2)+45,map_height-courbe_vaccines[index]/max);
+	    	GL11.glColor4f(0.3f,0.3f,1.0f,1.0f);
+	    	GL11.glVertex2f(1024/longueur_courbe*(i+3)+45,map_height-courbe_vaccines[index+1]/max);
+
 		}
-		index = dephasage_courbes;
+		GL11.glEnd();
+		GL11.glBegin(GL11.GL_LINES);
+		index = dephasage_courbes%longueur_courbe;
 		max = (float)(a.getGame().getPopulationMondiale()*a.getGame().getPourcentageEchec()/100)/map_height;
-		for(int i=0 ; i<longueur_courbe ; i++) {
-			GL11.glColor4f(0.0f,0.0f,0.0f,0.2f);
-	    	GL11.glVertex2f(i,4+map_height-courbe_morts[index]/max);
-	    	GL11.glColor4f(1.0f,0.0f,0.0f,1.0f);
-	    	GL11.glVertex2f(i,map_height-courbe_morts[index]/max);
+		for(int i=0 ; i<longueur_courbe-2 ; i++) {
 			index++;
-			if(index>=longueur_courbe) {
+			if(index>=longueur_courbe-2) {
+				GL11.glEnd();
+				GL11.glBegin(GL11.GL_LINES);
 				index=0;
 			}
+				GL11.glColor3f(1.0f,0.0f,0.0f);
+				GL11.glVertex2f(1024/longueur_courbe*(i+2)+45,map_height-courbe_morts[index]/max);
+				GL11.glColor3f(1.0f,0.0f,0.0f);
+				GL11.glVertex2f(1024/longueur_courbe*(i+3)+45,map_height-courbe_morts[index+1]/max);
+			
 		}
 		/*
 		index = dephasage_courbes;
