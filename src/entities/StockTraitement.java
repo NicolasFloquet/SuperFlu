@@ -15,7 +15,7 @@ public class StockTraitement extends Stock implements Serializable{
 	private Traitement traitement;
 	
 	public StockTraitement(int stock, Traitement traitement) {
-		super(stock);
+		super(stock, 20000);
 		this.traitement = traitement;
 	}
 	

@@ -11,10 +11,11 @@ public abstract class Stock implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected int capacite_max = 20000;
-	protected int stock = 0;
+	private int capacite_max = 20000;
+	private int stock = 0;
 
-	public Stock(int stock) {
+	public Stock(int stock, int capacite_max) {
+		this.capacite_max = capacite_max;
 		this.stock = Math.min(capacite_max, stock);
 	}
 

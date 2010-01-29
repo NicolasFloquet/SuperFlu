@@ -17,6 +17,7 @@ import javax.swing.SpinnerNumberModel;
 import logique.Application;
 
 
+@SuppressWarnings("serial")
 public class Main extends JFrame
 {	
 	private Component creerPanelJouer() {

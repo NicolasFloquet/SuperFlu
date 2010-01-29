@@ -76,7 +76,7 @@ public class Zone implements Serializable{
 				String tab[] = line.split(" ");
 				
 				if (tab.length == 3) {
-					tab[0].replace('_', ' ');
+					tab[0] = tab[0].replace('_', ' ');
 					if (usine == null) {
 						usine = new Usine(this, tab[0], Integer.valueOf(tab[1]), Integer.valueOf(tab[2]));
 					} else {

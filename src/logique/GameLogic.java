@@ -105,7 +105,6 @@ public class GameLogic implements Cloneable, Serializable {
 	}
 
 	private void gereTransferts() {
-		// Utiliser un tas permettrait de meilleures perfs !
 		Iterator<Transfert> it = transferts.iterator();
 		while (it.hasNext()) {
 			Transfert t = it.next();
@@ -289,7 +288,7 @@ public class GameLogic implements Cloneable, Serializable {
 			}
 			Transfert transport = new Transfert(depart, arrivee, stock, time);
 			transferts.add(transport);
-			System.out.println("envoyer tranfert");
+			System.out.println("envoyer tranfert : " + stock.getStock());
 			Application.getInstance().sendTransfert(transport);
 		}
 	}

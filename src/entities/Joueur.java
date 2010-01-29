@@ -39,7 +39,6 @@ public class Joueur implements graphics.Drawable, Serializable,Cloneable {
 	public void draw() {
 		int encart_pos_y = ScreenManager.getInstance().getOrigineEncartY() + 15;
 		int milieu_ecran = ScreenManager.getInstance().getScreenWidth()/2;
-		Joueur joueur = Application.getInstance().getJoueur();
 
 		int offsety = 10;
 		int offsetx = 0;
