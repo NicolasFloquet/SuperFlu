@@ -194,7 +194,7 @@ public class PlayerManager {
 			if(Mouse.isButtonDown(0)) {
 				mouse_lock = true;
 				if(pointed_menu != -1) {
-					return selected_menu;
+					return selected_menu==2?4:selected_menu;
 				}
 			}
 		}
