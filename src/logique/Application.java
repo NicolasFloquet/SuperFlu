@@ -18,7 +18,7 @@ import graphics.ScreenManager;
 
 public class Application
 {
-	/* Periode du timer */
+	/* Période du timer */
 	private final static int TIMER_PERIOD = 200;
 	private int zone = -1;
 	private int deconnecte = 0;

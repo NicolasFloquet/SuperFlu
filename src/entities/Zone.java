@@ -23,6 +23,34 @@ public class Zone implements Serializable{
 	private ArrayList<Ville> villes = new ArrayList<Ville>();
 	private Usine usine;
 	
+	private int population;
+	private int population_infectee;
+	private int population_morte;
+	
+	public int getPopulation() {
+		return population;
+	}
+
+	public void setPopulation(int population) {
+		this.population = population;
+	}
+
+	public int getPopulation_infectee() {
+		return population_infectee;
+	}
+
+	public void setPopulation_infectee(int populationInfectee) {
+		population_infectee = populationInfectee;
+	}
+
+	public int getPopulation_morte() {
+		return population_morte;
+	}
+
+	public void setPopulation_morte(int populationMorte) {
+		population_morte = populationMorte;
+	}
+
 	public Zone(int id) {
 		this.id = id;
 		chargeVilles();

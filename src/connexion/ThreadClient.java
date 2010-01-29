@@ -37,12 +37,14 @@ public class ThreadClient extends Thread {
 				//System.out.println(((GameLogic)o).getCarte());
 				a.setGame((GameLogic) o);
 			} else if (o instanceof Joueur) {
+				System.out.println("Joueur reçu!");
 				List<Zone> zList = a.getGame().getCarte().getZones();
 				List<Zone> zList2 = new ArrayList<Zone>();
 				for(Zone z: zList){
 					for(Zone zon: ((Joueur)o).getZone()){
 						if(z.getNom().equals(zon.getNom())){
 							zList2.add(zon);
+							System.out.println(zon.getNom() + ":" + zon.getPopulation_infectee());
 							z.setJoueur((Joueur) o);
 						}
 					}

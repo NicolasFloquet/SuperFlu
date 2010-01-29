@@ -20,6 +20,7 @@ public class Texte {
 			if (c.equals(":")) {
 				c = "dp";
 			}
+
 			
 			sprites.add(ScreenManager.getSprite("lettres/" + c + ".png"));
 		}

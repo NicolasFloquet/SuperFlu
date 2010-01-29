@@ -140,12 +140,18 @@ public class GameLogic implements Cloneable, Serializable {
 
 		/* Calcul des déplacement de population */
 		for (Zone zone_origine : carte.getZones()) {
+			
 
 			/* Mise à jour de la production de l'usine */
 			if (zone_origine.getUsine() != null) {
 				zone_origine.getUsine().produit();
 			}
-
+			
+			/* Remise à 0 des populations de la zone */
+			zone_origine.setPopulation(0);
+			zone_origine.setPopulation_infectee(0);
+			zone_origine.setPopulation_morte(0);
+			
 			for (Ville ville_origine : zone_origine.getVilles()) {
 
 				if (ville_origine.getHabitants() == 0) {
@@ -200,11 +206,6 @@ public class GameLogic implements Cloneable, Serializable {
 						flux_infecte = (int) (taux_infection * flux);
 						flux_immunise = (int) (taux_immunisation * flux);
 
-						/*
-						 * System.out.println("flux sain " + flux_sain);
-						 * System.out.println("flux infecte " + flux_infecte);
-						 * System.out.println("flux immunise " + flux_immunise);
-						 */
 
 						/* Mise à jour de la population saine */
 						if (ville_origine.getHabitantsSains() >= flux_sain) {
@@ -251,7 +252,11 @@ public class GameLogic implements Cloneable, Serializable {
 				populationMondiale += ville_origine.getHabitants();
 				populationInfectee += ville_origine.getHabitantsInfectes();
 				vaccinesTotal += ville_origine.getHabitantsImmunises();
-
+				
+				/* Mise à jour de la population des zones */
+				zone_origine.setPopulation(zone_origine.getPopulation()+ville_origine.getHabitants());
+				zone_origine.setPopulation_infectee(zone_origine.getPopulation_infectee()+ville_origine.getHabitantsInfectes());
+				zone_origine.setPopulation_morte(zone_origine.getPopulation_morte()+ville_origine.getHabitantsMorts());
 			}
 		}
 		this.mortsTotal = mortsTotal;
@@ -269,7 +274,6 @@ public class GameLogic implements Cloneable, Serializable {
 	public synchronized void creerTransfert(Ville depart, Ville arrivee,
 			Stock stock) {
 		
-		//TODO  definir quand on peut jouer, maintenan on peut jouer en notre zone
 		if ((!isServeur()) && (depart.isMine())) {
 			if (stock instanceof StockVaccin) {
 				depart.retireStockVaccin(((StockVaccin) stock).getVaccin(),
