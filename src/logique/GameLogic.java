@@ -28,6 +28,13 @@ public class GameLogic implements Cloneable, Serializable {
 	/* TODO: Calibrer TAUX_MIGRATION */
 	private final static float TAUX_MIGRATION = 30f;
 	
+	private final int POURCENTAGE_ECHEC = 1;
+	private final int POURCENTAGE_PANDEMIC = 5;
+	
+	public float getPourcentageEchec() {
+		return POURCENTAGE_ECHEC;
+	}
+
 	public enum etatJeu {
 		EN_COURS, GAGNE, PERDU
 	};
@@ -330,7 +337,7 @@ public class GameLogic implements Cloneable, Serializable {
 	}
 
 	public boolean isPandemic() {
-		return populationInfectee*20>populationMondiale;
+		return populationInfectee*100/POURCENTAGE_PANDEMIC>populationMondiale;
 	}
 	
 	public etatJeu jeuFini() {
@@ -338,7 +345,7 @@ public class GameLogic implements Cloneable, Serializable {
 
 		if (populationInfectee == 0)
 			etat = etatJeu.GAGNE;
-		if (mortsTotal >= (populationMondiale + mortsTotal) / 100)
+		if (mortsTotal >= (populationMondiale + mortsTotal)*POURCENTAGE_ECHEC/ 100)
 			etat = etatJeu.PERDU;
 
 		return etat;
@@ -357,5 +364,9 @@ public class GameLogic implements Cloneable, Serializable {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public int getPourcentagePandemic() {
+		return POURCENTAGE_PANDEMIC;
 	}
 }

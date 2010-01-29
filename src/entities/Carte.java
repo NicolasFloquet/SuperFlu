@@ -23,8 +23,9 @@ public class Carte implements graphics.Drawable, Serializable {
 	/**
 	 * 
 	 */
+	private static final int longueur_courbe = 1024;
 	private static final long serialVersionUID = 1L;
-	private static int courbe_pop[] = null;
+	/*private static int courbe_pop[] = null;*/
 	private static int courbe_morts[] = null;
 	private static int courbe_infectes[] = null;
 	private static int courbe_vaccines[] = null;
@@ -36,7 +37,7 @@ public class Carte implements graphics.Drawable, Serializable {
 	public String toString() {
 		return "Carte [courbe_infectes=" + Arrays.toString(courbe_infectes)
 				+ ", courbe_morts=" + Arrays.toString(courbe_morts)
-				+ ", courbe_pop=" + Arrays.toString(courbe_pop)
+				/*+ ", courbe_pop=" + Arrays.toString(courbe_pop)*/
 				+ ", courbe_vaccines=" + Arrays.toString(courbe_vaccines)
 				+ ", dephasage_courbes=" + dephasage_courbes + "]";
 	}
@@ -51,14 +52,14 @@ public class Carte implements graphics.Drawable, Serializable {
 		zones.add(new Zone(5));
 		zones.add(new Zone(6));
 		
-		courbe_pop = new int[1024];
-		courbe_morts = new int[courbe_pop.length];
-		courbe_infectes = new int[courbe_pop.length];
-		courbe_vaccines = new int[courbe_pop.length];
+		/*courbe_pop = new int[1024];*/
+		courbe_morts = new int[longueur_courbe];
+		courbe_infectes = new int[longueur_courbe];
+		courbe_vaccines = new int[longueur_courbe];
 		dephasage_courbes = 0;
 		
-		for(int i=0 ; i<courbe_pop.length ; i++) {
-			courbe_pop[i] = 0;
+		for(int i=0 ; i<longueur_courbe ; i++) {
+			/*courbe_pop[i] = 0;*/
 			courbe_morts[i] = 0;
 			courbe_infectes[i] = 0;
 			courbe_vaccines[i] = 0;
@@ -127,10 +128,10 @@ public class Carte implements graphics.Drawable, Serializable {
 		GameLogic game = Application.getInstance().getGame();
 		courbe_infectes[dephasage_courbes] = game.getPopulationInfectee();
 		courbe_morts[dephasage_courbes] = game.getMortsTotal();
-		courbe_pop[dephasage_courbes] = game.getPopulationMondiale();
+		/*courbe_pop[dephasage_courbes] = game.getPopulationMondiale();*/
 		courbe_vaccines[dephasage_courbes] = game.getVaccinesTotal();
 		dephasage_courbes++;
-		if(dephasage_courbes>=courbe_pop.length) {
+		if(dephasage_courbes>=longueur_courbe) {
 			dephasage_courbes = 0;
 		}
 	}
@@ -149,46 +150,54 @@ public class Carte implements graphics.Drawable, Serializable {
 		Application a = Application.getInstance();
 		int index;
 		int map_height = ScreenManager.getInstance().getMap().getHeight();
-		float max = (float)(
+		float max;/* = (float)(
 				a.getGame().getMortsTotal()
 				+a.getGame().getPopulationMondiale()
-				)/ map_height;
+				)/ map_height;*/
 		GL11.glBegin(GL11.GL_POINTS);
+		
 		index = dephasage_courbes;
-		for(int i=0 ; i<courbe_pop.length ; i++) {
+		max = (float)(a.getGame().getPopulationMondiale()*a.getGame().getPourcentagePandemic()/100)/ map_height;
+		for(int i=0 ; i<longueur_courbe ; i++) {
 			GL11.glColor4f(0.0f,0.0f,0.0f,0.2f);
 		    GL11.glVertex2f(i,4+map_height-courbe_infectes[index]/max);
 			GL11.glColor3f(0.7f,0.5f,0.5f);
 		    GL11.glVertex2f(i,map_height-courbe_infectes[index]/max);
 			index++;
-			if(index>=courbe_pop.length) {
+			if(index>=longueur_courbe) {
 				index=0;
 			}
 		}
 		index = dephasage_courbes;
-		for(int i=0 ; i<courbe_pop.length ; i++) {
+		max = (float)(
+		a.getGame().getMortsTotal()
+		+a.getGame().getPopulationMondiale()
+		)/ map_height;
+		for(int i=0 ; i<longueur_courbe ; i++) {
 			GL11.glColor4f(0.0f,0.0f,0.0f,0.2f);
 	    	GL11.glVertex2f(i,4+map_height-courbe_vaccines[index]/max);
 	    	GL11.glColor4f(0.3f,0.3f,1.0f,1.0f);
 	    	GL11.glVertex2f(i,map_height-courbe_vaccines[index]/max);
 			index++;
-			if(index>=courbe_pop.length) {
+			if(index>=longueur_courbe) {
 				index=0;
 			}
 		}
 		index = dephasage_courbes;
-		for(int i=0 ; i<courbe_pop.length ; i++) {
+		max = (float)(a.getGame().getPopulationMondiale()*a.getGame().getPourcentageEchec()/100)/map_height;
+		for(int i=0 ; i<longueur_courbe ; i++) {
 			GL11.glColor4f(0.0f,0.0f,0.0f,0.2f);
 	    	GL11.glVertex2f(i,4+map_height-courbe_morts[index]/max);
 	    	GL11.glColor4f(1.0f,0.0f,0.0f,1.0f);
 	    	GL11.glVertex2f(i,map_height-courbe_morts[index]/max);
 			index++;
-			if(index>=courbe_pop.length) {
+			if(index>=longueur_courbe) {
 				index=0;
 			}
 		}
+		/*
 		index = dephasage_courbes;
-		for(int i=0 ; i<courbe_pop.length ; i++) {
+		for(int i=0 ; i<longueur_courbe ; i++) {
 			GL11.glColor4f(0.0f,0.0f,0.0f,0.2f);
 		    GL11.glVertex2f(i,4+map_height-courbe_pop[index]/max);
 		    GL11.glColor4f(0.0f,1.0f,0.0f,1.0f);
@@ -197,7 +206,7 @@ public class Carte implements graphics.Drawable, Serializable {
 			if(index>=courbe_pop.length) {
 				index=0;
 			}
-		}
+		}*/
     	GL11.glEnd();
 		GL11.glPopMatrix();	
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
