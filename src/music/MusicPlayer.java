@@ -38,6 +38,7 @@ public class MusicPlayer {
 						
 						if(p.isComplete()) {
 							p.close();
+							file.reset();
 							p = new Player(file);
 						}
 					}

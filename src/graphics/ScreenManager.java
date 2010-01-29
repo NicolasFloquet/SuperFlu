@@ -10,10 +10,42 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
 import logique.Application;
-import logique.GameLogic;
 import logique.PlayerManager;
 
+
 public class ScreenManager {
+	
+	private class Preloader extends Thread {
+		public Preloader() {
+			start();
+		}
+		
+		public void run() {
+			getSprite("aide.png");
+			getSprite("avion.png");
+			getSprite("carte.png");
+			getSprite("carte_afr.png");
+			getSprite("carte_ams.png");
+			getSprite("carte_asia.png");
+			getSprite("carte_eur.png");
+			getSprite("carte_indo.png");
+			getSprite("carte_us.png");
+			getSprite("credits.png");
+			getSprite("error.png");
+			getSprite("fond_carte.png");
+			getSprite("fond_carte_danger.png");
+			getSprite("gameover.png");
+			getSprite("HL_usine.png");
+			getSprite("HL_ville.png");
+			getSprite("infected.png");
+			getSprite("menu.png");
+			getSprite("seringue.png");
+			getSprite("usine.png");
+			getSprite("victory.png");
+			getSprite("ville.png");
+		}
+	}
+	
 	static ScreenManager instance = new ScreenManager();
 	
 	TextureLoader textureLoader;
@@ -362,40 +394,15 @@ public class ScreenManager {
 			return;
 		}
 		
-		preloadTextures();
-	}
-	
-	private void preloadTextures() {
-		ScreenManager.getSprite("aide.png");
-		ScreenManager.getSprite("avion.png");
-		ScreenManager.getSprite("carte.png");
-		ScreenManager.getSprite("carte_afr.png");
-		ScreenManager.getSprite("carte_ams.png");
-		ScreenManager.getSprite("carte_asia.png");
-		ScreenManager.getSprite("carte_eur.png");
-		ScreenManager.getSprite("carte_indo.png");
-		ScreenManager.getSprite("carte_us.png");
-		ScreenManager.getSprite("credits.png");
-		ScreenManager.getSprite("error.png");
-		ScreenManager.getSprite("fond_carte.png");
-		ScreenManager.getSprite("fond_carte_danger.png");
-		ScreenManager.getSprite("gameover.png");
-		ScreenManager.getSprite("HL_usine.png");
-		ScreenManager.getSprite("HL_ville.png");
-		ScreenManager.getSprite("infected.png");
-		ScreenManager.getSprite("menu.png");
-		ScreenManager.getSprite("seringue.png");
-		ScreenManager.getSprite("usine.png");
-		ScreenManager.getSprite("victory.png");
-		ScreenManager.getSprite("ville.png");
-		
 		dna = new Sprite[10];
 		for(int i=0 ; i<10 ; i++) {
 			dna[i]=getSprite("dna"+String.valueOf(i+1)+".png");
 		}
+		
+		new Preloader();
 	}
 	
-	public static Sprite getSprite(String ref)
+	public static synchronized Sprite getSprite(String ref)
 	{
 		return new Sprite(getInstance().textureLoader,"ressources/"+ref);
 	}
