@@ -143,7 +143,7 @@ public class ThreadServ extends Thread {
 				else if(s.getChannel()==null){
 					deconnecte++;
 					System.err.println(" joueur deconnecte ");
-					a.JoueurDeconnecte(nbjoueurs);
+					a.JoueurDeconnecte(s);
 					end = true;
 					a.getGame().getJoueurs().remove(j);
 				}else err = false;
