@@ -34,7 +34,6 @@ public class Application
 			if(game.getEtat()!=GameLogic.etatJeu.EN_COURS) {
 				this.cancel();
 			}
-				
 		}
 	}
 
@@ -91,35 +90,7 @@ public class Application
 			screen.initialize();
 			if (args.length == 4) {
 				screen.setProperties(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Boolean.valueOf(args[3]));
-			}
-			
-			int menu_type = 3;
-			//
-			// Boucle du menu
-			//
-			running = true;
-			screen.preloadTextures();
-			while(running && menu_type!=0) {
-				switch(menu_type) {
-					case 1 :
-						screen.draw_aide();
-						menu_type = PlayerManager.getInstance().update_submenu(1);
-						break;
-					case 2 :
-						screen.draw_credits();
-						menu_type = PlayerManager.getInstance().update_submenu(2);
-						break;
-					default :
-						screen.draw_menu();
-						menu_type = PlayerManager.getInstance().update_menu();
-						break;
-				}
-				if((Display.isCloseRequested()))
-				{
-					quit();
-				}
-			}
-			
+			}			
 		}
 
 		if (isServer) {
@@ -128,10 +99,48 @@ public class Application
 			c.connect();
 
 		} else {
-			c = new ClientController();
-			((ClientController)c).setIP(ip);
-			c.connect();
-			startGame();
+			boolean connected = false;
+			while(!connected) {
+				int menu_type = 3;
+				//
+				// Boucle du menu
+				//
+				running = true;
+				while(running && menu_type!=0) {
+					switch(menu_type) {
+						case 1 :
+							screen.draw_aide();
+							menu_type = PlayerManager.getInstance().update_submenu(1);
+							break;
+						case 2 :
+							screen.draw_credits();
+							menu_type = PlayerManager.getInstance().update_submenu(2);
+							break;
+						default :
+							screen.draw_menu();
+							menu_type = PlayerManager.getInstance().update_menu();
+							break;
+					}
+					if((Display.isCloseRequested()))
+					{
+						quit();
+					}
+				}
+				
+				c = new ClientController();
+				((ClientController)c).setIP(ip);
+				if(c.connect()) {
+					startGame();
+					connected = true;
+				}
+				else {
+					int ret = 0;
+					while(running && ret==0) { 
+						screen.draw_error_connexion();
+						ret = PlayerManager.getInstance().update_submenu(0);
+					}
+				}
+			}
 		}
 
 		boolean pandemic = false;
@@ -183,6 +192,13 @@ public class Application
 		}
 		else {
 			player.quit();
+
+			int ret = 0;
+			while(running && ret==0) { 
+				screen.draw();
+				ret = PlayerManager.getInstance().update_submenu(0);
+			}
+			quit();
 		}
 	}
 

@@ -9,20 +9,21 @@ public class Client {
 	private final static int COMM_PORT = 5050; // socket port for client comms
 
 	private Socket socket;
-
-	/** Default constructor. */
-	public Client(String ip) {
+	
+	/** Default constructor. 
+	 * @throws Exception */
+	public Client(String ip) throws ConnectException {
 		try {
 			this.socket = new Socket(ip, COMM_PORT);
 		} catch (ConnectException ce){
 			System.err.println("Le serveur est deconnecte ou il y a deja 6 joueurs");
-			System.exit(1);
+			throw ce;
 		} catch (UnknownHostException uhe) {
 			uhe.printStackTrace();
-			System.exit(1);
+			throw new ConnectException();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
-			System.exit(1);
+			throw new ConnectException();
 		}
 	}
 

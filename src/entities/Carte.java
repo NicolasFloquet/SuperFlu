@@ -81,7 +81,29 @@ public class Carte implements graphics.Drawable, Serializable {
 		}
 		updateCourbes();
 		drawCourbes();	
-		map.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2);
+		map.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2,
+					0, 1, 0.0f, 0.3f, 0.0f);
+		
+		if(Application.getInstance().getJoueur() != null) {
+			for( Zone z : Application.getInstance().getJoueur().getZone()) {
+				Sprite zone;
+				if(z.getNom().equals("Europe")) {
+					zone = ScreenManager.getSprite("carte_eur.png");				
+				} else if(z.getNom().equals("AmeriqueDuNord")) {
+					zone = ScreenManager.getSprite("carte_us.png");
+				} else if(z.getNom().equals("AmeriqueDuSud")) {
+					zone = ScreenManager.getSprite("carte_ams.png");
+				} else if(z.getNom().equals("Afrique")) {
+					zone = ScreenManager.getSprite("carte_afr.png");
+				} else if(z.getNom().equals("Oceanie")) {
+					zone = ScreenManager.getSprite("carte_indo.png");
+				} else {
+					zone = ScreenManager.getSprite("carte_asia.png");	
+				}
+				zone.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2,
+						0, 1, 0.0f, 0.6f, 0.0f);
+			}
+		}
 		
 		for(Zone zone : zones)
 		{

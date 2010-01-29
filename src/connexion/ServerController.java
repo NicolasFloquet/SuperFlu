@@ -10,10 +10,12 @@ public class ServerController implements ConnexionController {
 	private Server server;
 	private int nbjoueurs = 6;
 	
-	public void connect() {
+	public boolean connect() {
 		server = new Server(nbjoueurs);
 		//server = new Server();
 		server.start();
+		
+		return true;
 	}
 
 

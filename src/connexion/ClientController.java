@@ -1,5 +1,6 @@
 package connexion;
 
+import java.net.ConnectException;
 import java.net.Socket;
 
 import entities.Transfert;
@@ -9,9 +10,15 @@ public class ClientController implements ConnexionController {
 	Socket s;
 	String ip="localhost";
 
-	public void connect() {
-		s = new Client(ip).getSocket();
-		new ThreadClient(s).start();
+	public boolean connect() {
+		try {
+			s = new Client(ip).getSocket();
+			new ThreadClient(s).start();
+			return true;
+		}
+		catch(ConnectException e) {
+			return false;
+		}
 	}
 
 	public void send(Object o) {

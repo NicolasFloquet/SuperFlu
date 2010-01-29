@@ -334,7 +334,7 @@ public class GameLogic implements Cloneable, Serializable {
 
 		if (populationInfectee == 0)
 			etat = etatJeu.GAGNE;
-		if (mortsTotal == (populationMondiale + mortsTotal) / 10)
+		if (mortsTotal == (populationMondiale + mortsTotal) / 100)
 			etat = etatJeu.PERDU;
 
 		return etat;
