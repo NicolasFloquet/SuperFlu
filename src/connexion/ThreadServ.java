@@ -22,6 +22,7 @@ public class ThreadServ extends Thread {
 	private Socket s;
 	private boolean end = false;
 	private int nbjoueurs = 6;
+	private int deconnecte = 0;
 
 	public ThreadServ(Socket s,int nbjoueurs) {
 		this.s = s;
@@ -137,7 +138,9 @@ public class ThreadServ extends Thread {
 					}
 				}
 			} catch (SocketException e) {
-				System.err.println("user deconnecte");
+				deconnecte++;
+				System.err.println(" joueur deconnecte ");
+				a.JoueurDeconnecte(nbjoueurs);
 				end = true;
 				a.getGame().getJoueurs().remove(j);
 			}
