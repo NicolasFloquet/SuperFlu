@@ -1,5 +1,7 @@
 package logique;
 
+import java.net.Socket;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,7 +23,6 @@ public class Application
 	/* Période du timer */
 	private final static int TIMER_PERIOD = 200;
 	private int zone = -1;
-	private int deconnecte = 0;
 	private class UpdateTask extends TimerTask {
 
 		public void run() {
@@ -74,10 +75,36 @@ public class Application
 		System.exit(0);
 	}
 	
-	public void JoueurDeconnecte(int nbjoueurs){
-		deconnecte++;
-		if(deconnecte >= nbjoueurs){
+	public void JoueurDeconnecte(Socket s){
+		nbjoueurs--;
+		if(nbjoueurs<=0){
 			this.quit();
+		}else{
+			List<Zone> zList = null;
+			List<Joueur> jList = getGame().getJoueurs();
+			for(Joueur j: jList){
+				zList = j.getZone();
+				if(j.getSocket() == s){
+					jList.remove(j);
+					break;
+				}
+			}
+			int size = zList.size();
+			if( size == 1){
+				jList.get(6-size-1).getZone().add(zList.get(0));
+			}else if(size == 3){
+				for(Zone z:zList){
+					jList.get(0).getZone().add(z);
+				}
+			}else if(size == 2){
+				if((jList.size() == 4)||(jList.size() == 2)){
+					jList.get(0).getZone().add(zList.get(0));
+					jList.get(1).getZone().add(zList.get(1));
+				}else if(jList.size() == 3){
+					jList.get(1).getZone().add(zList.get(1));
+					jList.get(2).getZone().add(zList.get(2));
+				}
+			}
 		}
 	}
 
