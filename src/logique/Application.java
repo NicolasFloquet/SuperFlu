@@ -47,6 +47,7 @@ public class Application
 	private boolean running;
 	private Timer timer = new Timer();
 	private ConnexionController c;
+	private int nbjoueurs;
 
 	private Application()
 	{
@@ -82,7 +83,7 @@ public class Application
 
 	public void run(String[] args)
 	{	
-		int nbjoueurs =6;
+		nbjoueurs = 6;
 		if (args.length > 0) {
 			isServer = Boolean.valueOf(args[0]);
 			if(args.length > 1){
@@ -246,5 +247,9 @@ public class Application
 		} else {
 			timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD/10);
 		}
+	}
+	
+	public int getNbjoueurs() {
+		return nbjoueurs;
 	}
 }

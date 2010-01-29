@@ -26,7 +26,7 @@ public class GameLogic implements Cloneable, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/* TODO: Calibrer TAUX_MIGRATION */
-	private final static float TAUX_MIGRATION = 30f;
+	private final static float TAUX_MIGRATION = 10 + 5f * Application.getInstance().getNbjoueurs();
 	
 	private final int POURCENTAGE_ECHEC = 1;
 	private final int POURCENTAGE_PANDEMIC = 5;
