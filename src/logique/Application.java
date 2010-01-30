@@ -50,6 +50,9 @@ public class Application
 	private ConnexionController c;
 	private int nbjoueurs = 6;
 	private int deconnectes = 0;
+	private String ip;
+	private MusicPlayer player;
+	private boolean pandemic;
 
 	private Application()
 	{
@@ -124,7 +127,8 @@ public class Application
 				nbjoueurs = Integer.valueOf(args[1]);
 			}
 		}
-		String ip = "localhost";
+		
+		ip = "localhost";
 		if (!isServer) {
 			if(args.length>0){
 				ip = args[0];
@@ -142,58 +146,7 @@ public class Application
 			c.connect();
 
 		} else {
-			boolean connected = false;
-			while(!connected) {
-				int menu_type = -1;
-				//
-				// Boucle du menu
-				//
-				running = true;
-				while(running && menu_type!=0) {
-					switch(menu_type) {
-						case 1 :
-						case 2 :
-						case 3 :
-							screen.draw_aide(menu_type);
-							menu_type = PlayerManager.getInstance().update_submenu(menu_type);
-							break;
-						case 4 :
-							screen.draw_credits();
-							menu_type = PlayerManager.getInstance().update_submenu(menu_type);
-							break;
-						default :
-							screen.draw_menu();
-							menu_type = PlayerManager.getInstance().update_menu();
-							break;
-					}
-					if((Display.isCloseRequested()))
-					{
-						quit();
-					}
-				}
-				
-				c = new ClientController();
-				((ClientController)c).setIP(ip);
-				if(c.connect()) {
-					startGame();
-					connected = true;
-				}
-				else {
-					int ret = 0;
-					while(running && ret==0) { 
-						screen.draw_error_connexion();
-						ret = PlayerManager.getInstance().update_submenu(0);
-					}
-				}
-			}
-		}
-
-		boolean pandemic = false;
-		MusicPlayer player = null;
-		
-		if(!isServer) {
-			player = new MusicPlayer();
-			player.start();
+			afficheMenu();
 		}
 		
 		if (isServer) {
@@ -205,30 +158,7 @@ public class Application
 			}
 		}
 		else {
-			//
-			// Boucle du jeu
-			//
-			while(running && game.getEtat()==GameLogic.etatJeu.EN_COURS)
-			{
-				screen.draw();
-				// Gestion des inputs
-				PlayerManager.getInstance().update();
-		
-				// On detecte si on vient d'atteindre l'etat pandemique 
-				if(game.isPandemic() && !pandemic) {
-					pandemic = true;
-					player.goPandemic();
-				}
-				else if(!game.isPandemic() && pandemic) {
-					pandemic = false;
-					player.backNormal();
-				}
-				
-				if(Display.isCloseRequested())
-				{
-					quit();
-				}
-			}
+			boucleJeu();
 		}
 
 		if (isServer) {
@@ -244,6 +174,87 @@ public class Application
 				ret = PlayerManager.getInstance().update_submenu(0);
 			}
 			quit();
+		}
+	}
+
+	private void boucleJeu() {
+		pandemic = false;
+		player = null;
+		
+		if(!isServer) {
+			player = new MusicPlayer();
+			player.start();
+		}
+		//
+		// Boucle du jeu
+		//
+		while(running && game.getEtat()==GameLogic.etatJeu.EN_COURS)
+		{
+			screen.draw();
+			// Gestion des inputs
+			PlayerManager.getInstance().update();
+	
+			// On detecte si on vient d'atteindre l'etat pandemique 
+			if(game.isPandemic() && !pandemic) {
+				pandemic = true;
+				player.goPandemic();
+			}
+			else if(!game.isPandemic() && pandemic) {
+				pandemic = false;
+				player.backNormal();
+			}
+			
+			if(Display.isCloseRequested())
+			{
+				quit();
+			}
+		}
+	}
+
+	private void afficheMenu() {
+		boolean connected = false;
+		while(!connected) {
+			int menu_type = -1;
+			//
+			// Boucle du menu
+			//
+			running = true;
+			while(running && menu_type!=0) {
+				switch(menu_type) {
+					case 1 :
+					case 2 :
+					case 3 :
+						screen.draw_aide(menu_type);
+						menu_type = PlayerManager.getInstance().update_submenu(menu_type);
+						break;
+					case 4 :
+						screen.draw_credits();
+						menu_type = PlayerManager.getInstance().update_submenu(menu_type);
+						break;
+					default :
+						screen.draw_menu();
+						menu_type = PlayerManager.getInstance().update_menu();
+						break;
+				}
+				if((Display.isCloseRequested()))
+				{
+					quit();
+				}
+			}
+			
+			c = new ClientController();
+			((ClientController)c).setIP(ip);
+			if(c.connect()) {
+				startGame();
+				connected = true;
+			}
+			else {
+				int ret = 0;
+				while(running && ret==0) { 
+					screen.draw_error_connexion();
+					ret = PlayerManager.getInstance().update_submenu(0);
+				}
+			}
 		}
 	}
 

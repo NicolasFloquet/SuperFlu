@@ -20,6 +20,7 @@ public class Server extends Thread{
 		System.out.println(nbjoueurs+" joueurs");
 		this.nbjoueurs = nbjoueurs;
 	}
+	
 	public void run() {
 
 		initServerSocket();

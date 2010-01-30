@@ -19,7 +19,6 @@ public class Zone implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String nom;
-	private Joueur joueur;
 	private ArrayList<Ville> villes = new ArrayList<Ville>();
 	private Usine usine;
 	
