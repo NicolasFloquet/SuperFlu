@@ -45,14 +45,16 @@ public class ThreadServ extends Thread {
 		List<Zone> zListe = new ArrayList<Zone>();
 			
 		int extra = 6%nbjoueurs;
-		for(int i=0;i<6/nbjoueurs;i++){
-			Zone z = a.getNextZone();
-			System.out.print(z.getNom()+"  ");
-			zListe.add(z);
-			if((extra!=0)&&(z.getId()<=extra+1)){
-				z = a.getNextZone();
-				zListe.add(z);
+		synchronized (Application.getInstance()) {	
+			for(int i=0;i<6/nbjoueurs;i++){
+				Zone z = a.getNextZone();
 				System.out.print(z.getNom()+"  ");
+				zListe.add(z);
+				if((extra!=0)&&(z.getId()<=extra+1)){
+					z = a.getNextZone();
+					zListe.add(z);
+					System.out.print(z.getNom()+"  ");
+				}
 			}
 		}
 		

@@ -113,7 +113,9 @@ public class Application
 						minInfect = j;
 					}
 				}
-				minInfect.getZone().add(z);
+				if (minInfect != null) {
+					minInfect.getZone().add(z);
+				}
 			}
 		}
 	}
@@ -278,6 +280,9 @@ public class Application
 
 	public synchronized Zone getNextZone(){
 		zone++;
+		if (zone >= game.getCarte().getZones().size()) {
+			return null;
+		}
 		return game.getCarte().getZones().get(zone);
 	}
 
