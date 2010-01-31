@@ -489,10 +489,12 @@ public class ScreenManager {
 	*/
 	private boolean setDisplayMode()
 	{
+		DisplayMode[] dm = null;
+		
 		try
 		{
 			// get modes
-			DisplayMode[] dm = org.lwjgl.util.Display.getAvailableDisplayModes(-1, -1, -1, -1, -1, -1, 60, 60);
+			dm = org.lwjgl.util.Display.getAvailableDisplayModes(-1, -1, -1, -1, -1, -1, 60, 60);
 			 
 			org.lwjgl.util.Display.setDisplayMode(dm, new String[] {
 				"width=" + screen_width,
@@ -504,6 +506,11 @@ public class ScreenManager {
 		}
 		catch (Exception e)
 		{
+			System.out.println("Modes supportés");
+			for(DisplayMode mode : dm) {
+				System.out.println(mode);
+			}
+			
 			e.printStackTrace();
 			System.out.println("Unable to enter fullscreen, continuing in windowed mode");
 		}
