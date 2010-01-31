@@ -1,10 +1,9 @@
 package entities;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -56,17 +55,10 @@ public class Zone implements Serializable{
 	}
 	
 	private void chargeVilles() {
-		String filepath = "zone" + id + ".data";
+		String filepath = "ressources/zones/zone" + id + ".data";
 		
 		try {
-			new File(filepath).createNewFile();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		try {
-			BufferedReader buff = new BufferedReader(new FileReader(filepath));
+			BufferedReader buff = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(filepath)));
 			String line;
 			
 			nom = buff.readLine();
