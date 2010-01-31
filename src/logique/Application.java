@@ -179,6 +179,7 @@ public class Application
 		//
 		while(running && game.getEtat()==GameLogic.etatJeu.EN_COURS)
 		{
+			screen.runNextAction();
 			screen.draw();
 			
 			// Gestion des inputs
@@ -210,6 +211,9 @@ public class Application
 			//
 			running = true;
 			while(running && menu_type!=0) {
+				
+				screen.runNextAction();
+				
 				switch(menu_type) {
 					case 1 :
 					case 2 :

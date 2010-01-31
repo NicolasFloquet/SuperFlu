@@ -1,5 +1,9 @@
 package graphics;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import entities.*;
 
 import org.lwjgl.LWJGLException;
@@ -19,14 +23,14 @@ public class ScreenManager {
 	 *  La parallelisation du chargement des textures ne fonctionne pas
 	 *  Cette version s'execute en mode bloquant  
 	 */
-	private class Preloader /* extends Thread */ {
+	private class Preloader extends Thread {
 		public Preloader() {
 			start();
 		}
 
-		public void start() {
+		/*public void start() {
 			run();
-		}
+		}*/
 		
 		public void run() {
 			getSprite("aide.png");
@@ -82,6 +86,12 @@ public class ScreenManager {
 
 	private Application application;
 
+	private Sprite[] dna;
+
+	private static long threadId = -1;
+
+	private static List<Runnable> actionsList = Collections.synchronizedList(new LinkedList<Runnable>());
+	
 	private ScreenManager()
 	{
 		screen_width = 1024;
@@ -95,8 +105,6 @@ public class ScreenManager {
 		
 		application = Application.getInstance();
 	}
-	
-	private Sprite[] dna;
 	
 	public void setProperties(int width, int height, boolean is_fullscreen)
 	{
@@ -296,7 +304,7 @@ public class ScreenManager {
 		}
 		GL11.glEnd();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		
+
 		application.getGame().getCarte().draw();
 		application.getJoueur().draw();
 		
@@ -325,6 +333,37 @@ public class ScreenManager {
 		drawKonami();
 		
 		Display.update();
+	}
+	
+	public void runNextAction() {
+		if (actionsList.size() > 0) {
+			Runnable r = actionsList.get(0);
+			actionsList.remove(0);
+			System.out.println("run... " + Thread.currentThread().getId() + " " + threadId);
+			r.run();
+			synchronized (this) {
+				notify();
+			}
+		}
+	}
+	
+	public static void invokeLater(Runnable r) {
+		actionsList.add(r);
+	}
+	
+	public static void invokeLaterAndWait(Runnable r) {
+		System.out.println("invokeLater " + Thread.currentThread().getId() + " " + threadId);
+		actionsList.add(r);
+		try {
+			synchronized (ScreenManager.getInstance()) {
+				ScreenManager.getInstance().wait();
+			}
+		} catch (InterruptedException e) {}
+		System.out.println("fin attente");
+	}
+	
+	public static boolean isEventDispatchThread() {
+		return threadId == -1 || threadId == Thread.currentThread().getId();
 	}
 
 	private void draw_loading() {
@@ -420,6 +459,7 @@ public class ScreenManager {
 	*/
 	public void initialize()
 	{
+		threadId = Thread.currentThread().getId();
 		// initialize the window beforehand
 		try
 		{
@@ -467,9 +507,9 @@ public class ScreenManager {
 		new Preloader();
 	}
 	
-	public static synchronized Sprite getSprite(String ref)
+	public static Sprite getSprite(String ref)
 	{
-		return new Sprite(getInstance().textureLoader,"ressources/"+ref);
+		return Sprites.getInstance().getSprite(ref);
 	}
 	
 	public int getOrigineCarteX() {
