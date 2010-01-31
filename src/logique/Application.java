@@ -171,12 +171,9 @@ public class Application
 
 	private void boucleJeu() {
 		pandemic = false;
-		player = null;
-		
-		if(!isServer) {
-			player = new MusicPlayer();
-			player.start();
-		}
+
+		player = new MusicPlayer();
+		player.start();
 		//
 		// Boucle du jeu
 		//
