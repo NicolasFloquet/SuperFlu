@@ -58,6 +58,16 @@ public class ScreenManager {
 			getSprite("usine.png");
 			getSprite("victory.png");
 			getSprite("ville.png");
+			getSprite("lettres/0.png");
+			getSprite("lettres/1.png");
+			getSprite("lettres/2.png");
+			getSprite("lettres/3.png");
+			getSprite("lettres/4.png");
+			getSprite("lettres/5.png");
+			getSprite("lettres/6.png");
+			getSprite("lettres/7.png");
+			getSprite("lettres/8.png");
+			getSprite("lettres/9.png");	
 		}
 	}
 	
@@ -339,7 +349,6 @@ public class ScreenManager {
 		if (actionsList.size() > 0) {
 			Runnable r = actionsList.get(0);
 			actionsList.remove(0);
-			System.out.println("run... " + Thread.currentThread().getId() + " " + threadId);
 			r.run();
 			synchronized (this) {
 				notify();
@@ -352,14 +361,12 @@ public class ScreenManager {
 	}
 	
 	public static void invokeLaterAndWait(Runnable r) {
-		System.out.println("invokeLater " + Thread.currentThread().getId() + " " + threadId);
 		actionsList.add(r);
 		try {
 			synchronized (ScreenManager.getInstance()) {
 				ScreenManager.getInstance().wait();
 			}
 		} catch (InterruptedException e) {}
-		System.out.println("fin attente");
 	}
 	
 	public static boolean isEventDispatchThread() {
