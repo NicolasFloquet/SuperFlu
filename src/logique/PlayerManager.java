@@ -32,6 +32,7 @@ public class PlayerManager {
 	private int selected_menu;	// 0=>start 1=>aide 2=>credits
 	private boolean key_lock; // Ceci permet de ne pas interpreter 2x de suite la même touche
 	private boolean mouse_lock;
+	private Ville targetedVille;
 	
 	private PlayerManager() {
 		selected = null;
@@ -252,9 +253,11 @@ public class PlayerManager {
 			Application.getInstance().quit();
 		}
 		
+		targetedVille = findTargetedVille();
+		
 		if (Mouse.isButtonDown(1) || Mouse.isButtonDown(0)) {
 			if(selected == null) {
-				selected = getTargetedVille();
+				selected = targetedVille;
 				System.out.println(selected);
 			}
 
@@ -270,7 +273,7 @@ public class PlayerManager {
 			vaccin = Mouse.isButtonDown(1);
 		} else {
 			if(selected != null) {
-				Ville released = getTargetedVille();
+				Ville released = targetedVille;
 				if(released != null) {
 					if (vaccin) {
 						if (!selected.getStocksVaccins().isEmpty()) {
@@ -303,7 +306,7 @@ public class PlayerManager {
 		return instance;
 	}
 
-	public Ville getTargetedVille()
+	private Ville findTargetedVille()
 	{
 		for(Zone  z : Application.getInstance().getGame().getCarte().getZones()) {
 			if(z.getUsine().isOnCity(Mouse.getX()-ScreenManager.getInstance().getOrigineCarteX(),
@@ -318,6 +321,10 @@ public class PlayerManager {
 			}
 		}
 		return null;
+	}
+	
+	public Ville getTargetedVille() {
+		return targetedVille;
 	}
 
 	public int getPourcentageVoulu() {
