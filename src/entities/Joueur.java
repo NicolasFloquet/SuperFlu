@@ -8,7 +8,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import logique.Application;
 
 /**
  * Classe qui contient les informations relatives à un joueur (score, zone)
@@ -19,16 +18,16 @@ public class Joueur implements graphics.Drawable, Serializable,Cloneable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private List<Zone> zone = new ArrayList<Zone>();
+	private List<Zone> zones = new ArrayList<Zone>();
 	private int score;
 	private Socket socket;
 
 	public void setZone(List<Zone> zone) {
-		this.zone = zone;
+		this.zones = zone;
 	}
 
 	public List<Zone> getZone() {
-		return zone;
+		return zones;
 	}
 
 	public int getScore() {
@@ -42,7 +41,7 @@ public class Joueur implements graphics.Drawable, Serializable,Cloneable {
 
 		int offsety = 10;
 		int offsetx = 0;
-		for(Zone z : Application.getInstance().getGame().getCarte().getZones()) {
+		for(Zone z : zones) {
 			
 			new Texte(z.getNom() + ":").draw(milieu_ecran + offsetx, encart_pos_y + offsety, 1f, 0.0f, 0.0f, 0.0f);
 			new Texte("Habitants :"+z.getPopulation()).draw(milieu_ecran+50 + offsetx, encart_pos_y + offsety + 14, 0.8f, 0.0f, 0.0f, 0.0f);

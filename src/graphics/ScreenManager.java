@@ -80,6 +80,8 @@ public class ScreenManager {
 	private Ville selected_ville;
 	private boolean transfertIsTraitement;
 
+	private Application application;
+
 	private ScreenManager()
 	{
 		screen_width = 1024;
@@ -90,6 +92,8 @@ public class ScreenManager {
 		
 		timerTicksPerSecond = Sys.getTimerResolution();
 		lastLoopTime = getTime();
+		
+		application = Application.getInstance();
 	}
 	
 	private Sprite[] dna;
@@ -293,18 +297,12 @@ public class ScreenManager {
 		GL11.glEnd();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		
-		Application a = Application.getInstance();
+		application.getGame().getCarte().draw();
+		application.getJoueur().draw();
 		
-		a.getGame().getCarte().draw();
-		
-		for(Joueur joueur : a.getGame().getJoueurs())
+		for(Transfert transfert : application.getGame().getTransferts())
 		{
-			joueur.draw();
-		}
-		
-		for(Transfert transfert : a.getGame().getTransferts())
-		{
-			synchronized (a.getGame()) {
+			synchronized (application.getGame()) {
 				transfert.draw();
 			}
 		}
@@ -463,7 +461,7 @@ public class ScreenManager {
 		// Chargement des textures
 		dna = new Sprite[10];
 		for(int i=0 ; i<10 ; i++) {
-			dna[i]=getSprite("dna"+String.valueOf(i+1)+".png");
+			dna[i]=getSprite("dna"+ (i+1) +".png");
 		}
 		
 		new Preloader();

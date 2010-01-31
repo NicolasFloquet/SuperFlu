@@ -180,6 +180,7 @@ public class Application
 		while(running && game.getEtat()==GameLogic.etatJeu.EN_COURS)
 		{
 			screen.draw();
+			
 			// Gestion des inputs
 			PlayerManager.getInstance().update();
 	
