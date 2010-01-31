@@ -1,41 +1,39 @@
 package music;
 
-import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
 public class MusicPlayer {
-	
+
 	private Song soft;
 	private Song hard;
-	
+
 	private class Song extends Thread {
-		private FileInputStream file;
+		private InputStream file;
 		private Player p; 
 		private boolean running;
 		private boolean playing;
-		
-		public Song(String title) {
-			try {
-				file = new FileInputStream(title);
-				p = new Player(file);
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-			
+
+		public Song(String title) throws FileNotFoundException, JavaLayerException {
+			file = getClass().getClassLoader().getResourceAsStream(title);
+			p = new Player(file);
+
 			running = true;
 			playing = false;
-			
+
 			start();
 		}
-		
+
 		@Override
 		public void run() {
 			while(running) {
 				if(playing) {
 					try {
 						p.play(1024);
-						
+
 						if(p.isComplete()) {
 							p.close();
 							file.reset();
@@ -49,7 +47,7 @@ public class MusicPlayer {
 				}
 				else {
 					try {
-							Thread.sleep(10);
+						Thread.sleep(10);
 					}
 					catch (InterruptedException e) {
 						e.printStackTrace();
@@ -57,47 +55,54 @@ public class MusicPlayer {
 				}
 			}
 		}
-		
+
 		public void pause() {
 			playing = false;
 		}
-		
+
 		public void play() {
 			playing = true;
 		}
-		
+
 		public void quit() {
 			running = false;
 		}
 	}
-	
-	public MusicPlayer() {
-		
+
+	public MusicPlayer() {	
 		try {
-			soft = new Song("bin/ressources/soft.mp3");
-			hard = new Song("bin/ressources/hard.mp3");
+			soft = new Song("ressources/soft.mp3");
+			hard = new Song("ressources/hard.mp3");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void start() {
-		soft.play();
+		if (soft != null) {
+			soft.play();
+		}
 	}
-	
+
 	public void goPandemic() {
-		soft.pause();
-		hard.play();
+		if (soft != null) {
+			soft.pause();
+			hard.play();
+		}
 	}
-	
+
 	public void backNormal() {
-		soft.play();
-		hard.pause();
+		if (soft != null) {
+			soft.play();
+			hard.pause();
+		}
 	}
-	
+
 	public void quit() {
-		soft.quit();
-		hard.quit();
+		if (soft != null) {
+			soft.quit();
+			hard.quit();
+		}
 	}
 }
