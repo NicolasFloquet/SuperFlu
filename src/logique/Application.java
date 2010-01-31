@@ -129,7 +129,23 @@ public class Application
 		}
 		
 		ip = "localhost";
-		if (!isServer) {
+		
+
+		if (isServer) {
+			c = new ServerController();
+			((ServerController)c).setNbjoueurs(nbjoueurs);
+			c.connect();
+
+			running = true;
+			while(running && game.getEtat()==GameLogic.etatJeu.EN_COURS) {
+				try {
+					Thread.sleep(200);
+				} catch (InterruptedException e) {}
+			}
+
+			timer.cancel();
+			c.deconnection();
+		} else {
 			if(args.length>0){
 				ip = args[0];
 			}
@@ -137,35 +153,11 @@ public class Application
 			screen.initialize();
 			if (args.length == 4) {
 				screen.setProperties(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Boolean.valueOf(args[3]));
-			}			
-		}
-
-		if (isServer) {
-			c = new ServerController();
-			((ServerController)c).setNbjoueurs(nbjoueurs);
-			c.connect();
-
-		} else {
+			}	
+			
 			afficheMenu();
-		}
-		
-		if (isServer) {
-			running = true;
-			while(running && game.getEtat()==GameLogic.etatJeu.EN_COURS) {
-				try {
-					Thread.sleep(200);
-				} catch (InterruptedException e) {}
-			}
-		}
-		else {
 			boucleJeu();
-		}
-
-		if (isServer) {
-			timer.cancel();
-			c.deconnection();
-		}
-		else {
+			
 			player.quit();
 
 			int ret = 0;
