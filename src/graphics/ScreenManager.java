@@ -316,7 +316,9 @@ public class ScreenManager {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 
 		application.getGame().getCarte().draw();
-		application.getJoueur().draw();
+		if (application.getJoueur() != null) {
+			application.getJoueur().draw();
+		}
 		
 		for(Transfert transfert : application.getGame().getTransferts())
 		{
