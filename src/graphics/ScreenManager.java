@@ -541,19 +541,23 @@ public class ScreenManager {
 		try
 		{
 			// get modes
-			DisplayMode[] dm = org.lwjgl.util.Display.getAvailableDisplayModes(-1, -1, -1, -1, -1, -1, 60, 60);
+			DisplayMode[] dm = org.lwjgl.util.Display.getAvailableDisplayModes(-1, -1, -1, -1, -1, -1, -1, -1);
 			 
 			System.out.println("Modes supportés");
 			for(DisplayMode mode : dm) {
 				System.out.println(mode);
 			}
 			
+			screen_height = org.lwjgl.opengl.Display.getDisplayMode().getHeight();
+			screen_width = org.lwjgl.opengl.Display.getDisplayMode().getWidth();
+			
 			org.lwjgl.util.Display.setDisplayMode(dm, new String[] {
 				"width=" + screen_width,
 				"height=" + screen_height,
-				"freq=" + 60,
+				"freq=" + org.lwjgl.opengl.Display.getDisplayMode().getFrequency(),
 				"bpp=" + org.lwjgl.opengl.Display.getDisplayMode().getBitsPerPixel()
 			});
+			Display.setFullscreen(true);
 			return true;
 		}
 		catch (Exception e)
