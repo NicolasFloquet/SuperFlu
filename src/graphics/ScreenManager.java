@@ -548,9 +548,6 @@ public class ScreenManager {
 				System.out.println(mode);
 			}
 			
-			screen_height = org.lwjgl.opengl.Display.getDisplayMode().getHeight();
-			screen_width = org.lwjgl.opengl.Display.getDisplayMode().getWidth();
-			
 			org.lwjgl.util.Display.setDisplayMode(dm, new String[] {
 				"width=" + screen_width,
 				"height=" + screen_height,
