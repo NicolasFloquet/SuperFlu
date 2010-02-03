@@ -8,6 +8,7 @@ import java.util.List;
 
 import logique.Application;
 import logique.GameLogic;
+import logique.GameLogic.EtatJeu;
 import entities.Joueur;
 import entities.Zone;
 
@@ -38,13 +39,17 @@ public class ThreadClient extends Thread {
 			if (o instanceof GameLogic) {
 				
 				// acualiser le game
-				//System.out.println(((GameLogic)o).getCarte());
 				a.setGame((GameLogic) o);
+				if (Application.getInstance().isStarted() == false && ((GameLogic) o).getEtat() == EtatJeu.EN_COURS) {
+					Application.getInstance().startGame();
+				}
+				
+				// XXX : ugly
 				for(Joueur j:a.getGame().getJoueurs()){
 					if(j.getZones().get(0).getNom().equals(a.getJoueur().getZones().get(0).getNom())){
 						a.setJoueur(j);
 						break;
-					}					
+					}
 				}
 				
 			} else if (o instanceof Joueur) {

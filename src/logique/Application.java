@@ -33,7 +33,7 @@ public class Application
 				game.updateClient(1);
 			}
 			
-			if(game.getEtat()!=GameLogic.etatJeu.EN_COURS) {
+			if(game.getEtat()!=GameLogic.EtatJeu.EN_COURS) {
 				this.cancel();
 			}
 		}
@@ -54,11 +54,11 @@ public class Application
 	private String pseudo = "";
 	private MusicPlayer player;
 	private boolean pandemic;
+	private boolean started = false;
 
 	private Application()
 	{
 		game = new GameLogic();
-		game.creerEpidemie();
 		running = false;
 	}
 
@@ -140,7 +140,7 @@ public class Application
 			c.connect();
 
 			running = true;
-			while(running && game.getEtat()==GameLogic.etatJeu.EN_COURS) {
+			while(running && (game.getEtat()==GameLogic.EtatJeu.EN_COURS || game.getEtat()==GameLogic.EtatJeu.WAIT)) {
 				try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {}
@@ -183,7 +183,7 @@ public class Application
 		//
 		// Boucle du jeu
 		//
-		while(running && game.getEtat()==GameLogic.etatJeu.EN_COURS)
+		while(running && (game.getEtat()==GameLogic.EtatJeu.EN_COURS || game.getEtat()==GameLogic.EtatJeu.WAIT))
 		{
 			screen.runNextAction();
 			screen.draw();
@@ -244,7 +244,6 @@ public class Application
 			
 			c = new ClientController(ip, pseudo);
 			if(c.connect()) {
-				startGame();
 				connected = true;
 			}
 			else {
@@ -290,8 +289,11 @@ public class Application
 	}
 
 	public void startGame() {
+		started = true;
 		System.out.println("Partie lancée !");
 		if (isServeur()) {
+			game.creerEpidemie();
+			game.start();
 			timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD);
 		} else {
 			timer.scheduleAtFixedRate(new UpdateTask(), 0, TIMER_PERIOD/10);
@@ -300,5 +302,9 @@ public class Application
 	
 	public int getNbjoueurs() {
 		return nbjoueurs;
+	}
+
+	public boolean isStarted() {
+		return started;
 	}
 }

@@ -30,7 +30,7 @@ public abstract class Send {
 		} catch(ConcurrentModificationException cme){
 			//TODO <- Reviser catch
 			System.err.println("catch");
-			//cme.printStackTrace();
+			cme.printStackTrace();
 			/*try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -39,6 +39,7 @@ public abstract class Send {
 				sendData(o,jList);
 			}*/
 		}catch (SocketException se) {
+			se.printStackTrace();
 		} catch (IOException e) {
 			System.err.println("cathc 2");
 			e.printStackTrace();

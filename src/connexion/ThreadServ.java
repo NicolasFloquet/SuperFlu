@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logique.Application;
+import logique.GameLogic;
 import entities.Joueur;
 import entities.Stock;
 import entities.StockTraitement;
@@ -143,6 +144,16 @@ public class ThreadServ extends Thread {
 				} else if (o instanceof Joueur) {
 					joueur.setPseudo(((Joueur) o).getPseudo());
 					System.out.println("Joueur " + joueur.getPseudo() + " est ready !");
+					
+					GameLogic g = Application.getInstance().getGame().clone();
+					List<Joueur> jList = g.getJoueurs();
+					
+					//mettre a null tous les sockets car il ne sont pas serializables, et on n'a pas besoin
+					for(int i=0;i<jList.size();i++){
+						jList.get(i).setSocket(null);
+					}
+					
+					Send.sendData(g, Application.getInstance().getGame().getJoueurs());
 				}
 			} catch (SocketException e) {
 				if(!err) err=true;

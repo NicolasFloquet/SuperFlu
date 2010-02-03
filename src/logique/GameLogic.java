@@ -32,8 +32,8 @@ public class GameLogic implements Cloneable, Serializable {
 		return POURCENTAGE_ECHEC;
 	}
 
-	public enum etatJeu {
-		EN_COURS, GAGNE, PERDU
+	public enum EtatJeu {
+		WAIT, EN_COURS, GAGNE, PERDU
 	};
 
 	private Random rand = new Random();
@@ -51,7 +51,7 @@ public class GameLogic implements Cloneable, Serializable {
 	/* Variables liées au timer */
 	private long time;
 	
-	private etatJeu etat = etatJeu.EN_COURS;
+	private EtatJeu etat = EtatJeu.WAIT;
 	
 
 	public GameLogic() {
@@ -271,7 +271,7 @@ public class GameLogic implements Cloneable, Serializable {
 		etat = jeuFini();
 	}
 
-	public etatJeu getEtat() {
+	public EtatJeu getEtat() {
 		return etat;
 	}
 
@@ -337,13 +337,13 @@ public class GameLogic implements Cloneable, Serializable {
 		return populationInfectee*100/POURCENTAGE_PANDEMIC>populationMondiale;
 	}
 	
-	public etatJeu jeuFini() {
-		etatJeu etat = etatJeu.EN_COURS;
+	public EtatJeu jeuFini() {
+		etat = EtatJeu.EN_COURS;
 
 		if (populationInfectee == 0)
-			etat = etatJeu.GAGNE;
+			etat = EtatJeu.GAGNE;
 		if (mortsTotal >= (populationMondiale + mortsTotal)*POURCENTAGE_ECHEC/ 100)
-			etat = etatJeu.PERDU;
+			etat = EtatJeu.PERDU;
 
 		return etat;
 	}
@@ -365,5 +365,9 @@ public class GameLogic implements Cloneable, Serializable {
 
 	public int getPourcentagePandemic() {
 		return POURCENTAGE_PANDEMIC;
+	}
+
+	public void start() {
+		etat = EtatJeu.EN_COURS;
 	}
 }
