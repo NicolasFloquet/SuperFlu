@@ -24,10 +24,10 @@ public class GameLogic implements Cloneable, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private final int POURCENTAGE_ECHEC = 1;
 	private final int POURCENTAGE_PANDEMIC = 5;
-	
+
 	public float getPourcentageEchec() {
 		return POURCENTAGE_ECHEC;
 	}
@@ -50,9 +50,11 @@ public class GameLogic implements Cloneable, Serializable {
 
 	/* Variables liées au timer */
 	private long time;
-	
+
 	private EtatJeu etat = EtatJeu.WAIT;
-	
+
+	private int level;
+
 
 	public GameLogic() {
 		joueurs = Collections.synchronizedList(new ArrayList<Joueur>());
@@ -61,6 +63,7 @@ public class GameLogic implements Cloneable, Serializable {
 		carte = new Carte();
 
 		time = 0;
+		level = 1;
 	}
 
 	public void creerEpidemie() {
@@ -70,18 +73,22 @@ public class GameLogic implements Cloneable, Serializable {
 		Ville rand_ville;
 
 		/* Créer un nouveau virus */
-		Virus nouveau_virus = new Virus("Grippe du serpent +3 of the doom");
-		virus.add(nouveau_virus);
 
-		/* Créer les traitements et vaccins correspondants */
-		vaccin = new Vaccin(nouveau_virus);
-		traitement = new Traitement(nouveau_virus);
+		if (virus.size() == 0) { /* Un seul type de virus ! */
+			/* Un seul type de virus !!! */
+			Virus nouveau_virus = new Virus("Grippe du serpent +3 of the doom");
+			virus.add(nouveau_virus);
 
-		/* Les ajouter aux usines */
-		for (Zone z : carte.getZones()) {
-			if (z.getUsine() != null) {
-				z.getUsine().ajouteTraitement(traitement);
-				z.getUsine().ajouteVaccin(vaccin);
+			/* Créer les traitements et vaccins correspondants */
+			vaccin = new Vaccin(nouveau_virus);
+			traitement = new Traitement(nouveau_virus);
+
+			/* Les ajouter aux usines */
+			for (Zone z : carte.getZones()) {
+				if (z.getUsine() != null) {
+					z.getUsine().ajouteTraitement(traitement);
+					z.getUsine().ajouteVaccin(vaccin);
+				}
 			}
 		}
 
@@ -94,12 +101,12 @@ public class GameLogic implements Cloneable, Serializable {
 		rand_ville = rand_zone.getVilles().get(
 				rand.nextInt(rand_zone.getVilles().size()));
 		// rand_ville.ajouteHabitantsInfectes((int)(rand_ville.getHabitants()*0.01));
-		rand_ville.ajouteHabitantsInfectes(2000);
+		rand_ville.ajouteHabitantsInfectes(2000 * level);
 
 		/* MOUHOUHOUHOHOHAHAHAHAHAHAHAHA */
 
 	}
-	
+
 	public void updateClient(int elapsed_time) {
 		time += elapsed_time;
 	}
@@ -113,7 +120,7 @@ public class GameLogic implements Cloneable, Serializable {
 
 				if (t.getStock() instanceof StockTraitement) {
 					StockTraitement stock_traitement = (StockTraitement) t
-							.getStock();
+					.getStock();
 					arrive.ajouteStockTraitement(stock_traitement
 							.getTraitement(), stock_traitement.getStock());
 				}
@@ -128,7 +135,7 @@ public class GameLogic implements Cloneable, Serializable {
 			}
 		}
 	}
-	
+
 	public synchronized void updateServeur(long elapsed_time) {
 		/* Mise à jour du temps */
 		time += elapsed_time;
@@ -143,18 +150,18 @@ public class GameLogic implements Cloneable, Serializable {
 
 		/* Calcul des déplacement de population */
 		for (Zone zone_origine : carte.getZones()) {
-			
+
 
 			/* Mise à jour de la production de l'usine */
 			if (zone_origine.getUsine() != null) {
 				zone_origine.getUsine().produit();
 			}
-			
+
 			/* Remise à 0 des populations de la zone */
 			zone_origine.setPopulation(0);
 			zone_origine.setPopulation_infectee(0);
 			zone_origine.setPopulation_morte(0);
-			
+
 			for (Ville ville_origine : zone_origine.getVilles()) {
 
 				if (ville_origine.getHabitants() == 0) {
@@ -172,20 +179,20 @@ public class GameLogic implements Cloneable, Serializable {
 				int flux_infecte = 0;
 				int flux_immunise = 0;
 				float taux_sain = (float) ville_origine.getHabitantsSains()
-						/ (float) ville_origine.getHabitants();
+				/ (float) ville_origine.getHabitants();
 				float taux_infection = (float) ville_origine
-						.getHabitantsInfectes()
-						/ (float) ville_origine.getHabitants();
+				.getHabitantsInfectes()
+				/ (float) ville_origine.getHabitants();
 				float taux_immunisation = (float) ville_origine
-						.getHabitantsImmunises()
-						/ (float) ville_origine.getHabitants();
+				.getHabitantsImmunises()
+				/ (float) ville_origine.getHabitants();
 
 				for (Zone zone_dest : carte.getZones()) {
 					for (Ville ville_dest : zone_dest.getVilles()) { /*
-																	 * Woot 4
-																	 * boucles
-																	 * imbriquées
-																	 */
+					 * Woot 4
+					 * boucles
+					 * imbriquées
+					 */
 
 						if (ville_dest == ville_origine) {
 							continue;
@@ -237,13 +244,13 @@ public class GameLogic implements Cloneable, Serializable {
 						if (ville_origine.getHabitantsImmunises() >= flux_immunise) {
 							ville_dest.ajouteHabitantsImmunises(flux_immunise);
 							ville_origine
-									.retireHabitantsImmunises(flux_immunise);
+							.retireHabitantsImmunises(flux_immunise);
 						} else {
 							ville_dest.ajouteHabitantsImmunises(ville_origine
 									.getHabitantsImmunises());
 							ville_origine
-									.retireHabitantsImmunises(ville_origine
-											.getHabitantsImmunises());
+							.retireHabitantsImmunises(ville_origine
+									.getHabitantsImmunises());
 						}
 
 					}
@@ -251,12 +258,12 @@ public class GameLogic implements Cloneable, Serializable {
 
 				/* Mise à jour de la ville */
 				ville_origine.update();
-				
+
 				mortsTotal += ville_origine.getHabitantsMorts();
 				populationMondiale += ville_origine.getHabitants();
 				populationInfectee += ville_origine.getHabitantsInfectes();
 				vaccinesTotal += ville_origine.getHabitantsImmunises();
-				
+
 				/* Mise à jour de la population des zones */
 				zone_origine.setPopulation(zone_origine.getPopulation()+ville_origine.getHabitants());
 				zone_origine.setPopulation_infectee(zone_origine.getPopulation_infectee()+ville_origine.getHabitantsInfectes());
@@ -267,7 +274,7 @@ public class GameLogic implements Cloneable, Serializable {
 		this.populationMondiale = populationMondiale;
 		this.populationInfectee = populationInfectee;
 		this.vaccinesTotal = vaccinesTotal;
-		
+
 		etat = jeuFini();
 	}
 
@@ -277,7 +284,7 @@ public class GameLogic implements Cloneable, Serializable {
 
 	public synchronized void creerTransfert(Ville depart, Ville arrivee,
 			Stock stock) {
-		
+
 		if ((!isServeur()) && (depart.isMine())) {
 			if (stock instanceof StockVaccin) {
 				depart.retireStockVaccin(((StockVaccin) stock).getVaccin(),
@@ -336,12 +343,19 @@ public class GameLogic implements Cloneable, Serializable {
 	public boolean isPandemic() {
 		return populationInfectee*100/POURCENTAGE_PANDEMIC>populationMondiale;
 	}
-	
+
 	public EtatJeu jeuFini() {
 		etat = EtatJeu.EN_COURS;
 
-		if (populationInfectee == 0)
-			etat = EtatJeu.GAGNE;
+		if (populationInfectee < 200) {
+			level++;
+			if (level <= 5) {
+				creerEpidemie();
+			} else if (populationInfectee == 0) {	
+				etat = EtatJeu.GAGNE;
+			} 
+		}
+
 		if (mortsTotal >= (populationMondiale + mortsTotal)*POURCENTAGE_ECHEC/ 100)
 			etat = EtatJeu.PERDU;
 
