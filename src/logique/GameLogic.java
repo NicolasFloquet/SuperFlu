@@ -304,11 +304,11 @@ public class GameLogic implements Cloneable, Serializable {
 		return transferts;
 	}
 
-	public void ajouterJoueur(Joueur nouveau_joueur) {
+	public synchronized void ajouterJoueur(Joueur nouveau_joueur) {
 		joueurs.add(nouveau_joueur);
 	}
 
-	public List<Joueur> getJoueurs() {
+	public synchronized List<Joueur> getJoueurs() {
 		return joueurs;
 	}
 
