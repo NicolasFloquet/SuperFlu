@@ -9,7 +9,7 @@ public class TestConnexion2 {
 	 */
 	public static void main(String[] args) {
 
-		ConnexionController c = new ClientController();
+		ConnexionController c = new ClientController("localhost", "");
 		c.connect();
 
 		try {

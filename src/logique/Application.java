@@ -51,6 +51,7 @@ public class Application
 	private int nbjoueurs = 6;
 	private int deconnectes = 0;
 	private String ip;
+	private String pseudo = "";
 	private MusicPlayer player;
 	private boolean pandemic;
 
@@ -92,7 +93,7 @@ public class Application
 			List<Zone> zList = null;
 			List<Joueur> jList = getGame().getJoueurs();
 			for(Joueur j: jList){
-				zList = j.getZone();
+				zList = j.getZones();
 				if(j.getSocket() == s){
 					jList.remove(j);
 					break;
@@ -105,7 +106,7 @@ public class Application
 				minInfectee = Integer.MAX_VALUE;
 				for(Joueur j:jList){
 					int infectee = 0;
-					for(Zone zj:j.getZone()){
+					for(Zone zj:j.getZones()){
 						infectee += zj.getPopulation_infectee();
 					}
 					if(infectee < minInfectee){
@@ -114,7 +115,7 @@ public class Application
 					}
 				}
 				if (minInfect != null) {
-					minInfect.getZone().add(z);
+					minInfect.getZones().add(z);
 				}
 			}
 		}
@@ -125,7 +126,7 @@ public class Application
 		nbjoueurs = 6;
 		if (args.length > 0) {
 			isServer = Boolean.valueOf(args[0]);
-			if(args.length > 1){
+			if(isServer && args.length > 1){
 				nbjoueurs = Integer.valueOf(args[1]);
 			}
 		}
@@ -151,10 +152,13 @@ public class Application
 			if(args.length>0){
 				ip = args[0];
 			}
+			if (args.length > 1) {
+				pseudo = args[1];
+			}
 			screen = ScreenManager.getInstance();
 			screen.initialize();
-			if (args.length == 4) {
-				screen.setProperties(Integer.valueOf(args[1]), Integer.valueOf(args[2]), Boolean.valueOf(args[3]));
+			if (args.length == 5) {
+				screen.setProperties(Integer.valueOf(args[2]), Integer.valueOf(args[3]), Boolean.valueOf(args[4]));
 			}	
 			
 			afficheMenu();
@@ -238,8 +242,7 @@ public class Application
 				}
 			}
 			
-			c = new ClientController();
-			((ClientController)c).setIP(ip);
+			c = new ClientController(ip, pseudo);
 			if(c.connect()) {
 				startGame();
 				connected = true;

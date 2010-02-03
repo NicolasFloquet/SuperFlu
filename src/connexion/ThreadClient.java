@@ -41,7 +41,7 @@ public class ThreadClient extends Thread {
 				//System.out.println(((GameLogic)o).getCarte());
 				a.setGame((GameLogic) o);
 				for(Joueur j:a.getGame().getJoueurs()){
-					if(j.getZone().get(0).getNom().equals(a.getJoueur().getZone().get(0).getNom())){
+					if(j.getZones().get(0).getNom().equals(a.getJoueur().getZones().get(0).getNom())){
 						a.setJoueur(j);
 						break;
 					}					
@@ -52,7 +52,7 @@ public class ThreadClient extends Thread {
 				List<Zone> zList = a.getGame().getCarte().getZones();
 				List<Zone> zList2 = new ArrayList<Zone>();
 				for(Zone z: zList){
-					for(Zone zon: ((Joueur)o).getZone()){
+					for(Zone zon: ((Joueur)o).getZones()){
 						if(z.getNom().equals(zon.getNom())){
 							zList2.add(zon);
 							System.out.println(zon.getNom() + ":" + zon.getPopulation_infectee());

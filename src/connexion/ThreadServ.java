@@ -24,6 +24,7 @@ public class ThreadServ extends Thread {
 	private boolean end = false;
 	private int nbjoueurs = 6;
 	private boolean err = false;
+	private Joueur joueur;
 
 	public ThreadServ(Socket s, int nbjoueurs) {
 		this.s = s;
@@ -39,7 +40,7 @@ public class ThreadServ extends Thread {
 
 		// Reception du serveur
 		Application a = Application.getInstance();
-		Joueur j = new Joueur();
+		joueur = new Joueur();
 		
 		System.out.print("zone: ");
 		List<Zone> zListe = new ArrayList<Zone>();
@@ -58,14 +59,14 @@ public class ThreadServ extends Thread {
 			}
 		}
 		
-		j.setZone(zListe);
-		Send.sendData(j, s);
+		joueur.setZone(zListe);
+		Send.sendData(joueur, s);
 
-		j = new Joueur();
-		j.setZone(zListe);
-		j.setSocket(s);
+		joueur = new Joueur();
+		joueur.setZone(zListe);
+		joueur.setSocket(s);
 
-		a.getGame().ajouterJoueur(j);
+		a.getGame().ajouterJoueur(joueur);
 		Receive rec = new Receive(s);
 		Object o = null;
 		while ((Application.getInstance().isRunning()) && (!end)) {
@@ -139,6 +140,9 @@ public class ThreadServ extends Thread {
 								stock, ((Transfert) o).getTemps_depart());
 						a.getGame().getTransferts().add(transport);
 					}
+				} else if (o instanceof Joueur) {
+					joueur.setPseudo(((Joueur) o).getPseudo());
+					System.out.println("Joueur " + joueur.getPseudo() + " est ready !");
 				}
 			} catch (SocketException e) {
 				if(!err) err=true;
@@ -146,12 +150,12 @@ public class ThreadServ extends Thread {
 					System.err.println(" joueur deconnecte ");
 					a.JoueurDeconnecte(s);
 					end = true;
-					a.getGame().getJoueurs().remove(j);
+					a.getGame().getJoueurs().remove(joueur);
 				}else err = false;
 			} catch (IOException e) {
 				System.err.println("perte connexion avec l'utilisateur");
 				end = true;
-				a.getGame().getJoueurs().remove(j);
+				a.getGame().getJoueurs().remove(joueur);
 			}
 		}
 	}

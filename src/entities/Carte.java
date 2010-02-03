@@ -87,7 +87,7 @@ public class Carte implements graphics.Drawable, Serializable {
 					0, 1, 0.0f, 0.3f, 0.0f);
 		
 		if(Application.getInstance().getJoueur() != null) {
-			for( Zone z : Application.getInstance().getJoueur().getZone()) {
+			for( Zone z : Application.getInstance().getJoueur().getZones()) {
 				Sprite zone;
 				if(z.getId() == 1) {
 					zone = ScreenManager.getSprite("carte_eur.png");				

@@ -7,12 +7,18 @@ import entities.Transfert;
 
 public class ClientController implements ConnexionController {
 
-	Socket s;
-	String ip="localhost";
+	private Socket s;
+	private String ip="localhost";
+	private String pseudo = "";
 
+	public ClientController(String ip, String pseudo) {
+		this.ip = ip;
+		this.pseudo = pseudo;
+	}
+	
 	public boolean connect() {
 		try {
-			s = new Client(ip).getSocket();
+			s = new Client(ip, pseudo).getSocket();
 			new ThreadClient(s).start();
 			return true;
 		}

@@ -21,12 +21,21 @@ public class Joueur implements graphics.Drawable, Serializable,Cloneable {
 	private List<Zone> zones = new ArrayList<Zone>();
 	private int score;
 	private Socket socket;
+	private String pseudo;
+
+	public Joueur(String pseudo) {
+		this.pseudo = pseudo;
+	}
+
+	public Joueur() {
+		this("");
+	}
 
 	public void setZone(List<Zone> zone) {
 		this.zones = zone;
 	}
 
-	public List<Zone> getZone() {
+	public List<Zone> getZones() {
 		return zones;
 	}
 
@@ -74,5 +83,13 @@ public class Joueur implements graphics.Drawable, Serializable,Cloneable {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
+	}
+
+	public String getPseudo() {
+		return pseudo;
 	}
 }

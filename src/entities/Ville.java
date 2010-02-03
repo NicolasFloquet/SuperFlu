@@ -52,7 +52,7 @@ public class Ville implements graphics.Drawable, Serializable {
 	public static int distance_carre_sens1(Ville depart, Ville arrivee) {
 		return (arrivee.x - depart.x) * (arrivee.x - depart.x) + (arrivee.y - depart.y) * (arrivee.y - depart.y);
 	}
-	
+
 	public static int distance_carre_sens2(Ville depart, Ville arrivee) {
 		int depart_x, arrivee_x;
 		if (depart.getX() < arrivee.getX()) {
@@ -62,10 +62,10 @@ public class Ville implements graphics.Drawable, Serializable {
 			depart_x = depart.getX();
 			arrivee_x = arrivee.getX() + 1024;
 		}
-		
+
 		return (arrivee_x - depart_x) * (arrivee_x - depart_x) + (arrivee.y - depart.y) * (arrivee.y - depart.y);
 	}
-	
+
 	public static int distance_carre(Ville depart, Ville arrivee) {
 		int d1 = distance_carre_sens1(depart, arrivee);
 		int d2 = distance_carre_sens2(depart, arrivee);
@@ -86,7 +86,7 @@ public class Ville implements graphics.Drawable, Serializable {
 			stocksVaccins.add(new StockVaccin(quantite, vaccin));
 		}
 	}
-	
+
 	public void retireStockVaccin(Vaccin vaccin, int quantite) {
 
 		for (StockVaccin sv : stocksVaccins) {
@@ -111,7 +111,7 @@ public class Ville implements graphics.Drawable, Serializable {
 			stocksTraitements.add(new StockTraitement(quantite, traitement));
 		}
 	}
-	
+
 	public void retireStockTraitement(Traitement traitement, int quantite) {
 
 		for (StockTraitement st : stocksTraitements) {
@@ -144,7 +144,7 @@ public class Ville implements graphics.Drawable, Serializable {
 	public int getHabitantsInfectes() {
 		return habitantsInfectes;
 	}
-	
+
 	public int getHabitantsMorts() {
 		return habitantsMorts;
 	}
@@ -181,7 +181,7 @@ public class Ville implements graphics.Drawable, Serializable {
 		boolean bool = false;
 		Application a = Application.getInstance();
 		if (a.getJoueur() != null) {
-			for (Zone z : a.getJoueur().getZone()) {
+			for (Zone z : a.getJoueur().getZones()) {
 				if (zone.getId() == z.getId()) {
 					bool = true;
 					break;
@@ -190,7 +190,7 @@ public class Ville implements graphics.Drawable, Serializable {
 		}
 		return bool;
 	}
-	
+
 	/**
 	 * Mise à jour des données de la ville.
 	 */
@@ -287,7 +287,7 @@ public class Ville implements graphics.Drawable, Serializable {
 		int pos_y = y + ScreenManager.getInstance().getOrigineCarteY();
 		int height = ville.getHeight();
 		int width = ville.getWidth();
-			
+
 		float couleur;
 		if (isMine()) {
 			couleur = 1.0f;
@@ -299,96 +299,107 @@ public class Ville implements graphics.Drawable, Serializable {
 		} else {
 			ville.draw(pos_x, pos_y, 0, 1, couleur, couleur, couleur);
 		}
-		
-		if (PlayerManager.getInstance().getTargetedVille() == this && isMine()) {
-			// Affichage info
-			int encart_pos_y = ScreenManager.getInstance().getOrigineEncartY() + 15;
-			new Texte(nom).draw(10, encart_pos_y + 20);
-			new Texte("Population Totale " + getHabitants()).draw(10, encart_pos_y + 40);
-			new Texte("Population Saine " + getHabitantsSains()).draw(10, encart_pos_y + 60);
-			new Texte("Population Malade " + getHabitantsInfectes()).draw(10, encart_pos_y + 80);
-			new Texte("Population Immunisée " + getHabitantsImmunises()).draw(10, encart_pos_y + 100);
-			new Texte("Morts " + getHabitantsMorts()).draw(10, encart_pos_y + 120);
-			if(getStocksTraitements().isEmpty())
-				new Texte("Stock Traitements 0").draw(10,encart_pos_y + 140);
-			else
-				new Texte("Stock Traitements " + getStocksTraitements().get(0).getStock()).draw(10,encart_pos_y + 140);
-				
-			if(getStocksVaccins().isEmpty())
-				new Texte("Stock Vaccins 0").draw(10,encart_pos_y + 160);
-			else
-				new Texte("Stock Vaccins " + getStocksVaccins().get(0).getStock()).draw(10,encart_pos_y + 160);
+
+		if (PlayerManager.getInstance().getTargetedVille() == this) {
+			if (isMine()){
+				// Affichage info
+				int encart_pos_y = ScreenManager.getInstance().getOrigineEncartY() + 15;
+				new Texte(nom).draw(10, encart_pos_y + 20);
+				new Texte("Population Totale " + getHabitants()).draw(10, encart_pos_y + 40);
+				new Texte("Population Saine " + getHabitantsSains()).draw(10, encart_pos_y + 60);
+				new Texte("Population Malade " + getHabitantsInfectes()).draw(10, encart_pos_y + 80);
+				new Texte("Population Immunisée " + getHabitantsImmunises()).draw(10, encart_pos_y + 100);
+				new Texte("Morts " + getHabitantsMorts()).draw(10, encart_pos_y + 120);
+				if(getStocksTraitements().isEmpty())
+					new Texte("Stock Traitements 0").draw(10,encart_pos_y + 140);
+				else
+					new Texte("Stock Traitements " + getStocksTraitements().get(0).getStock()).draw(10,encart_pos_y + 140);
+
+				if(getStocksVaccins().isEmpty())
+					new Texte("Stock Vaccins 0").draw(10,encart_pos_y + 160);
+				else
+					new Texte("Stock Vaccins " + getStocksVaccins().get(0).getStock()).draw(10,encart_pos_y + 160);
+			} else {
+				int encart_pos_y = ScreenManager.getInstance().getOrigineEncartY() + 15;
+				for (Joueur joueur : Application.getInstance().getGame().getJoueurs()) {
+					for (Zone z : joueur.getZones()) {
+						if (z.getId() == zone.getId()) {
+							new Texte(nom + " (" + joueur.getPseudo() + ")").draw(10, encart_pos_y + 20);
+						}
+					}
+				}
+			}
 		}
-		
+
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glPushMatrix();
 		GL11.glTranslatef(pos_x, pos_y, 0);
-		
+
 		// On dessine la barre de contamination
-    	GL11.glColor3f(0,0,0);
+		GL11.glColor3f(0,0,0);
 		GL11.glLineWidth(6);
-    	GL11.glBegin(GL11.GL_LINES);
+		GL11.glBegin(GL11.GL_LINES);
 		{
-	      GL11.glVertex2f( -width/2 - 1, 3 + height/2);
-	      GL11.glVertex2f( width/2 + 1, 3 + height/2);
+			GL11.glVertex2f( -width/2 - 1, 3 + height/2);
+			GL11.glVertex2f( width/2 + 1, 3 + height/2);
 		}
 		GL11.glEnd();
 		float p = (float)getPourcentageInfectes()/100.0f;
 		GL11.glColor3f(p,1-p,0);
 		GL11.glLineWidth(4);
-    	GL11.glBegin(GL11.GL_LINES);
+		GL11.glBegin(GL11.GL_LINES);
 		{
-	      GL11.glVertex2f( -width/2, 3 + height/2);
-	      GL11.glVertex2f( -width/2 + p*width , 3 + height/2);
+			GL11.glVertex2f( -width/2, 3 + height/2);
+			GL11.glVertex2f( -width/2 + p*width , 3 + height/2);
 		}	
 		GL11.glEnd();
-		
-		
+
+
 		// On dessine la barre de stock de traitement
 		for(StockTraitement stock : stocksTraitements) {
 			p = 0.5f*stock.getStock()/stock.getCapacite_max();
 			GL11.glColor3f(0,0,0);
 			GL11.glLineWidth(6);
-	    	GL11.glBegin(GL11.GL_LINES);
+			GL11.glBegin(GL11.GL_LINES);
 			{
-		      GL11.glVertex2f( -(3 + width/2), 1 + height/2 );
-		      GL11.glVertex2f( -(3 + width/2), -1 - height/2);
+				GL11.glVertex2f( -(3 + width/2), 1 + height/2 );
+				GL11.glVertex2f( -(3 + width/2), -1 - height/2);
 			}
 			GL11.glEnd();
 			GL11.glColor3f(0.2f,0.2f,0.5f+p);
 			GL11.glLineWidth(4);
-	    	GL11.glBegin(GL11.GL_LINES);
+			GL11.glBegin(GL11.GL_LINES);
 			{
-			      GL11.glVertex2f( -(3 + width/2), +height/2 );
-			      GL11.glVertex2f( -(3 + width/2), +height/2 - height*2*p);
+				GL11.glVertex2f( -(3 + width/2), +height/2 );
+				GL11.glVertex2f( -(3 + width/2), +height/2 - height*2*p);
 			}
 			GL11.glEnd();
 		}
-		
+
 		// On dessine la barre de stock de vaccins
 		for(StockVaccin stock : stocksVaccins) {
 			p = 0.5f*stock.getStock()/stock.getCapacite_max();
 			GL11.glColor3f(0,0,0);
 			GL11.glLineWidth(6);
-	    	GL11.glBegin(GL11.GL_LINES);
+			GL11.glBegin(GL11.GL_LINES);
 			{
-		      GL11.glVertex2f( 3 + width/2, 1 + height/2 );
-		      GL11.glVertex2f( 3 + width/2, -1 - height/2);
+				GL11.glVertex2f( 3 + width/2, 1 + height/2 );
+				GL11.glVertex2f( 3 + width/2, -1 - height/2);
 			}
 			GL11.glEnd();
 			GL11.glColor3f(0.5f+p,0.2f,0.2f);
 			GL11.glLineWidth(4);
-	    	GL11.glBegin(GL11.GL_LINES);
+			GL11.glBegin(GL11.GL_LINES);
 			{
-			      GL11.glVertex2f( (3 + width/2), +height/2 );
-			      GL11.glVertex2f( (3 + width/2), +height/2 - height*2*p);
+				GL11.glVertex2f( (3 + width/2), +height/2 );
+				GL11.glVertex2f( (3 + width/2), +height/2 - height*2*p);
 			}
 			GL11.glEnd();
 		}
-		
+
 		GL11.glPopMatrix();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		
+
 		// On affiche l'image d'infection
 		if((float)habitantsInfectes > 10000) {
 			infected.draw(pos_x, pos_y, 0, 1.5f);
@@ -413,8 +424,8 @@ public class Ville implements graphics.Drawable, Serializable {
 	@Override
 	public String toString() {
 		return nom+":\n"
-		           +"-Sains = "+this.habitantsSains+"\n"
-		           +"-Malades ="+this.habitantsInfectes+"\n"
-		           +"-Morts = "+this.habitantsMorts+"\n";
+		+"-Sains = "+this.habitantsSains+"\n"
+		+"-Malades ="+this.habitantsInfectes+"\n"
+		+"-Morts = "+this.habitantsMorts+"\n";
 	}
 }

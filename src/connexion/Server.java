@@ -28,13 +28,11 @@ public class Server extends Thread{
 			for (int i = 0; (i < nbjoueurs) && running; i++) {
 				// listen for and accept a client connection to serverSocket
 				// pour chaque socket accepte cree un nouveau thread
-				socketList.add(serverSocket.accept());
-			}
-			Application.getInstance().startGame();
-			System.out.println("creer les threads: "+socketList.size());
-			for (Socket s:socketList){
+				Socket s = serverSocket.accept();
+				socketList.add(s);
 				new ThreadServ(s,nbjoueurs).start();
 			}
+			Application.getInstance().startGame();
 			serverSocket.close();
 		} catch (SecurityException se) {
 			se.printStackTrace();

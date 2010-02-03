@@ -5,6 +5,8 @@ import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import entities.Joueur;
+
 public class Client {
 	private final static int COMM_PORT = 5050; // socket port for client comms
 
@@ -12,9 +14,11 @@ public class Client {
 	
 	/** Default constructor. 
 	 * @throws Exception */
-	public Client(String ip) throws ConnectException {
+	public Client(String ip, String pseudo) throws ConnectException {
 		try {
 			this.socket = new Socket(ip, COMM_PORT);
+			
+			Send.sendData(new Joueur(pseudo), socket);
 		} catch (ConnectException ce){
 			System.err.println("Le serveur est deconnecte ou il y a deja 6 joueurs");
 			throw ce;

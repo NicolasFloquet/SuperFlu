@@ -28,6 +28,16 @@ public class Main extends JFrame
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridy = 0;
 		c.weightx = 0;
+		c.anchor = GridBagConstraints.WEST;
+		
+		panel.add(new JLabel("Pseudo : "));
+		final JTextField textPseudo = new JTextField(15);
+		panel.add(textPseudo, c);
+		
+		c = new GridBagConstraints();
+		c.gridy = 1;
+		c.weightx = 0;
+		c.anchor = GridBagConstraints.WEST;
 		
 		panel.add(new JLabel("Adresse du serveur : "), c);
 		final JTextField textIP = new JTextField(15);
@@ -37,7 +47,7 @@ public class Main extends JFrame
 			public void actionPerformed(ActionEvent arg0) {
 				new Thread(new Runnable() {
 					public void run() {
-						Application.getInstance().run(new String[] {textIP.getText()});	
+						Application.getInstance().run(new String[] {textIP.getText(), textPseudo.getText()});	
 					}
 				}).start();
 				dispose();
@@ -45,9 +55,10 @@ public class Main extends JFrame
 		});
 		
 		c = new GridBagConstraints();
-		c.gridy = 0;
+		c.gridy = 2;
 		c.weightx = 1.0;
-		c.anchor = GridBagConstraints.EAST;
+		c.gridwidth = 2;
+		c.anchor = GridBagConstraints.CENTER;
 		
 		panel.add(button, c);
 		
