@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 import java.util.List;
 
 import entities.Joueur;
@@ -21,7 +22,9 @@ public abstract class Send {
 		ObjectOutputStream ooStream;
 		OutputStream oStream;
 		try {
-			for (Joueur joueur : jList) {
+			Iterator<Joueur> it = jList.iterator();
+			while(it.hasNext()) {
+				Joueur joueur = it.next();
 				oStream = joueur.getSocket().getOutputStream();
 				ooStream = new ObjectOutputStream(oStream);
 				ooStream.writeObject(o);
