@@ -35,6 +35,7 @@ public class ThreadClient extends Thread {
 			}// reception des donnees blocante
 			catch (IOException e) {
 				System.err.println("Connexion au serveur perdue !");
+				break;
 			}
 			if (o instanceof GameLogic) {
 				
