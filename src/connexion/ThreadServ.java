@@ -153,7 +153,9 @@ public class ThreadServ extends Thread {
 						jList.get(i).setSocket(null);
 					}
 					
-					Send.sendData(g, Application.getInstance().getGame().getJoueurs());
+					synchronized (Application.getInstance().getGame().getJoueurs()) {	
+						Send.sendData(g, Application.getInstance().getGame().getJoueurs());
+					}
 				}
 			} catch (SocketException e) {
 				if(!err) err=true;

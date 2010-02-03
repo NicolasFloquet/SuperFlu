@@ -28,7 +28,7 @@ public class ServerController implements ConnexionController {
 	}
 
 
-	public void send(Object o) {
+	public synchronized void send(Object o) {
 		if (o instanceof GameLogic) {
 			GameLogic g = ((GameLogic) o).clone();
 			List<Joueur> jList = g.getJoueurs();
