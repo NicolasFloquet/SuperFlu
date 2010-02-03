@@ -111,7 +111,7 @@ public class GameLogic implements Cloneable, Serializable {
 		time += elapsed_time;
 	}
 
-	private void gereTransferts() {
+	private synchronized void gereTransferts() {
 		Iterator<Transfert> it = transferts.iterator();
 		while (it.hasNext()) {
 			Transfert t = it.next();
