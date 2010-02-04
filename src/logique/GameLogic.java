@@ -54,6 +54,7 @@ public class GameLogic implements Cloneable, Serializable {
 	private EtatJeu etat = EtatJeu.WAIT;
 
 	private int level;
+	private int levelMax = 10;
 
 
 	public GameLogic() {
@@ -75,7 +76,6 @@ public class GameLogic implements Cloneable, Serializable {
 		/* Créer un nouveau virus */
 
 		if (virus.size() == 0) { /* Un seul type de virus ! */
-			/* Un seul type de virus !!! */
 			Virus nouveau_virus = new Virus("Grippe du serpent +3 of the doom");
 			virus.add(nouveau_virus);
 
@@ -348,8 +348,8 @@ public class GameLogic implements Cloneable, Serializable {
 		etat = EtatJeu.EN_COURS;
 
 		if (populationInfectee < 200) {
-			level++;
-			if (level <= 5) {
+			if (level < levelMax) {
+				level++;
 				creerEpidemie();
 			} else if (populationInfectee == 0) {	
 				etat = EtatJeu.GAGNE;
@@ -383,5 +383,9 @@ public class GameLogic implements Cloneable, Serializable {
 
 	public void start() {
 		etat = EtatJeu.EN_COURS;
+	}
+
+	public int getLevel() {
+		return level;
 	}
 }

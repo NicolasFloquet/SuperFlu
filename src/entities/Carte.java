@@ -116,9 +116,10 @@ public class Carte implements graphics.Drawable, Serializable {
 			}
 		}
 		
-		new Texte("Population Mondiale : " + a.getGame().getPopulationMondiale()).draw(10, 10, 1, 255, 255, 255);
-		new Texte("Nombre de morts : " + a.getGame().getMortsTotal()).draw(10, 30, 1, 255, 255, 255); 
-		new Texte("Nombre de malades : " + a.getGame().getPopulationInfectee()).draw(10, 50, 1, 255, 255, 255);
+		new Texte("Population Mondiale : " + a.getGame().getPopulationMondiale()).draw(ScreenManager.getInstance().getOrigineCarteX() + 10, ScreenManager.getInstance().getOrigineCarteY() + 10, 1, 1, 1, 1);
+		new Texte("Nombre de morts : " + a.getGame().getMortsTotal()).draw(ScreenManager.getInstance().getOrigineCarteX() + 10, ScreenManager.getInstance().getOrigineCarteY() + 30, 1, 1, 1, 1); 
+		new Texte("Nombre de malades : " + a.getGame().getPopulationInfectee()).draw(ScreenManager.getInstance().getOrigineCarteX() + 10, ScreenManager.getInstance().getOrigineCarteY() + 50, 1, 1, 1, 1);
+		new Texte("Level " + a.getGame().getLevel()).draw(ScreenManager.getInstance().getOrigineCarteX() + ScreenManager.getInstance().getMap().getWidth() - 100, ScreenManager.getInstance().getOrigineCarteY() + 10, 1, 0.2f, 0.2f, 1);
 	}
 
 	public ArrayList<Zone> getZones() {
