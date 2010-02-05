@@ -9,6 +9,8 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 
+import logique.Application;
+
 import entities.Joueur;
 
 public abstract class Send {
@@ -19,7 +21,7 @@ public abstract class Send {
 		// TestConnexion.ecrire((GameLogic)o);
 		//System.out.println("send: "+((GameLogic)o).getCarte());
 
-		Iterator<Joueur> it = jList.iterator();
+		final Iterator<Joueur> it = jList.iterator();
 		while(it.hasNext()) {
 			final Joueur joueur = it.next();
 			new Thread(new Runnable() {
@@ -47,10 +49,13 @@ public abstract class Send {
 						}*/
 					}catch (SocketException se) {
 						se.printStackTrace();
+						Application.getInstance().JoueurDeconnecte(joueur.getSocket());
+						it.remove();
 					} catch (IOException e) {
 						System.err.println("cathc 2");
 						e.printStackTrace();
-						System.exit(1);
+						Application.getInstance().JoueurDeconnecte(joueur.getSocket());
+						it.remove();
 					}
 				}
 			}).start();
