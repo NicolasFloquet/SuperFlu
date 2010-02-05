@@ -27,9 +27,13 @@ public abstract class Send {
 					try {				
 						OutputStream oStream;
 						ObjectOutputStream ooStream;
-						oStream = joueur.getSocket().getOutputStream();
-						ooStream = new ObjectOutputStream(oStream);
-						ooStream.writeObject(o);
+						if (joueur.getSocket().isConnected()) {
+							oStream = joueur.getSocket().getOutputStream();
+							ooStream = new ObjectOutputStream(oStream);
+							ooStream.writeObject(o);
+						} else {
+							System.err.println("joueur " + joueur.getPseudo() + " déco...");
+						}
 					} catch(ConcurrentModificationException cme){
 						//TODO <- Reviser catch
 						System.err.println("catch");
