@@ -204,7 +204,7 @@ public class GameLogic implements Cloneable, Serializable {
 						 * distance = 1; LOL
 						 */
 
-						float TAUX_MIGRATION = 10 + 5f * Application.getInstance().getNbjoueurs();
+						float TAUX_MIGRATION = 10 + 5f * Application.getInstance().getNbjoueurs() * level;
 						/* Inserer ici une formule magique */
 						flux = (int) ((rand.nextFloat() * TAUX_MIGRATION * ville_origine
 								.getHabitants()) / (distance + getPopulationInfectee()));
