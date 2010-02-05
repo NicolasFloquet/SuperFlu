@@ -86,6 +86,7 @@ public class Carte implements graphics.Drawable, Serializable {
 		map.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2,
 					0, 1, 0.0f, 0.3f, 0.0f);
 		
+		// On dessine en clair les zones appartenant au joueur
 		if(Application.getInstance().getJoueur() != null) {
 			for( Zone z : Application.getInstance().getJoueur().getZones()) {
 				Sprite zone;
@@ -107,6 +108,52 @@ public class Carte implements graphics.Drawable, Serializable {
 			}
 		}
 		
+		// On dessine en gris les zones non affectées
+		boolean[] affected_zones = {	false,
+										false,
+										false,
+										false,
+										false,
+										false,
+										false};
+		for (Joueur joueur : Application.getInstance().getGame().getJoueurs()) {
+			for (Zone z : joueur.getZones()) {
+				try {
+					affected_zones[z.getId()] = true;
+				}
+				catch (Exception e) {
+					
+				}
+			}
+		}
+		for(Zone z : zones)
+		{
+			try {
+				if(!affected_zones[z.getId()]) {
+					Sprite zone = null;
+					if(z.getId() == 1) {
+						zone = ScreenManager.getSprite("carte_eur.png");				
+					} else if(z.getId() == 2) {
+						zone = ScreenManager.getSprite("carte_us.png");
+					} else if(z.getId() == 3) {
+						zone = ScreenManager.getSprite("carte_ams.png");
+					} else if(z.getId() == 4) {
+						zone = ScreenManager.getSprite("carte_afr.png");
+					} else if(z.getId() == 5) {
+						zone = ScreenManager.getSprite("carte_indo.png");
+					} else if(z.getId() == 6){
+						zone = ScreenManager.getSprite("carte_asia.png");	
+					}
+					zone.draw(ScreenManager.getInstance().getOrigineCarteX() + map.getWidth()/2, ScreenManager.getInstance().getOrigineCarteY() + map.getHeight()/2,
+							0, 1, 0.3f, 0.3f, 0.3f);
+				}
+			}
+			catch (Exception e) {
+				
+			}
+		}
+		
+		// On dessine les villes
 		for(Zone zone : zones)
 		{
 			zone.getUsine().draw();
